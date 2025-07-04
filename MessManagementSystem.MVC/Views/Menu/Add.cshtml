@@ -1,0 +1,84 @@
+﻿@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+<div class="page-wrapper">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>Menu Management</h4>
+				<h6>Add/Update Menu</h6>
+			</div>
+		</div>
+		<!-- /add -->
+		<partial name="_AddEditMenuForm" model="Model" />
+		<div class="col-lg-12">
+			<a class="btn btn-submit me-2" href="javascript:void(0);" id="submit" onclick="Save()"> Submit</a>
+			<a class="btn btn-cancel" href="@Url.Action("GetMenus", "Menu")" id="cancel" onclick="@Url.Action("GetMenus")">Cancel</a>
+		</div>
+		<!-- /add -->
+	</div>
+</div>
+
+<script>
+	function Save() {
+		var isValid = true;
+
+if ($("#menuItems").val() == "" || $("#menuItems").val() == null) {
+    toastr.error("Menu items are missing!");
+    isValid = false;
+}
+
+// if ($("#date").val() == "" || $("#date").val() == null) {
+//     toastr.error("Date is required!");
+//     isValid = false;
+// }
+
+if ($("#mealType").val() == "" || $("#mealType").val() == null) {
+    toastr.error("Meal Type is required!");
+    isValid = false;
+}
+if ($("#dayOfWeek").val() == "" || $("#dayOfWeek").val() == null) {
+    toastr.error("Day Of Week is required!");
+    isValid = false;
+}
+
+if (isValid) {
+    var MenuData = {
+       
+        DayOfWeek: $("#dayOfWeek").val(),
+        MealType: $("#mealType").val(), // Should map to enum on server side
+        MenuItems: $("#menuItems").val()
+    };
+			$.ajax({
+				url: '@Url.Action("AddMenu", "Menu")',
+				type: "POST",
+				data: MenuData,
+				success: function (result, status) {
+					if (status == "success") {
+
+						if (result.isError === false) {
+							toastr.success(result.description);
+						}
+						else {
+							if (result.isError === true) {
+								toastr.error(result.description);
+							} else {
+								toastr.error(result.description);
+							}
+
+						}
+						Clear();
+					}
+				},
+				error: function (result) {
+					toastr.error(result.description);
+				},
+			});
+		}
+	}
+
+	function Clear() {
+
+		$("#menuItems").val('');
+	}
+</script>

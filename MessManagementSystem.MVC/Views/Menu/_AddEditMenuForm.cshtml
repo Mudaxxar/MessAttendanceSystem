@@ -1,0 +1,48 @@
+﻿@using static MessManagementSystem.Shared.Enums.Enums
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+           @*  <div class="col-lg-3 col-sm-6 col-12">
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" class="form-control" id="date" value="@Model.Date.ToString()" />
+                </div>
+            </div> *@
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="form-group">
+                    <label>Day of Week</label>
+                    <select class="form-control" id="dayOfWeek" name="DayofWeek">
+                        @foreach (var day in Enum.GetValues(typeof(DayOfWeekEnum)))
+                        {
+                            <option value="@day" selected="@(day.Equals(Model.DayOfWeek) ? "selected" : null)">
+                                @day
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="form-group">
+                    <label>Meal Type</label>
+                    <select class="form-control" id="mealType">
+                        @foreach (var meal in Enum.GetValues(typeof(MealType)))
+                        {
+                            <option value="@meal" selected="@(meal.Equals(Model.MealType) ? "selected" : null)">
+                                @meal
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="form-group">
+                    <label>Menu Items</label>
+                    <input type="text" class="form-control" id="menuItems" value="@Model.MenuItems" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

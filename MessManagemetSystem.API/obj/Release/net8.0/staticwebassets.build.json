@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "CVK60lMNasEm7OWuTx7gLPDQ8p/6hTz7Liy85k696mI=",
+  "Source": "MessManagemetSystem.API",
+  "BasePath": "_content/MessManagemetSystem.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

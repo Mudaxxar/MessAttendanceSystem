@@ -1,0 +1,41 @@
+﻿@model MessManagementSystem.Shared.Models.ResponseModels.StudentResponseModel
+﻿
+
+<div class="card">
+	<div class="card-body">
+		<div class="row">
+			
+			<div class="col-lg-3 col-sm-6 col-12">
+				<div class="form-group">
+					<label>Student Application Code</label>
+					<input class="error" type="text" id="firstName" value="@Model.Id" readonly>
+				</div>
+			</div>
+			<div class="col-lg-3 col-sm-6 col-12">
+				<div class="form-group">
+					<label>First Name</label>
+					<input class="error" type="text" id="firstName" value="@Model.FirstName" readonly>
+				</div>
+			</div>
+			<div class="col-lg-3 col-sm-6 col-12">
+				<div class="form-group">
+					<label>Last Name</label>
+					<input class="error" type="text" id="lastName" value="@Model.LastName" readonly>
+				</div>
+			</div>
+			<div class="col-lg-3 col-sm-6 col-12">
+				<div class="form-group">
+					<label>Email </label>
+					<input type="text" id="mobile" value="@Model.Email" readonly>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+<script src="~/js/customer.js"></script>

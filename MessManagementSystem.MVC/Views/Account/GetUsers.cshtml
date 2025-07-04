@@ -1,0 +1,153 @@
+﻿@using MessManagementSystem.Shared.Models.ResponseModels
+@model PaginatedResponseModel<UserResponseModel>
+@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+<style>
+	div.dataTables_processing {
+		background-color: #35b2c2
+	}
+</style>
+<div class="page-wrapper">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>Users List</h4>
+				<h6>Manage your Users</h6>
+			</div>
+			<div class="page-btn">
+				<a class="btn btn-added" asp-action="Register" asp-controller="Account"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add User</a>
+			</div>
+		</div>
+		<!-- /role list -->
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table" id="tblUsers">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Email</th>
+								<th>Role</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model is PaginatedResponseModel<UserResponseModel>)
+							{
+								if (Model.Records is not null)
+								{
+									foreach (var item in Model.Records)
+									{
+										<tr>
+											<td>@item.Id</td>
+											<td>@item.FirstName</td>
+											<td>@item.LastName</td>
+											<td>@item.Email</td>
+											<td>@item.Role</td>
+											
+
+											@* <td>
+												@if (item.Active == true)
+												{
+													<button class="btn btn-primary" onclick="UpdateStatus('@item.Id')">
+														Disable
+													</button>
+												}
+												else
+												{
+													<button class="btn btn-secondary" onclick="UpdateStatus('@item.Id')">
+														Enable
+													</button>
+												}
+
+											</td> *@
+										</tr>
+									}
+								}
+							}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- /role list -->
+	</div>
+</div>
+
+
+<script>
+
+
+	$(document).ready(function () {
+		var Datatable = null;
+
+		$('#tblUsers').on('draw.dt', function () {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+		Datatable = $('#tblUsers').DataTable({
+			"deferLoading": @Model.TotalRecords,
+			"sort": false,
+			"processing": true,
+			search: {
+				return: true
+			},
+			"serverSide": true,
+			"ajax": {
+				"url": "@Url.Action("GetUsers")",
+				"type": "POST",
+				"datatype": "json"
+			},
+
+			columns: [
+				{data: 'id', name:'Id', autowidth: true},
+				{ data: 'firstName', name: 'FirstNsme', autoWidth: true },
+				{ data: 'lastName', name: 'LastName', autoWidth: true },
+				{ data: 'email', name: 'Email', autoWidth: true },
+				{ data: 'role', name: 'Role', autoWidth: true },
+				// {
+				// 	data: "id", name: "Id", autoWidth: true,
+				// 	render: function (data, type, row, meta) {
+				// 		return `<a href="/Account/Edit/${row.id}" onclick="Edit(${row.id} class="bnt btn-added")"></a>`;
+				// 	}
+				// }
+			]
+
+
+		});
+		$('[data-toggle="tooltip"]').tooltip();
+
+		$('#tblUsers_filter input').unbind();
+		$('#tblUsers_filter input').bind('keyup', function (e) {
+			if (e.keyCode == 13) {
+				Datatable.search(this.value).draw();
+			}
+		});
+	});
+
+	function UpdateStatus(Id) {
+		$.ajax({
+			url: '@Url.Action("ChangeStatus", "Account")',
+			type: 'POST',
+			data: { id: Id},
+			success: function (result, status) {
+				if (status === 'success') {
+					if (result.isSuccess) {
+						toastr.success(result.message);
+						window.location.reload();
+					} else {
+						toastr.error(result.message);
+					}
+				}
+			},
+			error: function (result) {
+				toastr.error(result.message);
+			}
+		});
+	}
+
+
+</script>

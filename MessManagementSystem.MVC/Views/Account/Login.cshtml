@@ -1,0 +1,125 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KMSMC MESS Login">
+    <meta name="keywords" content="mess, login, student, admin, management">
+    <title>Login - KMSMC MESS</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/DreamTemplates/images/icons/logo.png">
+    <link rel="stylesheet" href="~/DreamTemplates/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/DreamTemplates/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/DreamTemplates/css/all.min.css">
+    <link rel="stylesheet" href="~/DreamTemplates/css/style.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+</head>
+
+<body class="account-page">
+
+    <!-- Loader -->
+    <div id="global-loader">
+        <div class="whirly-loader"></div>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="account-content">
+            <div class="login-wrapper">
+                <div class="login-content">
+                    <div class="login-userset">
+                        <div class="text-center mb-3">
+                            <img src="~/DreamTemplates/images/KMSMC-logo.png" alt="KMSMC Logo" style="height: 60px;">
+                        </div>
+                        <div class="login-userheading text-center">
+                            <h3>Welcome Back!</h3>
+                            <h4>Please sign in to continue</h4>
+                        </div>
+
+                        <form id="loginForm">
+                            <div class="form-login">
+                                <label>Email</label>
+                                <div class="form-addons">
+                                    <input id="email" type="email" placeholder="Enter your email" autocomplete="username">
+                                    <img src="~/DreamTemplates/images/mail.svg" alt="Email Icon">
+                                </div>
+                            </div>
+                            <div class="form-login">
+                                <label>Password</label>
+                                <div class="pass-group">
+                                    <input id="password" type="password" class="pass-input" placeholder="Enter your password" autocomplete="current-password">
+                                    <span class="fas toggle-password fa-eye-slash"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-login">
+                                <button type="button" class="btn btn-login w-100" onclick="Save()">Sign In</button>
+                            </div>
+                        </form>
+
+                        <div class="text-center mt-3">
+                            <small>© @DateTime.Now.Year KMSMC Mess Management</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="login-img">
+                    <img src="~/DreamTemplates/images/login.jpg" alt="Login Image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="~/DreamTemplates/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/DreamTemplates/js/feather.min.js"></script>
+    <script src="~/DreamTemplates/js/bootstrap.bundle.min.js"></script>
+    <script src="~/DreamTemplates/js/script.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script>
+        function Save() {
+            var email = $("#email").val().trim();
+            var password = $("#password").val().trim();
+            var isValid = true;
+
+            if (!email) {
+                toastr.error("Please enter your email.");
+                isValid = false;
+            }
+
+            if (!password) {
+                toastr.error("Please enter your password.");
+                isValid = false;
+            }
+
+            if (isValid) {
+                $("#global-loader").show();
+
+                $.ajax({
+                    url: '@Url.Action("LoginUser", "Account")',
+                    type: "POST",
+                    data: { Email: email, Password: password },
+                    success: function (result) {
+                        debugger;
+                        $("#global-loader").hide();
+
+                        if (result.isSuccess) {
+                            window.location.href = '@Url.Action("Index", "Home")';
+                        } else {
+                            toastr.error(result.message || "Invalid login credentials.");
+                        }
+                    },
+                    error: function (xhr) {
+                        $("#global-loader").hide();
+                        toastr.error("Login failed. Please try again.");
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+﻿@using MessManagementSystem.Shared.Models
+@using MessManagementSystem.Shared.Models.ResponseModels
+@model ApiResponse<List<FeedbackResponseModel>>
+﻿
+@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+<div class="page-wrapper" style="min-height: 651px;">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>Feedback List</h4>
+				<h6>Comments</h6>
+			</div>
+		
+		</div>
+
+
+			<div class="card flex-fill">
+				
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table" id="tblFeedback">
+								<thead>
+									<tr>
+										<th>User</th>
+										<th>Comments</th>
+										<th>Created On</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									@if (Model != null)
+									{
+										foreach (var item in Model.Data)
+										{
+											<tr>
+												<td>@item.UserName</td>
+												<td>@item.Comments</td>
+												<td>@item.CreatedOn</td>
+
+											</tr>
+										}
+									}
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Recent Registered -->
+
+
+	</div>
+</div>

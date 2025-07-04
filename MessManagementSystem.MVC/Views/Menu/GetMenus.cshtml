@@ -1,0 +1,166 @@
+﻿@using MessManagementSystem.Shared.Models.ResponseModels
+@model PaginatedResponseModel<MenuResponseModel>
+@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+<style>
+	div.dataTables_processing {
+		background-color: #35b2c2
+	}
+</style>
+<div class="page-wrapper">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>Menu List</h4>
+				<h6>Manage your Menus</h6>
+			</div>
+			@* <div class="page-btn">
+				<a class="btn btn-added" asp-action="Add" asp-controller="Menu"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add Menu</a>
+			</div> *@
+		</div>
+		<!-- /product list -->
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table" id="tblMenu">
+						<thead>
+							<tr>
+								<th>Day of Week</th>
+								<th>Menu</th>
+								<th>Meal Type</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model is PaginatedResponseModel<MenuResponseModel>)
+							{
+								if (Model.Records is not null)
+								{
+									foreach (var item in Model.Records)
+									{
+										<tr>
+											<td>@item.DayOfWeek</td>
+											<td>@item.MenuItems</td>
+											<td>@item.MealType</td>
+											<td>@item.Id</td>
+
+										</tr>
+									}
+								}
+							}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- /product list -->
+	</div>
+</div>
+
+
+<script>
+
+
+	$(document).ready(function () {
+		var Datatable = null;
+
+		$('#tblMenu').on('draw.dt', function () {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+		Datatable = $('#tblMenu').DataTable({
+			"deferLoading": @Model.TotalRecords,
+			"sort": false,
+			"processing": true,
+			search: {
+				return: true
+			},
+			"serverSide": true,
+			"ajax": {
+				"url": "@Url.Action("GetMenus")",
+				"type": "POST",
+				"datatype": "json"
+			},
+
+			columns: [
+
+				{ data: 'dayOfWeek', name: 'DayOfWeek', autoWidth: true },
+				{ data: 'menuItems', name: 'MenuItems', autoWidth: true },
+				{ data: 'mealType', name: 'MealType', autoWidth: true },
+				{
+					data: "id", name: "Action", autoWidth: true,
+					render: function (data, type, row, meta) {
+						return `<a href="/Menu/Edit/${row.id}" onclick="Edit(${row.id})"> <img src="../DreamTemplates/images/edit.svg" /></a>
+										<a href="javascript:void(0);" onclick="Delete(${row.id})"><img  src="../DreamTemplates/images/delete.svg"/></a>`;
+					}
+				}
+			]
+
+
+		});
+		$('[data-toggle="tooltip"]').tooltip();
+
+		$('#tblMenu_filter input').unbind();
+		$('#tblMenu_filter input').bind('keyup', function (e) {
+			if (e.keyCode == 13) {
+				Datatable.search(this.value).draw();
+			}
+		});
+	});
+
+
+	function Delete(Id) {
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			type: "warning",
+			showCancelButton: !0,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!",
+			confirmButtonClass: "btn btn-primary",
+			cancelButtonClass: "btn btn-danger ml-1",
+			buttonsStyling: !1,
+		}).then(function (t) {
+			t.value &&
+				ConfirmDelete(Id);
+		});
+	}
+	function ConfirmDelete(id) {
+		$.ajax({
+			url: '/Menu/DeleteMenu/' + id,
+			type: "POST",
+			success: function (result, status) {
+				if (status == "success") {
+					$('#tblMenu').DataTable().ajax.reload();
+					Swal.fire({
+						type: "success",
+						title: "Deleted!",
+						text: "Menu has been deleted.",
+						confirmButtonClass: "btn btn-success",
+					});
+				}
+
+
+			},
+			error: function (result) {
+
+				toastr.error(result);
+			},
+		});
+
+		return false;
+	}
+</script>
+
+@if (TempData["success"] != null)
+{
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script type="text/javascript">
+
+		var VBmsg = "@ViewBag.success";
+		var TDmsg = '@TempData["success"]';
+		toastr.success(TDmsg);
+	</script>
+}

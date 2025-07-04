@@ -1,0 +1,101 @@
+﻿@using MessManagementSystem.MVC.Helper
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    Layout = null;
+    string roleId = null;
+    string permissions = null;
+
+   
+    var token = HttpContextAccessor.HttpContext?.Request?.Cookies["AspNetCore.Usk"];
+    if (!string.IsNullOrEmpty(token))
+    {
+        roleId = JwtHelper.GetClaimFromToken(token, "adminId");
+        permissions = JwtHelper.GetClaimFromToken(token, "permissions");
+    }
+
+    bool isAdmin = roleId == "1" && permissions == "Admin";
+    bool isStudent = roleId == "2";
+    bool isStaff = roleId == "3" && permissions == "Staff";
+    bool isManager = roleId == "4" && permissions == "Manager";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KMSMC MESS</title>
+
+    <meta name="description" content="KMSMC Mess Management System" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="shortcut icon" href="~/dreamTemplates/images/favicon.jpg" />
+    <link rel="stylesheet" href="~/dreamTemplates/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/dreamTemplates/css/animate.css" />
+    <link rel="stylesheet" href="~/dreamTemplates/css/select2.min.css" />
+    <link rel="stylesheet" href="~/dreamTemplates/css/datatables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="~/dreamTemplates/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="~/dreamTemplates/css/all.min.css" />
+    <link rel="stylesheet" href="~/dreamTemplates/css/style.css" />
+    <link rel="stylesheet" href="~/dreamTemplates/css/tabler-icons.min.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="~/dreamTemplates/jquery/jquery-3.6.0.min.js"></script>
+    <link href="~/themifyicons/themify-icons/themify-icons.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="global-loader">
+        <div class="whirly-loader"></div>
+    </div>
+
+    <div class="main-wrapper">
+        @await Html.PartialAsync("_Header")
+
+        @if (isAdmin)
+        {
+            ViewData["ActiveMenu"] = "AdminDashboard";
+            @await Html.PartialAsync("_SideMenu")
+        }
+        else if (isStudent)
+        {
+            ViewData["ActiveMenu"] = "StudentDashboard";
+            @await Html.PartialAsync("_SideMenu_Student")
+        }
+        else if (isStaff)
+        {
+            ViewData["ActiveMenu"] = "StaffDashboard";
+            @* Optionally render staff menu *@
+        }
+        else if (isManager)
+        {
+            ViewData["ActiveMenu"] = "ManagerDashboard";
+            @* Optionally render manager menu *@
+        }
+
+        <!-- Main content -->
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="~/dreamTemplates/jquery/jquery.validate.min.js"></script>
+    <script src="~/dreamTemplates/js/feather.min.js"></script>
+    <script src="~/dreamTemplates/js/jquery.slimscroll.min.js"></script>
+    <script src="~/dreamtemplates/js/jquery.datatables.min.js"></script>
+    <script src="~/dreamTemplates/js/datatables.bootstrap4.min.js"></script>
+    <script src="~/dreamTemplates/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="~/dreamTemplates/js/select2.min.js"></script>
+    <script src="~/dreamTemplates/js/moment.min.js"></script>
+    <script src="~/dreamTemplates/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/dreamTemplates/js/sweetalert2.all.min.js"></script>
+    <script src="~/dreamTemplates/js/sweetalerts.min.js"></script>
+    <script src="~/dreamTemplates/js/script.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

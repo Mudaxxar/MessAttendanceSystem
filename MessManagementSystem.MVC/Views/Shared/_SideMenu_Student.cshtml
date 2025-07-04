@@ -1,0 +1,57 @@
+﻿@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+            <ul>
+                <!-- Peoples -->
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr">Peoples</h6>
+                    <ul>
+
+                        <li class="@(currentController == "Student" && currentAction == "Edit" ? "active" : "")">
+                            <a asp-controller="Student" asp-action="Edit"><i data-feather="users"></i><span>Profile</span></a>
+                        </li>
+
+                        <li class="@(currentController == "Home" && currentAction == "Index" ? "active" : "")">
+                            <a asp-controller="Home" asp-action="Index"><i data-feather="book-open"></i><span> Mess Menu</span></a>
+                        </li>
+
+                        <li class="@(currentController == "Student" && currentAction == "MarkAttendance" ? "active" : "")">
+                            <a asp-controller="Student" asp-action="MarkAttendance"><i data-feather="user-check"></i><span>Check IN</span></a>
+                        </li>
+                        <li class="@(currentController == "Student" && currentAction == "MarkAttendance" ? "active" : "")">
+                            <a asp-controller="Student" asp-action="MarkAttendance"><i data-feather="activity"></i><span>History</span></a>
+                        </li>
+
+                        <li class="@(currentController == "Feedback" && currentAction == "AddFeedback" ? "active" : "")">
+                            <a asp-controller="Feedback" asp-action="AddFeedback"><i data-feather="home"></i><span>Feed Back</span></a>
+                        </li>
+
+                       
+                    </ul>
+                </li>
+
+
+                <!-- Invoice Management -->
+                @*  <li class="submenu-open">
+                <h6 class="submenu-hdr">Invoice Management</h6>
+                <ul>
+                <li><a asp-controller="Invoice" asp-action="Index"><i data-feather="file-text"></i><span>Invoice</span></a></li>
+                <li><a asp-controller="Invoice" asp-action="Add"><i data-feather="plus-square"></i><span>Create Invoice</span></a></li>
+                <li><a asp-controller="Invoice" asp-action="LotNumberSearch"><i data-feather="codepen"></i><span>Search By Lot No.</span></a></li>
+                </ul>
+                </li> *@
+
+
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /Sidebar -->

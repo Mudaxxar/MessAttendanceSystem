@@ -1,0 +1,52 @@
+﻿@model MessManagementSystem.Shared.Models.ResponseModels.StudentResponseModel
+@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+
+<div class="page-wrapper">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>Profile</h4>
+			</div>
+		</div>
+		<!-- /add -->
+
+		<partial name="_AddEditStudentForm" model="Model" />
+		@* <div class="col-lg-12">
+			<a class="btn btn-submit me-2" id="btnUpdate" onclick="Update()"> Update</a>
+			<a class="btn btn-cancel" href="@Url.Action("GetStudents", "Student")" id="btnCancel" ">Cancel</a>
+		</div> *@
+		<!-- /add -->
+	</div>
+</div>
+
+<script>
+
+	function Update() {
+
+		var StudentData = StudentData();
+		if (StudentData == null) {
+			return;
+		}
+		$.ajax({
+			url: '/account/UpdateStudent/' + @Model.Id,
+			type: "POST",
+			data: StudentData,
+			success: function (result, status) {
+				if (status == "success") {
+
+					toastr.success(result);
+				}
+				Clear();
+				window.location.href = '@Url.Action("GetStudents", "Student")';
+
+			},
+			error: function (result) {
+				toastr.error(result);
+			},
+		});
+
+	}
+
+</script>

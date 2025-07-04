@@ -1,0 +1,76 @@
+﻿@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var currentActionq = ViewContext.RouteData.Values["action"]?.ToString();
+}
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+            <ul>
+                <!-- Peoples -->
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr">Peoples</h6>
+                    <ul>
+                        <li class="@(currentController == "Home" && currentAction == "Index" ? "active" : "")">
+                            <a asp-controller="home" asp-action="index">
+                                <i data-feather="grid"></i><span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="@(currentController == "Menu" && currentAction == "GetMenus" ? "active" : "")">
+                            <a asp-controller="Menu" asp-action="GetMenus">
+                                <i data-feather="grid"></i><span>Menus</span>
+                            </a>
+                        </li>
+                      
+                        <li class="@(currentController == "Feedback" && currentAction == "GetFeedbacks" ? "active" : "")">
+                            <a asp-controller="Feedback" asp-action="GetFeedbacks">
+                                <i data-feather="message-circle"></i><span>Feed Backs</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr">Menu</h6>
+                    <ul>
+                        <li class="@(currentController == "Menu" && currentAction == "GetMenus" ? "active" : "")">
+                            <a asp-controller="Menu" asp-action="GetMenus">
+                                <i data-feather="grid"></i><span>Menu</span>
+                            </a>
+                        </li>
+                        <li class="@(currentController == "Menu" && currentAction == "Add" ? "active" : "")">
+                            <a asp-controller="Menu" asp-action="Add">
+                                <i data-feather="menu"></i><span>Add Menu</span>
+                            </a>
+                        </li>
+                    
+                    </ul>
+                </li>
+                <!-- Student Management -->
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr">Student Management</h6>
+                    <ul>
+                        <li class="@(currentController == "Account" && currentAction == "GetUsers" ? "active" : "")">
+                            <a asp-controller="Account" asp-action="GetUsers">
+                                <i data-feather="users"></i><span>Users</span>
+                            </a>
+                        </li>
+                        <li class="@(currentController == "Account" && currentAction == "Register" ? "active" : "")">
+                            <a asp-controller="Account" asp-action="Register">
+                                <i data-feather="user"></i><span>Create Users</span>
+                            </a>
+                        </li>
+                        <li class="@(currentController == "Roles" && currentAction == "GetRoles" ? "active" : "")">
+                            <a asp-controller="Roles" asp-action="GetRoles">
+                                <i data-feather="shield"></i><span>Roles</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /Sidebar -->

@@ -1,0 +1,70 @@
+﻿@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+
+<div class="page-wrapper">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>Edit Menu Management</h4>
+				<h6>Edit/Update Menu</h6>
+			</div>
+		</div>
+		<!-- /add -->
+
+		<partial name="_AddEditMenuForm" model="Model" />
+		<div class="col-lg-12">
+			<a class="btn btn-submit me-2" id="btnUpdate" onclick="Update()"> Update</a>
+			<a class="btn btn-cancel" href="@Url.Action("GetMenus", "Menu")" id="btnCancel" ">Cancel</a>
+		</div>
+		<!-- /add -->
+	</div>
+</div>
+
+<script>
+	function Update() {
+
+		var isValid = true;
+	if ($("#mealType").val() == "" || $("#mealType").val() == null) {
+    toastr.error("Meal Type is required!");
+    isValid = false;
+}
+if ($("#dayOfWeek").val() == "" || $("#dayOfWeek").val() == null) {
+    toastr.error("Day Of Week is required!");
+    isValid = false;
+}
+
+		if (isValid) {
+			  var MenuData = {
+       
+        DayOfWeek: $("#dayOfWeek").val(),
+        MealType: $("#mealType").val(), // Should map to enum on server side
+        MenuItems: $("#menuItems").val()
+    };
+			$.ajax({
+				url: '/Menu/UpdateMenu/' + @Model.Id,
+				type: "POST",
+				data: MenuData,
+				success: function (result, status) {
+					if (status == "success") {
+
+						toastr.success(result);
+					}
+					Clear();
+					window.location.href = '@Url.Action("GetMenus", "Menu")';
+
+				},
+				error: function (result) {
+					toastr.error(result);
+				},
+			});
+		}
+	}
+
+	function Clear() {
+
+		$("#name").val('');
+		$("#rank").val('');
+	}
+
+</script>

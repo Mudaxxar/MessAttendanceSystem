@@ -1,0 +1,82 @@
+﻿@model MessManagementSystem.Shared.Models.RequestModels.FeedbackRequestModel
+﻿
+@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+
+
+
+<div class="page-wrapper">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>Complains & Suggestions </h4>
+				<h6>Add Feedback</h6>
+			</div>
+		</div>
+		<!-- /add -->
+		<div class="col-lg-3 col-sm-6 col-12">
+			<div class="form-group">
+				<label>Comments</label>
+				<input class="error" type="text" id="feedback">
+			</div>
+		</div>
+		<div class="col-lg-12">
+			<a class="btn btn-submit me-2" id="submit" onclick="Save()"> Submit</a>
+		</div>
+		<!-- /add -->
+	</div>
+</div>
+
+
+<script>
+
+
+		function Save() {
+
+			var isValid = true;
+			if ($("#feedback").val() == "" || $("#feedback").val() == null) {
+				toastr.error("Comments are required!");
+				isValid = false;
+			}
+			if (isValid) {
+				var feedbackData = {
+
+					Comments: $("#feedback").val(),
+					UserId : 0
+				};
+				$.ajax({
+					url: '@Url.Action("FeedBack", "Student")',
+					type: "POST",
+					data: feedbackData,
+					success: function (result, status) {
+						if (status == "success") {
+
+							if (result.isError === false) {
+								toastr.success(result.description);
+								Clear();
+							}
+							else {
+								if (result.isError === true) {
+									toastr.error(result.description);
+								} else {
+									toastr.error(result.description);
+								}
+
+							}
+
+						}
+					},
+					error: function (result) {
+						debugger;
+						toastr.error(result.description);
+					},
+				});
+
+			}
+		}
+	function	Clear(){
+		$("#feedback").val('');
+		}
+
+</script>

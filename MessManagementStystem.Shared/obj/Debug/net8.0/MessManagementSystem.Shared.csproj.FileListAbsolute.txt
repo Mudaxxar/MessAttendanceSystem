@@ -1,0 +1,12 @@
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\bin\Debug\net8.0\MessManagementSystem.Shared.deps.json
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\bin\Debug\net8.0\MessManagementSystem.Shared.dll
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\bin\Debug\net8.0\MessManagementSystem.Shared.pdb
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\MessManagementSystem.Shared.csproj.AssemblyReference.cache
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\MessManagementSystem.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\MessManagementSystem.Shared.AssemblyInfoInputs.cache
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\MessManagementSystem.Shared.AssemblyInfo.cs
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\MessManagementSystem.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\MessManagementSystem.Shared.dll
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\refint\MessManagementSystem.Shared.dll
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\MessManagementSystem.Shared.pdb
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\ref\MessManagementSystem.Shared.dll

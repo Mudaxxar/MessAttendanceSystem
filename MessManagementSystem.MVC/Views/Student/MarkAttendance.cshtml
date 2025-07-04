@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Mark Attendance";
+    Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="page-header text-center mb-5">
+            <h2 class="fw-bold text-success">🍽️ Meal Attendance</h2>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <div class="card shadow border-0 rounded-4 p-4" style="max-width: 500px; width: 100%;">
+                <div class="card-body">
+                    <form id="attendanceForm">
+                        <div class="mb-4 text-center">
+                            <h5 class="mb-3 text-dark fw-semibold">How would you like to mark your attendance?</h5>
+
+                            <div class="btn-group" role="group" aria-label="Attendance options">
+                                <input type="radio" class="btn-check" name="status" id="present" value="present" autocomplete="off" checked>
+                                <label class="btn btn-outline-success px-4 py-2 rounded-start" for="present">✅ Meal Accepted</label>
+
+                                <input type="radio" class="btn-check" name="status" id="absent" value="absent" autocomplete="off">
+                                <label class="btn btn-outline-danger px-4 py-2 rounded-end" for="absent">❌ Meal Declined</label>
+                            </div>
+
+                            <div class="mt-3">
+                                <span class="badge bg-light text-dark shadow-sm px-3 py-2">You selected: <strong id="selectedStatus">Present</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <a class="btn btn-submit w-100 py-2 rounded-pill fw-bold shadow" onclick="SaveAttendance()">✅ Update Attendance</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const statusMap = {
+            "present": 1,
+            "absent": 2
+        };
+
+        function updateSelectedStatus() {
+            const selected = $('input[name="status"]:checked').val();
+            $('#selectedStatus').text(selected.charAt(0).toUpperCase() + selected.slice(1));
+        }
+
+        $('input[name="status"]').on("change", updateSelectedStatus);
+
+        function SaveAttendance() {
+            var selected = $('input[name="status"]:checked').val();
+            var enumValue = statusMap[selected];
+
+            if (!enumValue) {
+                toastr.error("Please select attendance status.");
+                return;
+            }
+
+            $.ajax({
+                url: '/student/MarkAttendance',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ status: enumValue }),
+                success: function (result) {
+                    if (result && result.message) {
+                        toastr.success(result.message);
+                    } else {
+                        toastr.success("Attendance marked successfully!");
+                    }
+                },
+                error: function (xhr) {
+                    toastr.error("Something went wrong while submitting attendance.");
+                }
+            });
+        }
+
+        // Initial selection text update
+        updateSelectedStatus();
+    </script>
+}

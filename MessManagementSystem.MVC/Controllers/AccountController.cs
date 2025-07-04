@@ -1,0 +1,112 @@
+﻿using MessManagementSystem.Shared.Models.ResponseModels;
+using MessManagementSystem.MVC.Configuration;
+using MessManagementSystem.MVC.DataTableModels;
+using MessManagementSystem.MVC.Services.IService;
+using Microsoft.AspNetCore.Mvc;
+using MessManagementSystem.Shared.Models.RequestModels;
+using MessManagementSystem.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
+
+namespace MessManagementSystem.MVC.Controllers
+{
+    
+    public class AccountController : BaseController
+    {
+        private readonly IUserApiClient _userService;
+        private readonly IRoleClient _roleService;
+        public AccountController(IUserApiClient userService, IRoleClient roleService)
+        {
+            _userService = userService;
+            _roleService = roleService;
+        }
+
+        [AllowAnonymous]
+        public IActionResult Login()
+        
+        {
+            //if (ConfigService.IsUserLoggedIn())
+            //    return RedirectToAction("Index", "Home");
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> LoginUser(LoginRequestModel model)
+        {
+            var result = await _userService.LoginAsync(model);
+            if (result.IsSuccess)
+            {
+                ConfigService.SetJwtToken(result.Token);
+            }
+
+            return Ok(result);
+        }
+        public ActionResult Logout()
+        {
+            ConfigService.Logout();
+
+            // Prevent caching
+            Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+            Response.Headers["Pragma"] = "no-cache";
+            Response.Headers["Expires"] = "0";
+
+            return RedirectToAction("Login", "Account");
+        }
+        
+        public async Task<IActionResult> Register()
+        {
+            var result = await _roleService.GetAsync();
+            ViewBag.Roles = result;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterUser([FromBody] RegistrationRequestModel model)
+        {
+            var result = await _userService.RegisterAsync(model);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUsers(int pageNumber = 0, int pageSize = 10, string search = null)
+        {
+            var result = await _userService.GetUsers(new PaginationParams
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Search = search
+            });
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetUsers([FromForm] DtParams dtParams)
+        {
+            var result = await _userService.GetUsers(new PaginationParams
+            {
+                PageNumber = dtParams.Start / 10,
+                PageSize = dtParams.Length,
+                Search = dtParams.Search.Value,
+                SortOrder = dtParams.SortOrder
+            });
+
+            var response = new DtResult<UserResponseModel>()
+            {
+                Data = result.Records ?? new List<UserResponseModel>(),
+                Draw = dtParams.Draw,
+                RecordsTotal = result.TotalRecords
+            };
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeStatus(int Id)
+        {
+            var result = await _userService.UserStatus(Id);
+            return Ok(result);
+        }
+
+
+    }
+}

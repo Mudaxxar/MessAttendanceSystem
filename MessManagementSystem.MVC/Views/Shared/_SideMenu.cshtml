@@ -31,7 +31,27 @@
                     </ul>
                 </li>
 
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr">Accounts</h6>
+                    <ul>
+                        <li class="@(currentController == "ExpenseHeads" && currentAction == "GetExpenseHeads" ? "active" : "")">
+                            <a asp-controller="ExpenseHeads" asp-action="GetExpenseHeads">
+                                <i data-feather="grid"></i><span>Expense Heads</span>
+                            </a>
+                        </li>
+                        <li class="@(currentController == "Expense" && currentAction == "GetExpense" ? "active" : "")">
+                            <a asp-controller="Expense" asp-action="GetExpense">
+                                <i data-feather="grid"></i><span>Daily Expenses</span>
+                            </a>
+                        </li>
 
+                        <li class="@(currentController == "Feedback" && currentAction == "GetFeedbacks" ? "active" : "")">
+                            <a asp-controller="Feedback" asp-action="GetFeedbacks">
+                                <i data-feather="message-circle"></i><span>Monthly Expenses</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Menu</h6>
                     <ul>

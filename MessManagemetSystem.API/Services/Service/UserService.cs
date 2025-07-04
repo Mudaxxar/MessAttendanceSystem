@@ -53,10 +53,13 @@ namespace MessManagemetSystem.API.Services.Service
 				Email = model.Email,
 				UserName = model.Email,
 				FirstName = model.FirstName,
-				LastName = model.LastName,
+				//LastName = model.LastName,
 				SecurityStamp = Guid.NewGuid().ToString(),
 				RoleId = model.RoleId,
-				Active = true
+				Active = true,
+				MessNumber = model.MessNumber,
+				BatchClass = model.BatchClass,
+				Balance = model.Balance,
 			};
 
 			var result = await _userManger.CreateAsync(identityUser, model.Password);
@@ -288,8 +291,9 @@ namespace MessManagemetSystem.API.Services.Service
 				string searchTerm = paginationParams.Search.ToLower();
 				query = query.Where(u =>
 					u.FirstName.ToLower().Contains(searchTerm) ||
-					u.LastName.ToLower().Contains(searchTerm) ||
+					u.BatchClass.ToLower().Contains(searchTerm) ||
 					u.Email.ToLower().Contains(searchTerm) ||
+					u.MessNumber.ToLower().Contains(searchTerm) ||
 					u.Role.Name.ToLower().Contains(searchTerm));
 			}
 			var result = await query
@@ -301,6 +305,9 @@ namespace MessManagemetSystem.API.Services.Service
 					Email = u.Email,
 					Role = u.Role.Name,
 					Active = u.Active,
+					MessNumber = u.MessNumber,
+					Balance = u.Balance,
+					BatchClass = u.BatchClass
 					
 				})
 				.ToListAsync();
@@ -369,6 +376,9 @@ namespace MessManagemetSystem.API.Services.Service
 				Email = result.Email,
 				Role = result?.Role?.Name,
 				Active = result.Active,
+				MessNumber = result.MessNumber,
+				Balance = (double)result.Balance,
+				BatchClass = result.BatchClass
 			};
 		}
 

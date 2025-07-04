@@ -10,3 +10,4 @@ C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\ob
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\refint\MessManagementSystem.Shared.dll
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\MessManagementSystem.Shared.pdb
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\ref\MessManagementSystem.Shared.dll
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementStystem.Shared\obj\Debug\net8.0\MessManagementSystem.Shared.sourcelink.json

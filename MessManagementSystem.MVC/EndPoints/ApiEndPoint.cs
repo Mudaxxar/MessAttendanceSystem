@@ -53,6 +53,22 @@
 		public const string GetFeedbacks = "Feedback/get-feedbacks";
 
 
+		//ExpenseHead
+		public const string AddExpenseHead = "ExpenseHeads/add";
+        public const string UpdateExpenseHead = "ExpenseHeads/update";
+		public const string DeleteExpenseHead = "ExpenseHeads/delete";
+		public const string GetExpenseHeads = "ExpenseHeads/get";
+		public const string GetExpenseHeadsAll = "ExpenseHeads/get-all";
+		public const string GetExpenseHead = "ExpenseHeads/getbyId";
 
-	}
+        //Expense
+        public const string AddExpense = "Expense/add";
+        public const string UpdateExpense = "Expense/update";
+        public const string DeleteExpense = "Expense/delete";
+        public const string GetExpenses = "Expense/get-expenses";
+        public const string GetExpense = "Expense/getbyId";
+
+
+
+    }
 }

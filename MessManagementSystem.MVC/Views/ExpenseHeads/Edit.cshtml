@@ -1,0 +1,72 @@
+﻿@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+<div class="page-wrapper">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>ExpenseHeads Management</h4>
+				<h6>Edit/Update ExpenseHeads</h6>
+			</div>
+		</div>
+		<!-- /add -->
+		<partial name="_AddEditExpenseHeadsForm" model="Model" />
+		<div class="col-lg-12">
+			<a class="btn btn-submit me-2" id="btnUpdate" onclick="Update()"> Update</a>
+			<a class="btn btn-cancel" href="@Url.Action("GetExpenseHeads", "ExpenseHeads")" id="cancel" onclick="@Url.Action("GetExpenseHeads")">Cancel</a>
+		</div>
+		<!-- /add -->
+	</div>
+</div>
+
+
+<script>
+	function Update() {
+		var isValid = true;
+		if ($("#name").val() == "" || $("#name").val() == null) {
+			toastr.error("ExpenseHead is missing!");
+			isValid = false;
+		}
+
+		if (isValid) {
+			var permissions = [];
+			$('input[name="permissions"]:checked').each(function () {
+				permissions.push($(this).val());
+			});
+			var ExpenseHeadsData = {
+				Name: $("#name").val(),
+				NormalizedName: $("#name").val().toUpperCase(),
+				Permissions: permissions
+			};
+			$.ajax({
+				url: '/ExpenseHeads/UpdateExpenseHeads/' + @Model.Id,
+				type: "POST",
+				data: ExpenseHeadsData,
+				success: function (result, status) {
+					if (status == "success") {
+						if (result.isError === false) {
+							toastr.success(result.description);
+						}
+						else {
+							if (result.isError === true) {
+								toastr.error(result.description);
+							} else {
+								toastr.error(result.description);
+							}
+
+						}
+						Clear();
+					}
+				},
+				error: function (result) {
+					toastr.error(result.message);
+				},
+			});
+		}
+	}
+
+	function Clear()
+	{
+		$("#name").val('');
+	}
+</script>

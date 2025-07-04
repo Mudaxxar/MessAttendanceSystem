@@ -26,10 +26,11 @@
 					<table class="table" id="tblUsers">
 						<thead>
 							<tr>
-								<th>Id</th>
-								<th>First Name</th>
-								<th>Last Name</th>
+								<th>Mess#</th>
+								<th>Name</th>
 								<th>Email</th>
+								<th>Class</th>
+								<th>Balance</th>
 								<th>Role</th>
 
 							</tr>
@@ -42,10 +43,11 @@
 									foreach (var item in Model.Records)
 									{
 										<tr>
-											<td>@item.Id</td>
+											<td>@item.MessNumber</td>
 											<td>@item.FirstName</td>
-											<td>@item.LastName</td>
 											<td>@item.Email</td>
+											<td>@item.BatchClass</td>
+											<td>@item.Balance</td>
 											<td>@item.Role</td>
 											
 
@@ -103,10 +105,11 @@
 			},
 
 			columns: [
-				{data: 'id', name:'Id', autowidth: true},
-				{ data: 'firstName', name: 'FirstNsme', autoWidth: true },
-				{ data: 'lastName', name: 'LastName', autoWidth: true },
+				{ data: 'messNumber', name: 'MessNumber', autowidth: true },
+				{ data: 'firstName', name: 'FirstName', autoWidth: true },
 				{ data: 'email', name: 'Email', autoWidth: true },
+				{ data: 'batchClass', name: 'BatchClass', autoWidth: true },
+				{ data: 'balance', name: 'Balance', autoWidth: true },
 				{ data: 'role', name: 'Role', autoWidth: true },
 				// {
 				// 	data: "id", name: "Id", autoWidth: true,

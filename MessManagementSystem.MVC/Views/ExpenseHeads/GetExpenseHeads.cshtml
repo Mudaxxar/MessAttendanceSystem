@@ -1,0 +1,157 @@
+﻿@using MessManagementSystem.Shared.Models.ResponseModels
+@model PaginatedResponseModel<ExpenseHeadsResponseModel>
+@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+<style>
+	div.dataTables_processing {
+		background-color: #35b2c2
+	}
+</style>
+<div class="page-wrapper">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>ExpenseHeads List</h4>
+				<h6>Manage your ExpenseHeads</h6>
+			</div>
+			<div class="page-btn">
+				<a class="btn btn-added" asp-action="Add" asp-controller="ExpenseHeads"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add New</a>
+			</div>
+		</div>
+		<!-- /ExpenseHeads list -->
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table" id="tblExpenseHeads">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Head Name</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model is PaginatedResponseModel<ExpenseHeadsResponseModel>)
+							{
+								if (Model.Records is not null)
+								{
+									foreach (var item in Model.Records)
+									{
+										<tr>
+											<td>@item.Id</td>
+											<td>@item.Name</td>
+											<td>@item.Id</td>
+
+										</tr>
+									}
+								}
+							}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- /ExpenseHeads list -->
+	</div>
+</div>
+
+
+<script>
+
+
+	$(document).ready(function () {
+		var Datatable = null;
+
+		$('#tblExpenseHeads').on('draw.dt', function () {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+		Datatable = $('#tblExpenseHeads').DataTable({
+			"deferLoading": @Model.TotalRecords,
+			"sort": false,
+			"processing": true,
+			search: {
+				return: true
+			},
+			"serverSide": true,
+			"ajax": {
+				"url": "@Url.Action("GetExpenseHeads")",
+				"type": "POST",
+				"datatype": "json"
+			},
+
+			columns: [
+
+				{ data: 'id', name: 'Id', autoWidth: true },
+				{ data: 'name', name: 'Name', autoWidth: true },
+				{
+					data: "id", name: "Action", autoWidth: true,
+					render: function (data, type, row, meta) {
+						return `<a href="/ExpenseHeads/Edit/${row.id}" onclick="Edit(${row.id})"> <img src="../DreamTemplates/images/edit.svg" /></a>
+											<a href="javascript:void(0);" onclick="Delete(${row.id})"><img  src="../DreamTemplates/images/delete.svg"/></a>`;
+					}
+				}
+			]
+
+
+		});
+		$('[data-toggle="tooltip"]').tooltip();
+
+		$('#tblExpenseHeads_filter input').unbind();
+		$('#tblExpenseHeads_filter input').bind('keyup', function (e) {
+			if (e.keyCode == 13) {
+				Datatable.search(this.value).draw();
+			}
+		});
+	});
+
+
+	function Delete(Id) {
+
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			type: "warning",
+			showCancelButton: !0,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!",
+			confirmButtonClass: "btn btn-primary",
+			cancelButtonClass: "btn btn-danger ml-1",
+			buttonsStyling: !1,
+		}).then(function (t) {
+			t.value &&
+				ConfirmDelete(Id);
+		});
+	}
+	function ConfirmDelete(id) {
+
+		$.ajax({
+			url: '/ExpenseHeads/DeleteExpenseHeads/' + id,
+			type: "POST",
+			success: function (result, status) {
+
+				if (status == "success") {
+					Swal.fire({
+						type: "success",
+						title: "Deleted!",
+						text: "ExpenseHeads has been deleted.",
+						confirmButtonClass: "btn btn-success",
+					});
+					debugger;
+					toastr.success(result.description);
+
+					window.location.reload();
+				}
+			},
+
+			error: function (result) {
+
+				toastr.error(result);
+			},
+		});
+
+		return false;
+	}
+</script>

@@ -19,27 +19,39 @@
                 <div class="row">
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>First Name </label>
-                            <input id="firstname" type="text" placeholder="Enter your first name">
+                            <label> Name </label>
+                            <input id="firstname" type="text" placeholder="Enter Name">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Last Name </label>
-                            <input id="lastname" type="text" placeholder="Enter your last name">
+                            <label>Mess Number </label>
+                            <input id="messNumber" type="text" placeholder="Enter Mess Number">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Class </label>
+                            <input id="batchClass" type="text" placeholder="Enter Class">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Balance </label>
+                            <input id="balance" type="text" placeholder="Enter Balance">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Email </label>
-                            <input id="email" type="text" placeholder="Enter your email">
+                            <input id="email" type="text" placeholder="Enter email">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Password </label>
-                            <input id="password" type="text" placeholder="Enter your password">
+                            <input id="password" type="text" placeholder="Enter password">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
@@ -77,11 +89,19 @@
 
             var isValid = true;
             if ($("#firstname").val() == "" || $("#firstname").val() == null) {
-                toastr.error("Please enter first name!");
+                toastr.error("Please enter name!");
                 isValid = false;
             }
-            if ($("#lastname").val() == "" || $("#lastname").val() == null) {
-                toastr.error("Please enter last name!");
+            if ($("#messNumber").val() == "" || $("#messNumber").val() == null) {
+                toastr.error("Please enter messNumber!");
+                isValid = false;
+            }
+            if ($("#batchClass").val() == "" || $("#batchClass").val() == null) {
+                toastr.error("Please enter Class!");
+                isValid = false;
+            }
+            if ($("#balance").val() == "" || $("#balance").val() == null) {
+                toastr.error("Please enter Balance!");
                 isValid = false;
             }
             if ($("#email").val() == "" || $("#email").val() == null) {
@@ -106,7 +126,9 @@
 
                var userData = {
                     FirstName: $("#firstname").val(),
-                    LastName: $("#lastname").val(),
+                    MessNumber: $("#messNumber").val(),
+                    BatchClass: $("#batchClass").val(),
+                    Balance: $("#balance").val(),
                     Email: $("#email").val(),
                     Role: $("#selectRole option:selected").text(),
                     Password: $("#password").val(),

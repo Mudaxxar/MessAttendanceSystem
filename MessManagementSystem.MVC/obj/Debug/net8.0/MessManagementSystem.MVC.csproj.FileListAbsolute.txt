@@ -46,3 +46,4 @@ C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC\obj\De
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MessManagementSystem.MVC.props
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MessManagementSystem.MVC.props
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC\obj\Debug\net8.0\MessManagementSystem.MVC.sourcelink.json

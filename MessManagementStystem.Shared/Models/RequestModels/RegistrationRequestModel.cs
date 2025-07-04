@@ -9,10 +9,6 @@ namespace MessManagementSystem.Shared.Models.RequestModels
         [Required]
         public string FirstName { get; set; }
 
-        [DisplayName("Last Name")]
-        [Required]
-        public string LastName { get; set; }
-
         [Required]
         [StringLength(50)]
         [EmailAddress]
@@ -30,6 +26,10 @@ namespace MessManagementSystem.Shared.Models.RequestModels
         public string ConfirmPassword { get; set; }
         public int RoleId { get; set; }
 
+		public string MessNumber { get; set; }
+		public string BatchClass { get; set; }
+		public double Balance { get; set; } = 0;
 
-    }
+
+	}
 }

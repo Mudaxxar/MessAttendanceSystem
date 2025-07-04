@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagemetsystem.api\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|solutionrelative:messmanagemetsystem.api\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagemetsystem.api\\services\\service\\attendanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|solutionrelative:messmanagemetsystem.api\\services\\service\\attendanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagementsystem.mvc\\configuration\\appsettingvariable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|solutionrelative:messmanagementsystem.mvc\\configuration\\appsettingvariable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,28 +30,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AttendanceService.cs",
-              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Services\\Service\\AttendanceService.cs",
-              "RelativeDocumentMoniker": "MessManagemetSystem.API\\Services\\Service\\AttendanceService.cs",
-              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Services\\Service\\AttendanceService.cs",
-              "RelativeToolTip": "MessManagemetSystem.API\\Services\\Service\\AttendanceService.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAkwDYAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T05:46:34.342Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "MessManagemetSystem.API\\Controllers\\AccountController.cs",
-              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "MessManagemetSystem.API\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAHYAAAAAAAAAAAAzwIkAAAACAAAAAAAAAA==",
+              "Title": "AppSettingVariable.cs",
+              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Configuration\\AppSettingVariable.cs",
+              "RelativeDocumentMoniker": "MessManagementSystem.MVC\\Configuration\\AppSettingVariable.cs",
+              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Configuration\\AppSettingVariable.cs",
+              "RelativeToolTip": "MessManagementSystem.MVC\\Configuration\\AppSettingVariable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T05:46:34.374Z",
+              "WhenOpened": "2025-07-05T09:38:13.458Z",
               "EditorCaption": ""
             }
           ]

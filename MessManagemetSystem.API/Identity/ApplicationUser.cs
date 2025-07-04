@@ -34,6 +34,9 @@ namespace MessManagemetSystem.API.Identity
 		public virtual UserRoles? Role { get; set; }
 		public PresenceStatus Status { get; set; } = PresenceStatus.Absent;
 		public DateTime? LastStatusChange { get; set; } = null;
+		public double Balance { get; set; } = 0;
+		public string? MessNumber { get; set; } 
+		public string? BatchClass { get; set; } 
 
 
     }

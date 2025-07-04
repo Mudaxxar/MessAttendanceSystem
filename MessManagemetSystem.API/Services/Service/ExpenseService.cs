@@ -1,0 +1,175 @@
+﻿using MessManagementSystem.Shared.Models.RequestModels;
+using MessManagementSystem.Shared.Models.ResponseModels;
+using MessManagementSystem.Shared.Models;
+using MessManagemetSystem.API.DbContext;
+using MessManagemetSystem.API.Entities;
+using MessManagemetSystem.API.Services.IService;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+
+namespace MessManagemetSystem.API.Services.Service
+{
+   
+    public class ExpenseService : IExpenseService
+    {
+        private readonly MessDbContext _messDbContext;
+        public ExpenseService(MessDbContext messDbContext)
+        {
+            this._messDbContext = messDbContext;
+        }
+        public async Task<ApiResponse<ExpenseResponseModel>> AddAsync(ExpenseRequestModel model)
+        {
+            var entity = new ExpenseEntity
+            {
+                ExpenseHeadId = model.ExpenseHeadId,
+                Description = model.Description,
+                Amount = model.Amount,
+                Date = model.Date,
+            };
+            await _messDbContext.AddAsync(entity);
+            await _messDbContext.SaveChangesAsync();
+            return new ApiResponse<ExpenseResponseModel>
+            {
+                Succeeded = true,
+                Message = "Expense  added successfully.",
+                Description = "Expense  added successfully."
+
+            };
+        }
+
+        public async Task<ApiResponse<bool>> DeleteAsync(int id)
+        {
+            var entity = await _messDbContext.Expense
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (entity != null)
+            {
+                _messDbContext.Remove(entity);
+                await _messDbContext.SaveChangesAsync();
+
+                return new ApiResponse<bool>
+                {
+                    Description = "Successfully Deleted!",
+                    Message = "Successfully Deleted",
+                    IsError = false,
+                    Succeeded = true
+
+                };
+            }
+
+            return new ApiResponse<bool>
+            {
+                Description = "Error while Deleting!",
+                Message = "Error while Deleting",
+                IsError = false,
+                Succeeded = true
+
+            };
+
+        }
+
+        public async Task<ApiResponse<ExpenseResponseModel>> GetByIdAsync(int id)
+        {
+            var entity = await _messDbContext.Expense.Include(x=> x.ExpenseHead)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (entity == null)
+            {
+                return new ApiResponse<ExpenseResponseModel>
+                {
+                    Succeeded = false,
+                    IsError = true,
+                    Description = "Expense not found.",
+                    Message = "Expense not found."
+                };
+            }
+            return new ApiResponse<ExpenseResponseModel>
+            {
+                Data = new ExpenseResponseModel
+                {
+                    Id = entity.Id,
+                    ExpenseHeadName = entity.ExpenseHead.Name,
+					ExpenseHeadId = entity.ExpenseHeadId,
+					Description = entity.Description,
+					Amount = entity.Amount,
+					Date = entity.Date
+				},
+                Succeeded = true,
+                Message = "Expense retrieved successfully.",
+                Description = "Expense retrieved successfully.",
+            };
+        }
+
+        public async Task<PaginatedResponseModel<ExpenseResponseModel>> GetAsync(PaginationParams paginationParams)
+        {
+            try
+            {
+                var query = _messDbContext.Expense.AsQueryable();
+                if (!string.IsNullOrEmpty(paginationParams.Search))
+                {
+                    query = query.Where(x => x.Description.ToLower().Contains(paginationParams.Search) 
+                    || x.ExpenseHead.Name.ToLower().Contains(paginationParams.Search));
+                }
+                var totalCount = await query.CountAsync();
+                var result = await query
+                    .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
+                    .Take(paginationParams.PageSize)
+                    .Select(x => new ExpenseResponseModel
+                    {
+                        Id = x.Id,
+                        Description = x.Description,
+                        Amount = x.Amount,
+                        Date = x.Date,
+                        ExpenseHeadName = x.ExpenseHead.Name,
+                        ExpenseHeadId = x.ExpenseHeadId,
+                        
+                    })
+                    .ToListAsync();
+
+
+
+                return new PaginatedResponseModel<ExpenseResponseModel>()
+                {
+                    TotalRecords = totalCount,
+                    Records = result,
+                    PaginationParam = paginationParams,
+
+                };
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<ApiResponse<bool>> UpdateAsync(int id, ExpenseRequestModel model)
+        {
+
+            var existance = await _messDbContext.Expense
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (existance != null)
+            {
+                existance.Description = model.Description;
+                existance.Amount = model.Amount;
+                existance.ExpenseHeadId = model.ExpenseHeadId;
+                existance.Date = model.Date;
+                existance.UpdatedOn = DateTime.Now;
+                _messDbContext.Update(existance);
+                await _messDbContext.SaveChangesAsync();
+                return new ApiResponse<bool>
+                {
+                    Succeeded = true,
+                    Data = true,
+                    Message = "Expense updated successfully.",
+                    Description = "Expense updated successfully.",
+
+                };
+            }
+            return new ApiResponse<bool>
+            {
+                Succeeded = false,
+                IsError = true,
+                Description = $"No data found.",
+                Message = $"No data found.",
+            };
+        }
+    }
+}

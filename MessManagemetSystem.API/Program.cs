@@ -1,5 +1,6 @@
 using MessManagemetSystem.API;
 using MessManagemetSystem.API.CustomExceptionHandling;
+using MessManagemetSystem.API.DependencyInjections;
 using MessManagemetSystem.API.Extensions;
 using Swashbuckle.AspNetCore.SwaggerUI;
 

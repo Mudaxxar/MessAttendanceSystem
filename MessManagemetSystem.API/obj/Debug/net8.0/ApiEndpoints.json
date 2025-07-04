@@ -174,6 +174,176 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseController",
+    "Method": "AddAsync",
+    "RelativePath": "api/Expense/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "MessManagementSystem.Shared.Models.RequestModels.ExpenseRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseController",
+    "Method": "DeleteAsync",
+    "RelativePath": "api/Expense/delete/{Id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseController",
+    "Method": "GetAsync",
+    "RelativePath": "api/Expense/get-expenses",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paginationParams",
+        "Type": "MessManagementSystem.Shared.Models.PaginationParams",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseController",
+    "Method": "GetByIdAsync",
+    "RelativePath": "api/Expense/getbyId/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseController",
+    "Method": "UpdateAsync",
+    "RelativePath": "api/Expense/update/{Id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "MessManagementSystem.Shared.Models.RequestModels.ExpenseRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseHeadsController",
+    "Method": "AddAsync",
+    "RelativePath": "api/ExpenseHeads/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "MessManagementSystem.Shared.Models.RequestModels.ExpenseHeadsRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseHeadsController",
+    "Method": "DeleteAsync",
+    "RelativePath": "api/ExpenseHeads/delete/{Id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseHeadsController",
+    "Method": "GetAsync",
+    "RelativePath": "api/ExpenseHeads/get-expense-heads",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paginationParams",
+        "Type": "MessManagementSystem.Shared.Models.PaginationParams",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseHeadsController",
+    "Method": "GetByIdAsync",
+    "RelativePath": "api/ExpenseHeads/getbyId/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseHeadsController",
+    "Method": "UpdateAsync",
+    "RelativePath": "api/ExpenseHeads/update/{Id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "MessManagementSystem.Shared.Models.RequestModels.ExpenseHeadsRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MessManagemetSystem.API.Controllers.FeedbackController",
     "Method": "SubmitFeedback",
     "RelativePath": "api/Feedback/add-feedback",
@@ -510,26 +680,5 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "MessManagemetSystem.API.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[MessManagemetSystem.API.WeatherForecast, MessManagemetSystem.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
   }
 ]

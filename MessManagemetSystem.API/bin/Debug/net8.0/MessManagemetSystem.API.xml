@@ -148,5 +148,29 @@
         <member name="M:MessManagemetSystem.API.Migrations.OnlineDb.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:MessManagemetSystem.API.Migrations.Accounts">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.Accounts.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.Accounts.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.Accounts.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:MessManagemetSystem.API.Migrations.NullableExpenseHead">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.NullableExpenseHead.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.NullableExpenseHead.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.NullableExpenseHead.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

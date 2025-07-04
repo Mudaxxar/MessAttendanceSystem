@@ -59,6 +59,11 @@ namespace MessManagementSystem.MVC.Services.Service
             var body = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var response = _httpClient.PostAsync(uri, body).Result;
             var contents = response.Content.ReadAsStringAsync().Result;
+            if (contents.Contains("400"))
+            {
+                var result1 = JsonConvert.DeserializeObject<ValidationErrorResponse>(contents);
+
+            }
             var result = JsonConvert.DeserializeObject<UserManagerResponseModel>(contents);
             return result;
         }

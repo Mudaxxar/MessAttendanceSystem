@@ -22,5 +22,9 @@ namespace MessManagemetSystem.API.DbContext
 		public DbSet<MenuEntity> Menus { get; set; }
 		public DbSet<AttendanceEntity> Attendances { get; set; }
 		public DbSet<FeedbackEntity> FeedbackEntities { get; set; }
+		public DbSet<ExpenseHeadEntity> ExpenseHead{ get; set; }
+		public DbSet<ExpenseEntity> Expense { get; set; }
+		public DbSet<AccountEntity> Accounts { get; set; }
+		public DbSet<StudentMealSummaryEntity> StudentMealSummary { get; set; }
 	}
 }

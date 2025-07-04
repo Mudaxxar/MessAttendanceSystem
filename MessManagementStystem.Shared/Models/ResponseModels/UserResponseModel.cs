@@ -14,5 +14,9 @@ namespace MessManagementSystem.Shared.Models.ResponseModels
 		public string Email { get; set; }
 		public bool? Active { get; set; }
 		public string Role { get; set; }
+		public string? MessNumber { get; set; }
+		public string? BatchClass { get; set; }
+		public double? Balance { get; set; }
+
 	}
 }

@@ -10,3 +10,9 @@ MessManagementStystem.Shared/bin/Debug/net8.0/MessManagementSystem.Shared.dll
 *.dll
 *.pdb
 *.vsidx
+*.db
+*.db-wal
+/.vs
+*.cache
+*.exe
+*.dll

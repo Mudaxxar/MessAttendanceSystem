@@ -26,8 +26,9 @@ namespace MessManagemetSystem.API.Controllers
 			});
 			return Ok(expenseHeads);
 		}
+
         [HttpGet("get-all")]
-        public async Task<IActionResult> GetAllAsync([FromBody] PaginationParams paginationParams)
+        public async Task<IActionResult> GetAllAsync()
         {
             var expenseHeads = await _expenseHeadService.GetAsync();
             return Ok(expenseHeads);

@@ -1,0 +1,88 @@
+﻿
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="mb-3">
+                    <label class="form-label">Date<span class="text-danger ms-1">*</span></label>
+                    <div class="input-groupicon calender-input">
+                        <input type="text" id="date" class="datetimepicker form-control" placeholder="Choose">
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+</div>
+<div class="col-lg-12">
+    <a class="btn btn-submit me-2" href="javascript:void(0);" id="submit" onclick="Save()">Submit</a>
+    <a class="btn btn-cancel" href="@Url.Action("GetMonthlyExpense", "Expense")" id="cancel" onclick="@Url.Action("GetExpense")">Cancel</a>
+</div>
+
+<script>
+
+	function Close() {
+
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You won't be able to edit Expenses!",
+			type: "warning",
+			showCancelButton: !0,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!",
+			confirmButtonClass: "btn btn-primary",
+			cancelButtonClass: "btn btn-danger ml-1",
+			buttonsStyling: !1,
+		}).then(function (t) {
+			t.value &&
+				Save();
+		});
+	}
+
+
+
+	function Save() {
+		var isValid = true;
+		if ($("#date").val() == "" || $("#date").val() == null) {
+			toastr.error("Date is missing!");
+			isValid = false;
+		}
+		
+		if (isValid) {
+			var ExpenseData = {
+				Date: $("#date").val(),
+				
+			};
+			$.ajax({
+				url: '@Url.Action("MonthlyClosing", "Expense")',
+				type: "POST",
+				data: ExpenseData,
+				success: function (result, status) {
+					if (status == "success") {
+						if (result.isError === false) {
+							toastr.success(result.description);
+						}
+						else {
+							if (result.isError === true) {
+								toastr.error(result.description);
+							} else {
+								toastr.error(result.description);
+							}
+
+						}
+						Clear();
+					}
+				},
+				error: function (result) {
+					toastr.error(result.description);
+				},
+			});
+		}
+	}
+    $('#date').datetimepicker({
+        format: 'MM/YYYY',       // or 'MMMM YYYY' for full month
+        viewMode: 'months'       // shows month/year picker
+    });
+</script>

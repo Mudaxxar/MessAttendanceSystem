@@ -223,6 +223,22 @@
   },
   {
     "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseController",
+    "Method": "GetMonthlyAsync",
+    "RelativePath": "api/Expense/get-monthly-expenses",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paginationParams",
+        "Type": "MessManagementSystem.Shared.Models.PaginationParams",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseController",
     "Method": "GetByIdAsync",
     "RelativePath": "api/Expense/getbyId/{Id}",
     "HttpMethod": "GET",
@@ -293,7 +309,7 @@
   {
     "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseHeadsController",
     "Method": "GetAsync",
-    "RelativePath": "api/ExpenseHeads/get-expense-heads",
+    "RelativePath": "api/ExpenseHeads/get",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -304,6 +320,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseHeadsController",
+    "Method": "GetAllAsync",
+    "RelativePath": "api/ExpenseHeads/get-all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

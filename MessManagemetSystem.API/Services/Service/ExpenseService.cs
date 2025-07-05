@@ -110,8 +110,6 @@ namespace MessManagemetSystem.API.Services.Service
                 }
                 var totalCount = await query.CountAsync();
                 var result = await query
-                    .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
-                    .Take(paginationParams.PageSize)
                     .Select(x => new ExpenseResponseModel
                     {
                         Id = x.Id,
@@ -139,8 +137,48 @@ namespace MessManagemetSystem.API.Services.Service
                 return null;
             }
         }
+		public async Task<PaginatedResponseModel<ExpenseResponseModel>> GetMonthlyAsync(PaginationParams paginationParams)
+		{
+			try
+			{
+				var query = _messDbContext.Expense.Where(x=> x.ExpenseHeadId == 0 || x.ExpenseHeadId == null).AsQueryable();
+				if (!string.IsNullOrEmpty(paginationParams.Search))
+				{
+					query = query.Where(x => x.Description.ToLower().Contains(paginationParams.Search)
+                    
+                    );
+				}
+				var totalCount = await query.CountAsync();
+				var result = await query
+					.Select(x => new ExpenseResponseModel
+					{
+						Id = x.Id,
+						Description = x.Description,
+						Amount = x.Amount,
+						Date = x.Date,
+						ExpenseHeadName = x.ExpenseHead.Name,
+						ExpenseHeadId = x.ExpenseHeadId,
 
-        public async Task<ApiResponse<bool>> UpdateAsync(int id, ExpenseRequestModel model)
+					})
+					.ToListAsync();
+
+
+
+				return new PaginatedResponseModel<ExpenseResponseModel>()
+				{
+					TotalRecords = totalCount,
+					Records = result,
+					PaginationParam = paginationParams,
+
+				};
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+		}
+
+		public async Task<ApiResponse<bool>> UpdateAsync(int id, ExpenseRequestModel model)
         {
 
             var existance = await _messDbContext.Expense

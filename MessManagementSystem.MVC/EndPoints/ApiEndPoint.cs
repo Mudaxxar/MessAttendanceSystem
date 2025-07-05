@@ -66,6 +66,7 @@
         public const string UpdateExpense = "Expense/update";
         public const string DeleteExpense = "Expense/delete";
         public const string GetExpenses = "Expense/get-expenses";
+        public const string GetMonthlyExpenses = "Expense/get-monthly-expenses";
         public const string GetExpense = "Expense/getbyId";
 
 

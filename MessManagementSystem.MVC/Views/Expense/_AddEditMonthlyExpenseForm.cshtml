@@ -2,7 +2,7 @@
 <div class="card">
     <div class="card-body">
         <div class="row">
-           
+
             <div class="col-lg-3 col-sm-6 col-12">
                 <div class="mb-3">
                     <label class="form-label">Date<span class="text-danger ms-1">*</span></label>
@@ -12,18 +12,10 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-sm-6 col-12">
-                <div class="form-group">
-                    <label>Head </label>
-                    <select class="select" id="selectHead">
-                        <option selected>Select Head</option>
-                        @foreach (var head in ViewBag.ExpenseHeads)
-                        {
-                            <option value="@head.Id">@head.Name</option>
-                        }
-                    </select>
-                </div>
-            </div>
+        
+
+
+
             <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                     <label>Amount</label>

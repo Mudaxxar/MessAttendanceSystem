@@ -77,5 +77,19 @@ namespace MessManagemetSystem.API.Controllers
             return NotFound(result);
         }
 
-    }
+		//Monthly
+
+		[HttpPost("get-monthly-expenses")]
+		public async Task<IActionResult> GetMonthlyAsync([FromBody] PaginationParams paginationParams)
+		{
+			var expense = await _expenseervice.GetMonthlyAsync(new PaginationParams
+			{
+				PageNumber = paginationParams.PageNumber,
+				PageSize = paginationParams.PageSize,
+				Search = paginationParams.Search,
+			});
+			return Ok(expense);
+		}
+
+	}
 }

@@ -62,6 +62,7 @@ namespace MessManagementSystem.MVC.Clients.Client
             var uri = ApiEndPoint.GetExpenseHeadsAll;
             var response = await _httpClientHelper.GetAsync<List<ExpenseHeadsResponseModel>>(uri);
             return response;
-        }
+            }
+           
     }
 }

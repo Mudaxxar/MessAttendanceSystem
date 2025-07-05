@@ -51,9 +51,9 @@ namespace MessManagementSystem.MVC.Controllers
             return Ok(response);
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            ViewBag.ExpenseHeads = _expenseHeadClient.GetAllAsync();
+            ViewBag.ExpenseHeads = await _expenseHeadClient.GetAllAsync();
             return View(new ExpenseRequestModel());
         }
 
@@ -89,5 +89,36 @@ namespace MessManagementSystem.MVC.Controllers
             return Ok(result);
         }
 
+        //Monthly Expenses
+        [HttpGet("get-monthly")]
+		public async Task<IActionResult> GetMonthlyExpense(int pageNumber = 1, int pageSize = 10, string search = null)
+		{
+			var result = await _expenseClient.GetMonthlyAsync(new PaginationParams
+			{
+				PageNumber = pageNumber,
+				PageSize = pageSize,
+				Search = search
+			});
+			return View(result);
+		}
+        public async Task<IActionResult> AddMonthly()
+        {
+            ViewBag.ExpenseHeads = await _expenseHeadClient.GetAllAsync();
+            return View(new ExpenseRequestModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMonthlyExpense(ExpenseRequestModel model)
+        {
+            var result = await _expenseClient.AddAsync(model);
+            return Ok(result);
+        }
+
+
+        public async Task<IActionResult> MonthlyClosing()
+        {
+            ViewBag.ExpenseHeads = await _expenseHeadClient.GetAllAsync();
+            return View(new ExpenseRequestModel());
+        }
     }
 }

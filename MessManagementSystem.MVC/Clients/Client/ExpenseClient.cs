@@ -49,6 +49,12 @@ namespace MessManagementSystem.MVC.Clients.Client
             var uri = ApiEndPoint.GetExpenses;
             var response = await _httpClientHelper.PostAsync<PaginatedResponseModel<ExpenseResponseModel>>(uri, paginationParams);
             return response;
+        } 
+        public async Task<PaginatedResponseModel<ExpenseResponseModel>> GetMonthlyAsync(PaginationParams paginationParams)
+        {
+            var uri = ApiEndPoint.GetMonthlyExpenses;
+            var response = await _httpClientHelper.PostAsync<PaginatedResponseModel<ExpenseResponseModel>>(uri, paginationParams);
+            return response;
         }
 
         public async Task<ApiResponse<bool>> UpdateAsync(int Id, ExpenseRequestModel model)

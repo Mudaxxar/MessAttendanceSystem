@@ -16,7 +16,7 @@
 				<h6>Manage your Expense</h6>
 			</div>
 			<div class="page-btn">
-				<a class="btn btn-added" asp-action="Add" asp-controller="Expense"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add New</a>
+				<a class="btn btn-added" asp-action="AddMonthly" asp-controller="Expense"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add New</a>
 			</div>
 		</div>
 		<!-- /Expense list -->
@@ -26,7 +26,6 @@
 					<table class="table" id="tblExpense">
 						<thead>
 							<tr>
-								<th>Expense Head</th>
 								<th>Amount</th>
 								<th>Description</th>
 								<th>Date</th>
@@ -40,7 +39,6 @@
 								foreach (var item in Model.Records)
 								{
 									<tr>
-										<td>@item.ExpenseHeadName</td>
 										<td>@item.Amount</td>
 										<td>@item.Description</td>
 										<td> @Convert.ToDateTime(item.Date).ToString("dddd, MMMM, yyyy")</td>
@@ -85,7 +83,6 @@
 
 			columns: [
 
-				{ data: 'expenseHeadName', name: 'ExpenseHeadName', autoWidth: true },
 				{ data: 'amount', name: 'Amount', autoWidth: true },
 				{ data: 'description', name: 'Description', autoWidth: true },
 				{

@@ -1,6 +1,7 @@
 ﻿using MessManagementSystem.Shared.Models;
 using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagemetSystem.API.Services.IService;
+using MessManagemetSystem.API.Services.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -43,5 +44,18 @@ namespace MessManagemetSystem.API.Controllers
             return Ok(response);
 
         }
-    }
+
+        [HttpPost("get-attendance")]
+		public async Task<IActionResult> GetAttendance([FromBody] PaginationParams paginationParams)
+		{
+			var result = await _attendanceService.GetAttendanceAsync(new PaginationParams
+			{
+				PageNumber = paginationParams.PageNumber,
+				PageSize = paginationParams.PageSize,
+				Search = paginationParams.Search,
+                UserId = paginationParams.UserId
+			});
+			return Ok(result);
+		}
+	}
 }

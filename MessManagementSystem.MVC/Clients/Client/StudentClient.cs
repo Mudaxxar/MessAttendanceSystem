@@ -47,5 +47,12 @@ namespace MessManagementSystem.MVC.Clients.Client
 			var response = await _httpClientHelper.GetAsync<ApiResponse<List<FeedbackResponseModel>>>(uri);
 			return response;
 		}
+
+		public async Task<PaginatedResponseModel<AttendanceResponseModel>> GetAsync(PaginationParams paginationParams)
+		{
+			var uri = ApiEndPoint.GetAttendance;
+			var response = await _httpClientHelper.PostAsync<PaginatedResponseModel<AttendanceResponseModel>>(uri, paginationParams);
+			return response;
+		}
 	}
 }

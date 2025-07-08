@@ -8,6 +8,7 @@ namespace MessManagementSystem.MVC.Clients.IClients
 	{
 		Task<StudentResponseModel> GetStudent(int Id);
 		Task<ApiResponse<string>> MarkAttendance(AttendanceRequestModel input);
+		Task<PaginatedResponseModel<AttendanceResponseModel>> GetAsync(PaginationParams paginationParams);
 		Task<ApiResponse<string>> CreateFeedback(FeedbackRequestModel input);
 		Task<ApiResponse<List<FeedbackResponseModel>>> GetFeedbacks();
 	}

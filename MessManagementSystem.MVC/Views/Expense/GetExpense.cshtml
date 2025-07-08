@@ -96,6 +96,7 @@
 						return moment(data).format("dddd, MMMM, yyyy");
 					}
 				},
+				
 				{
 					data: "id", name: "Action", autoWidth: true,
 					render: function (data, type, row, meta) {
@@ -164,5 +165,25 @@
 		});
 
 		return false;
+	}
+	function UpdateStatus(Id) {
+		$.ajax({
+			url: '@Url.Action("ChangeStatus", "Account")',
+			type: 'POST',
+			data: { id: Id },
+			success: function (result, status) {
+				if (status === 'success') {
+					if (result.isSuccess) {
+						toastr.success(result.message);
+						window.location.reload();
+					} else {
+						toastr.error(result.message);
+					}
+				}
+			},
+			error: function (result) {
+				toastr.error(result.message);
+			}
+		});
 	}
 </script>

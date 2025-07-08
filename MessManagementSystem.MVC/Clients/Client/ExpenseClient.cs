@@ -28,6 +28,12 @@ namespace MessManagementSystem.MVC.Clients.Client
             var uri = ApiEndPoint.AddExpense;
             var response = await _httpClientHelper.PostAsync<ApiResponse<ExpenseResponseModel>>(uri, model);
             return response;
+        }  
+        public async Task<ApiResponse<ExpenseResponseModel>> AddMonthlyAsync(ExpenseRequestModel model)
+        {
+            var uri = ApiEndPoint.AddMonthlyExpense;
+            var response = await _httpClientHelper.PostAsync<ApiResponse<ExpenseResponseModel>>(uri, model);
+            return response;
         }
 
         public async Task<ApiResponse<bool>> DeleteAsync(int id)

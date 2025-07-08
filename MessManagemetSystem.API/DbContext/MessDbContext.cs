@@ -21,10 +21,11 @@ namespace MessManagemetSystem.API.DbContext
 		}
 		public DbSet<MenuEntity> Menus { get; set; }
 		public DbSet<AttendanceEntity> Attendances { get; set; }
-		public DbSet<FeedbackEntity> FeedbackEntities { get; set; }
+		public DbSet<FeedbackEntity> Feedbacks { get; set; }
 		public DbSet<ExpenseHeadEntity> ExpenseHead{ get; set; }
-		public DbSet<ExpenseEntity> Expense { get; set; }
-		public DbSet<AccountEntity> Accounts { get; set; }
-		public DbSet<StudentMealSummaryEntity> StudentMealSummary { get; set; }
+		public DbSet<ExpenseEntity> Expenses { get; set; }
+		public DbSet<AccountsEntity> Accounts { get; set; }
+		public DbSet<StudentMealSummaryEntity> StudentMealSummarys { get; set; }
+		public DbSet<MonthlyClosingEntity> MonthlyClosings { get; set; }
 	}
 }

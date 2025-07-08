@@ -44,9 +44,11 @@
 
         //Attendance
         public const string MarkAttendance = "attendance/mark-attendance";
+		public const string GetAttendance = "attendance/get-attendance";
 
-        //Summary
-        public const string GetSummary = "summary/summary";
+
+		//Summary
+		public const string GetSummary = "summary/summary";
 
 		//Feedback
 		public const string AddFeedBack = "Feedback/add-feedback";
@@ -63,6 +65,7 @@
 
         //Expense
         public const string AddExpense = "Expense/add";
+        public const string AddMonthlyExpense = "Expense/add-monthly";
         public const string UpdateExpense = "Expense/update";
         public const string DeleteExpense = "Expense/delete";
         public const string GetExpenses = "Expense/get-expenses";

@@ -32,7 +32,7 @@ namespace MessManagemetSystem.API.Controllers
 				ApplicationUserId = user.Id,
 			};
 
-			_context.FeedbackEntities.Add(feedback);
+			_context.Feedbacks.Add(feedback);
 			await _context.SaveChangesAsync();
 
 			var result = new ApiResponse<bool>
@@ -45,8 +45,8 @@ namespace MessManagemetSystem.API.Controllers
 		[HttpGet("get-feedbacks")]
 		public async Task<IActionResult> GetFeedbacks()
 		{
-			var feedbacks = await _context.FeedbackEntities
-				.Include(f => f.ApplicationUser)
+			var feedbacks = await _context.Feedbacks
+                .Include(f => f.ApplicationUser)
 				.Select(f => new FeedbackResponseModel
 				{
 					Id = f.Id,

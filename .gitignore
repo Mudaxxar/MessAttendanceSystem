@@ -47,3 +47,4 @@ MessManagementSystem.MVC/obj/Debug/net8.0/MessManagementSystem.MVC.sourcelink.js
 /MessManagemetSystem.API/obj
 /MessManagemetSystem.API/obj/Debug
 .vs/MessManagementSystem/v17/.futdcache.v2
+*.db

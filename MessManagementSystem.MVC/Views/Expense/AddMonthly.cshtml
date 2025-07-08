@@ -44,7 +44,7 @@
 				Description: $("#description").val(),
 			};
 			$.ajax({
-				url: '@Url.Action("AddExpense", "Expense")',
+				url: '@Url.Action("AddMonthlyExpense", "Expense")',
 				type: "POST",
 				data: ExpenseData,
 				success: function (result, status) {

@@ -1,5 +1,8 @@
-﻿using MessManagementSystem.Shared.Models.RequestModels;
+﻿using MessManagementSystem.Shared.Models;
+using MessManagementSystem.Shared.Models.RequestModels;
+using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagemetSystem.API.Entities;
+using MessManagemetSystem.API.Helper;
 using MessManagemetSystem.API.Identity;
 using MessManagemetSystem.API.Repository.GenericRepository;
 using MessManagemetSystem.API.Services.IService;
@@ -19,7 +22,52 @@ namespace MessManagemetSystem.API.Services.Service
             _unitOfWork = unitOfWork;
             _userService = userService;
         }
-        public async Task<bool> MarAttendance(AttendanceRequestModel model)
+
+		public async Task<PaginatedResponseModel<AttendanceResponseModel>> GetAttendanceAsync(PaginationParams dtParams)
+		{
+			var repo = _unitOfWork.GetRepository<AttendanceEntity>();
+			var query =  repo.GetAll();
+            query = query.Include(c => c.ApplicationUser);
+
+            if (dtParams.UserId != null && dtParams.UserId != 0)
+            {
+                query = query.Where(x => x.ApplicationUserId == dtParams.UserId);
+            }
+
+			if (!string.IsNullOrEmpty(dtParams.Search))
+			{
+
+				query = query.Where(search =>
+										search.ApplicationUser.FirstName.ToLower().Contains(dtParams.Search.ToLower()) ||
+										search.ApplicationUser.MessNumber.ToLower().Contains(dtParams.Search.ToLower()) ||
+										search.ApplicationUser.BatchClass.ToLower().Contains(dtParams.Search.ToLower()) ||
+										search.ApplicationUser.Email.ToLower().Contains(dtParams.Search.ToLower()));
+			}
+			var totalRecords = await query.CountAsync();
+			var paginatedResult = await PaginatedHelper<AttendanceEntity>.GetPaginatedRecored(query, x => x.Id, dtParams);
+
+			var response = paginatedResult.Select(x => new AttendanceResponseModel
+			{
+				Id = x.Id,
+				Date = x.Date,
+                UserId = x.ApplicationUserId,
+				Status = x.Status,
+				UserName = x.ApplicationUser.FirstName,
+                Class = x.ApplicationUser.BatchClass,
+				MessNumber = x.ApplicationUser.MessNumber,
+                
+
+			}).ToList();
+
+			return new PaginatedResponseModel<AttendanceResponseModel>
+			{
+				TotalRecords = totalRecords,
+				Records = response,
+				PaginationParam = dtParams
+			};
+		}
+
+		public async Task<bool> MarAttendance(AttendanceRequestModel model)
         {
             try
             {

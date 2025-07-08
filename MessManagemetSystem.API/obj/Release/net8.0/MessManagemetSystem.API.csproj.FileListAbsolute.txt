@@ -164,3 +164,4 @@ C:\Users\Abdul\source\repos\MessManagementSystem\MessManagemetSystem.API\obj\Rel
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagemetSystem.API\obj\Release\net8.0\MessManagemetSystem.API.pdb
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagemetSystem.API\obj\Release\net8.0\MessManagemetSystem.API.genruntimeconfig.cache
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagemetSystem.API\obj\Release\net8.0\ref\MessManagemetSystem.API.dll
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagemetSystem.API\obj\Release\net8.0\MessManagemetSystem.API.sourcelink.json

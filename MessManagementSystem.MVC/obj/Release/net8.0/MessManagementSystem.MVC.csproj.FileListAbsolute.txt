@@ -46,3 +46,4 @@ C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC\obj\Re
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC\obj\Release\net8.0\MessManagementSystem.MVC.pdb
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC\obj\Release\net8.0\MessManagementSystem.MVC.genruntimeconfig.cache
 C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC\obj\Release\net8.0\ref\MessManagementSystem.MVC.dll
+C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC\obj\Release\net8.0\MessManagementSystem.MVC.sourcelink.json

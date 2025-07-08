@@ -19,7 +19,7 @@
                         </li>
                         <li class="@(currentController == "Menu" && currentAction == "GetMenus" ? "active" : "")">
                             <a asp-controller="Menu" asp-action="GetMenus">
-                                <i data-feather="grid"></i><span>Menus</span>
+                                <i data-feather="list"></i><span>Menus</span>
                             </a>
                         </li>
                       
@@ -36,23 +36,23 @@
                     <ul>
                         <li class="@(currentController == "ExpenseHeads" && currentAction == "GetExpenseHeads" ? "active" : "")">
                             <a asp-controller="ExpenseHeads" asp-action="GetExpenseHeads">
-                                <i data-feather="grid"></i><span>Expense Heads</span>
+                                <i data-feather="dollar-sign"></i><span>Expense Heads</span>
                             </a>
                         </li>
                         <li class="@(currentController == "Expense" && currentAction == "GetExpense" ? "active" : "")">
                             <a asp-controller="Expense" asp-action="GetExpense">
-                                <i data-feather="grid"></i><span>Daily Expenses</span>
+                                <i data-feather="arrow-up-circle"></i><span>Daily Expenses</span>
                             </a>
                         </li>
 
                         <li class="@(currentController == "Expense" && currentAction == "GetMonthlyExpense" ? "active" : "")">
                             <a asp-controller="Expense" asp-action="GetMonthlyExpense">
-                                <i data-feather="message-circle"></i><span>Monthly Expenses</span>
+                                <i data-feather="bar-chart-2"></i><span>Monthly Expenses</span>
                             </a>
                         </li> 
                         <li class="@(currentController == "Expense" && currentAction == "Closing" ? "active" : "")">
                             <a asp-controller="Expense" asp-action="Closing">
-                                <i data-feather="message-circle"></i><span>Monthly Closing</span>
+                                <i data-feather="calendar"></i><span>Monthly Closing</span>
                             </a>
                         </li>
                     </ul>
@@ -92,6 +92,7 @@
                                 <i data-feather="shield"></i><span>Roles</span>
                             </a>
                         </li>
+                     
                     </ul>
                 </li>
             </ul>

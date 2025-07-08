@@ -3,22 +3,22 @@ using MessManagementSystem.MVC.Configuration;
 using MessManagementSystem.Shared.Models.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MessManagementSystem.MVC.Controllers
+namespace MessManagementSystem.MVC.Controllers.Student
 {
     public class FeedbackController : BaseController
     {
         private readonly IStudentClient _studentClient;
-        public FeedbackController(IStudentClient studentClient )
+        public FeedbackController(IStudentClient studentClient)
         {
             _studentClient = studentClient;
-            
+
         }
         [HttpGet]
         public async Task<IActionResult> GetFeedbacks()
         {
             var result = await _studentClient.GetFeedbacks();
             return View(result);
-        }  
+        }
         [HttpGet]
         public IActionResult AddFeedback()
         {

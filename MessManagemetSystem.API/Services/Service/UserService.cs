@@ -48,7 +48,16 @@ namespace MessManagemetSystem.API.Services.Service
 					IsSuccess = false,
 				};
 
-			var identityUser = new ApplicationUser
+			var existing = await _userManger.Users.FirstOrDefaultAsync(x => x.MessNumber == model.MessNumber);
+			if (existing != null)
+			{
+				return new UserManagerResponse
+				{
+                    Message = "Mess number Already in use",
+                    IsSuccess = false,
+                };
+			}
+            var identityUser = new ApplicationUser
 			{
 				Email = model.Email,
 				UserName = model.Email,
@@ -60,6 +69,7 @@ namespace MessManagemetSystem.API.Services.Service
 				MessNumber = model.MessNumber,
 				BatchClass = model.BatchClass,
 				Balance = model.Balance,
+				DecodedPassword = model.Password,
 			};
 
 			var result = await _userManger.CreateAsync(identityUser, model.Password);
@@ -155,6 +165,7 @@ namespace MessManagemetSystem.API.Services.Service
             var roleName = roles.FirstOrDefault();
             var authClaims = new List<Claim>
 				{
+					new Claim("UserId", user.Id.ToString()),
 					new Claim(ClaimTypes.NameIdentifier, user.UserName),
 					new Claim(ClaimTypes.Email, user.Email),
 					new Claim(CustomClaims.AdminId, user.RoleId.ToString()),

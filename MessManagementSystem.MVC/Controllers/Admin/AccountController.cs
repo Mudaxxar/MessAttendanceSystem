@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagementSystem.Shared.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
 
-namespace MessManagementSystem.MVC.Controllers
+namespace MessManagementSystem.MVC.Controllers.Admin
 {
-    
+
     public class AccountController : BaseController
     {
         private readonly IUserApiClient _userService;
@@ -22,7 +23,7 @@ namespace MessManagementSystem.MVC.Controllers
 
         [AllowAnonymous]
         public IActionResult Login()
-        
+
         {
             //if (ConfigService.IsUserLoggedIn())
             //    return RedirectToAction("Index", "Home");
@@ -38,6 +39,16 @@ namespace MessManagementSystem.MVC.Controllers
             if (result.IsSuccess)
             {
                 ConfigService.SetJwtToken(result.Token);
+                // 🔍 Extract UserId from JWT and store in cookie
+                var handler = new JwtSecurityTokenHandler();
+                var jwtToken = handler.ReadJwtToken(result.Token);
+                var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "UserId");
+
+                if (userIdClaim != null && int.TryParse(userIdClaim.Value, out var userId))
+                {
+                    ConfigService.SetUserId(userId);
+                }
+                //ConfigService.SetUserId(result.Token.);
             }
 
             return Ok(result);
@@ -53,7 +64,7 @@ namespace MessManagementSystem.MVC.Controllers
 
             return RedirectToAction("Login", "Account");
         }
-        
+
         public async Task<IActionResult> Register()
         {
             var result = await _roleService.GetAsync();

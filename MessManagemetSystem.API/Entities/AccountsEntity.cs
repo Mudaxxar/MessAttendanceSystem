@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MessManagemetSystem.API.Entities
 {
-	public class AccountEntity : BaseEntity
+	public class AccountsEntity : BaseEntity
 	{
 		[ForeignKey("ApplicationUserId")]
 		public int ApplicationUserId { get; set; } // as student Id

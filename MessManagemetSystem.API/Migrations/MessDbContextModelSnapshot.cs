@@ -22,7 +22,7 @@ namespace MessManagemetSystem.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MessManagemetSystem.API.Entities.AccountEntity", b =>
+            modelBuilder.Entity("MessManagemetSystem.API.Entities.AccountsEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -156,6 +156,9 @@ namespace MessManagemetSystem.API.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
@@ -166,7 +169,7 @@ namespace MessManagemetSystem.API.Migrations
 
                     b.HasIndex("ExpenseHeadId");
 
-                    b.ToTable("Expense");
+                    b.ToTable("Expenses");
                 });
 
             modelBuilder.Entity("MessManagemetSystem.API.Entities.ExpenseHeadEntity", b =>
@@ -253,7 +256,7 @@ namespace MessManagemetSystem.API.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("FeedbackEntities");
+                    b.ToTable("Feedbacks");
                 });
 
             modelBuilder.Entity("MessManagemetSystem.API.Entities.MenuEntity", b =>
@@ -298,6 +301,58 @@ namespace MessManagemetSystem.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Menus");
+                });
+
+            modelBuilder.Entity("MessManagemetSystem.API.Entities.MonthlyClosingEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TotalAttendance")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TotalMeals")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MonthlyClosings");
                 });
 
             modelBuilder.Entity("MessManagemetSystem.API.Entities.StudentMealSummaryEntity", b =>
@@ -351,7 +406,7 @@ namespace MessManagemetSystem.API.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("StudentMealSummary");
+                    b.ToTable("StudentMealSummarys");
                 });
 
             modelBuilder.Entity("MessManagemetSystem.API.Identity.ApplicationUser", b =>
@@ -473,8 +528,8 @@ namespace MessManagemetSystem.API.Migrations
                             Active = "1",
                             Balance = 0.0,
                             CompanyId = 0,
-                            ConcurrencyStamp = "869b2310-3604-4011-925e-4773b5fc2664",
-                            CreatedOn = new DateTime(2025, 7, 5, 12, 38, 12, 723, DateTimeKind.Local).AddTicks(6511),
+                            ConcurrencyStamp = "42b747cc-3ec8-4879-b5dc-b1f3c8868ecb",
+                            CreatedOn = new DateTime(2025, 7, 8, 19, 5, 31, 645, DateTimeKind.Local).AddTicks(7415),
                             Email = "mudassar@yopmail.com",
                             EmailConfirmed = true,
                             FirstName = "Mudassar",
@@ -482,7 +537,7 @@ namespace MessManagemetSystem.API.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "mudassar@yopmail.com",
                             NormalizedUserName = "mudassar@yopmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAqenE7Q9Jf7OBSk9Uun6bf5t9+h9o5i3+7RXeeirkh6J8qLAl+Pb2y3zTzNdCsEdg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKGU3vgj86QSTdWJOQKnsxb8nHAyh7T4L/sq1hb8nSlgX2SWbBvnsTUds3rTYDHcMg==",
                             PhoneNumberConfirmed = false,
                             RoleId = 1,
                             Status = 2,
@@ -533,7 +588,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2025, 7, 5, 12, 38, 12, 723, DateTimeKind.Local).AddTicks(5998),
+                            CreatedOn = new DateTime(2025, 7, 8, 19, 5, 31, 645, DateTimeKind.Local).AddTicks(6908),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Admin"
@@ -541,7 +596,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2025, 7, 5, 12, 38, 12, 723, DateTimeKind.Local).AddTicks(6156),
+                            CreatedOn = new DateTime(2025, 7, 8, 19, 5, 31, 645, DateTimeKind.Local).AddTicks(7073),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Student"
@@ -549,7 +604,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2025, 7, 5, 12, 38, 12, 723, DateTimeKind.Local).AddTicks(6158),
+                            CreatedOn = new DateTime(2025, 7, 8, 19, 5, 31, 645, DateTimeKind.Local).AddTicks(7075),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Operator"
@@ -600,7 +655,7 @@ namespace MessManagemetSystem.API.Migrations
                         {
                             RoleId = 1,
                             PermissionId = 1,
-                            CreatedOn = new DateTime(2025, 7, 5, 12, 38, 12, 723, DateTimeKind.Local).AddTicks(6428),
+                            CreatedOn = new DateTime(2025, 7, 8, 19, 5, 31, 645, DateTimeKind.Local).AddTicks(7326),
                             Id = 1,
                             IsActive = true,
                             IsDeleted = false
@@ -643,7 +698,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "24fed959-a71e-43bc-b1ba-add6870c437f",
+                            ConcurrencyStamp = "a4264f15-ed16-4770-9010-c343aaef7705",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "Admin"
@@ -651,7 +706,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "90a81827-ac8c-4ac7-8224-010125633d8b",
+                            ConcurrencyStamp = "4c92eae9-c6d4-4881-a7a2-74ec79fe2255",
                             IsDeleted = false,
                             Name = "Student",
                             NormalizedName = "Student"
@@ -659,7 +714,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "4207af14-1783-43f7-8336-bc473fb8e59b",
+                            ConcurrencyStamp = "a7b4779c-2064-4ef3-a7e0-4fb17330ccac",
                             IsDeleted = false,
                             Name = "Operator",
                             NormalizedName = "Operator"
@@ -776,7 +831,7 @@ namespace MessManagemetSystem.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MessManagemetSystem.API.Entities.AccountEntity", b =>
+            modelBuilder.Entity("MessManagemetSystem.API.Entities.AccountsEntity", b =>
                 {
                     b.HasOne("MessManagemetSystem.API.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany()

@@ -36,7 +36,7 @@ namespace MessManagemetSystem.API.Controllers
 
 
 			//Recent Feedbacks
-			var recentFeedback = _context.FeedbackEntities
+			var recentFeedback = _context.Feedbacks
                 .Include(x=>x.ApplicationUser).OrderByDescending(x => x.CreatedOn).Take(10).ToList();
 			var mapperFeedbacks = _mapper.Map<List<FeedbackResponseModel>>(recentFeedback);
 

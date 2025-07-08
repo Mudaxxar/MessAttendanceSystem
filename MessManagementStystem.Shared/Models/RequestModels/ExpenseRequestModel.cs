@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MessManagementSystem.Shared.Enums.Enums;
 
 namespace MessManagementSystem.Shared.Models.RequestModels
 {
@@ -13,5 +14,6 @@ namespace MessManagementSystem.Shared.Models.RequestModels
         public decimal Amount { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
+        public ClosingStatus Status { get; set; }
     }
 }

@@ -164,6 +164,7 @@ namespace MessManagemetSystem.API.Controllers
 
 			return Ok(result);
 		}
+
 		[HttpGet("user/{Id}")]
 		public async Task<IActionResult> GetStudent(int Id)
 		{

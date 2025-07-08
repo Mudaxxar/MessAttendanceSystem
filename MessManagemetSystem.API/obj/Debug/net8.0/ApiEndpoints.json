@@ -159,6 +159,22 @@
   },
   {
     "ContainingType": "MessManagemetSystem.API.Controllers.AttendanceController",
+    "Method": "GetAttendance",
+    "RelativePath": "api/Attendance/get-attendance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paginationParams",
+        "Type": "MessManagementSystem.Shared.Models.PaginationParams",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.AttendanceController",
     "Method": "MarkAttendance",
     "RelativePath": "api/Attendance/mark-attendance",
     "HttpMethod": "POST",
@@ -177,6 +193,22 @@
     "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseController",
     "Method": "AddAsync",
     "RelativePath": "api/Expense/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "MessManagementSystem.Shared.Models.RequestModels.ExpenseRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseController",
+    "Method": "AddMonthlyAsync",
+    "RelativePath": "api/Expense/add-monthly",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

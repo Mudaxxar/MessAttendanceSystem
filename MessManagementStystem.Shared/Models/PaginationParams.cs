@@ -24,7 +24,7 @@ namespace MessManagementSystem.Shared.Models
 			get => _pageNumber;
 			set => _pageNumber =  value;
 		}
-
+		public int? UserId { get; set; }
 
 	}
 	public class ParamValidations : AbstractValidator<PaginationParams>

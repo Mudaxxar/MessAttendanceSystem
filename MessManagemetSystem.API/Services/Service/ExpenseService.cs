@@ -6,6 +6,7 @@ using MessManagemetSystem.API.Entities;
 using MessManagemetSystem.API.Services.IService;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using static MessManagementSystem.Shared.Enums.Enums;
 
 namespace MessManagemetSystem.API.Services.Service
 {
@@ -19,6 +20,7 @@ namespace MessManagemetSystem.API.Services.Service
         }
         public async Task<ApiResponse<ExpenseResponseModel>> AddAsync(ExpenseRequestModel model)
         {
+          
             var entity = new ExpenseEntity
             {
                 ExpenseHeadId = model.ExpenseHeadId,
@@ -36,10 +38,60 @@ namespace MessManagemetSystem.API.Services.Service
 
             };
         }
+		public async Task<ApiResponse<ExpenseResponseModel>> AddMonthlyAsync(ExpenseRequestModel model)
+		{
+            if (model.ExpenseHeadId == null || model.ExpenseHeadId == 0)
+            {
+                var existingExpense = await _messDbContext.Expenses
+                                        .FirstOrDefaultAsync(x =>
+                                        x.Date.Value.Year == model.Date.Year &&
+                                        x.Date.Value.Month == model.Date.Month);
 
-        public async Task<ApiResponse<bool>> DeleteAsync(int id)
+                if (existingExpense == null)
+                {
+                    var entity = new ExpenseEntity
+                    {
+                        Amount = model.Amount,
+                        Date = model.Date,
+                        Description = model.Description,
+                        Status = ClosingStatus.Open,
+                    };
+                    await _messDbContext.AddAsync(entity);
+                    await _messDbContext.SaveChangesAsync();
+                    return new ApiResponse<ExpenseResponseModel>
+                    {
+                        Succeeded = true,
+                        Message = "Expense  added successfully.",
+                        Description = "Expense  added successfully."
+
+                    };
+                }
+                else
+                {
+                    return new ApiResponse<ExpenseResponseModel>
+                    {
+                        Succeeded = false,
+                        IsError = true,
+                        Message = "Monthly expense already exists for this month.",
+                        Description = "Monthly expense already exists for this month."
+                    };
+                }
+            }
+			else
+			{
+				return new ApiResponse<ExpenseResponseModel>
+				{
+					Succeeded = false,
+					IsError = true,
+					Message = "Monthly expense cannot be added with specific expense head.",
+					Description = "Monthly expense cannot be added with specific expense head."
+				};
+			}
+		}
+
+		public async Task<ApiResponse<bool>> DeleteAsync(int id)
         {
-            var entity = await _messDbContext.Expense
+            var entity = await _messDbContext.Expenses
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (entity != null)
             {
@@ -69,7 +121,7 @@ namespace MessManagemetSystem.API.Services.Service
 
         public async Task<ApiResponse<ExpenseResponseModel>> GetByIdAsync(int id)
         {
-            var entity = await _messDbContext.Expense.Include(x=> x.ExpenseHead)
+            var entity = await _messDbContext.Expenses.Include(x=> x.ExpenseHead)
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (entity == null)
             {
@@ -102,7 +154,7 @@ namespace MessManagemetSystem.API.Services.Service
         {
             try
             {
-                var query = _messDbContext.Expense.AsQueryable();
+                var query = _messDbContext.Expenses.AsQueryable();
                 if (!string.IsNullOrEmpty(paginationParams.Search))
                 {
                     query = query.Where(x => x.Description.ToLower().Contains(paginationParams.Search) 
@@ -122,8 +174,6 @@ namespace MessManagemetSystem.API.Services.Service
                     })
                     .ToListAsync();
 
-
-
                 return new PaginatedResponseModel<ExpenseResponseModel>()
                 {
                     TotalRecords = totalCount,
@@ -141,7 +191,7 @@ namespace MessManagemetSystem.API.Services.Service
 		{
 			try
 			{
-				var query = _messDbContext.Expense.Where(x=> x.ExpenseHeadId == 0 || x.ExpenseHeadId == null).AsQueryable();
+				var query = _messDbContext.Expenses.Where(x=> x.ExpenseHeadId == 0 || x.ExpenseHeadId == null).AsQueryable();
 				if (!string.IsNullOrEmpty(paginationParams.Search))
 				{
 					query = query.Where(x => x.Description.ToLower().Contains(paginationParams.Search)
@@ -158,6 +208,7 @@ namespace MessManagemetSystem.API.Services.Service
 						Date = x.Date,
 						ExpenseHeadName = x.ExpenseHead.Name,
 						ExpenseHeadId = x.ExpenseHeadId,
+                        Status = x.Status == null? null :x.Status
 
 					})
 					.ToListAsync();
@@ -181,7 +232,7 @@ namespace MessManagemetSystem.API.Services.Service
 		public async Task<ApiResponse<bool>> UpdateAsync(int id, ExpenseRequestModel model)
         {
 
-            var existance = await _messDbContext.Expense
+            var existance = await _messDbContext.Expenses
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (existance != null)
             {

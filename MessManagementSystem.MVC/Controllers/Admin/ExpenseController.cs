@@ -5,9 +5,9 @@ using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagementSystem.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MessManagementSystem.MVC.Controllers
+namespace MessManagementSystem.MVC.Controllers.Admin
 {
-   
+
     public class ExpenseController : BaseController
     {
         private readonly IExpenseClient _expenseClient;
@@ -90,17 +90,17 @@ namespace MessManagementSystem.MVC.Controllers
         }
 
         //Monthly Expenses
-        [HttpGet("get-monthly")]
-		public async Task<IActionResult> GetMonthlyExpense(int pageNumber = 1, int pageSize = 10, string search = null)
-		{
-			var result = await _expenseClient.GetMonthlyAsync(new PaginationParams
-			{
-				PageNumber = pageNumber,
-				PageSize = pageSize,
-				Search = search
-			});
-			return View(result);
-		}
+        [HttpGet]
+        public async Task<IActionResult> GetMonthlyExpense(int pageNumber = 1, int pageSize = 10, string search = null)
+        {
+            var result = await _expenseClient.GetMonthlyAsync(new PaginationParams
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Search = search
+            });
+            return View(result);
+        }
         public async Task<IActionResult> AddMonthly()
         {
             ViewBag.ExpenseHeads = await _expenseHeadClient.GetAllAsync();
@@ -110,7 +110,8 @@ namespace MessManagementSystem.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMonthlyExpense(ExpenseRequestModel model)
         {
-            var result = await _expenseClient.AddAsync(model);
+            
+            var result = await _expenseClient.AddMonthlyAsync(model);
             return Ok(result);
         }
 

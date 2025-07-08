@@ -20,16 +20,24 @@ namespace MessManagemetSystem.API.Repository.Repositories
 		}
 		public async Task<bool> AddAsync(MenuEntity entity)
 		{
+			try
+			{
+
+		
 			var repo = _unitOfWork.GetRepository<MenuEntity>();
+			var existing = await repo.AnyAsync(x => x.DayofWeek == entity.DayofWeek && x.MealType == entity.MealType && x.MenuItems == entity.MenuItems && x.IsActive == true);
 
-			var existing = repo.GetAsync(x => x.DayofWeek == entity.DayofWeek && x.MealType == entity.MealType && x.MenuItems == entity.MenuItems && x.IsActive == true);
-
-			if (existing != null)
+			if (!existing)
 			{
 				await repo.AddAsync(entity);
 				await _unitOfWork.CommitAsync();
 			}
-			return true;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return true;
 		}
 
 		
@@ -42,12 +50,12 @@ namespace MessManagemetSystem.API.Repository.Repositories
 			if (!string.IsNullOrEmpty(dtParams.Search))
 			{
 
-				query = query.Where(search =>
-	(search.MenuItems ?? "").ToLower().Contains(dtParams.Search) ||
-	(string.Join(", ", search.DayofWeek).ToLower().Contains(dtParams.Search))
+                query = query.Where(search =>
+    search.MenuItems.ToLower().Contains(dtParams.Search)
+    ||search.DayofWeek.ToString().ToLower().Contains(dtParams.Search)
 );
 
-			}
+            }
 			var totalRecords = await query.CountAsync();
 			var paginatedResult = await PaginatedHelper<MenuEntity>.GetPaginatedRecored(query, x => x.Id, dtParams);
 

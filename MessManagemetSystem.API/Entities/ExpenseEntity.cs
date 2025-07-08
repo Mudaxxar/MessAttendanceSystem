@@ -1,4 +1,5 @@
 ﻿using MessManagemetSystem.API.Identity;
+using static MessManagementSystem.Shared.Enums.Enums;
 
 namespace MessManagemetSystem.API.Entities
 {
@@ -9,6 +10,7 @@ namespace MessManagemetSystem.API.Entities
 		public decimal Amount { get; set; }
 		public string? Description { get; set; }
 		public DateTime? Date { get; set; }
-	
-}
+		public ClosingStatus? Status { get; set; }
+
+    }
 }

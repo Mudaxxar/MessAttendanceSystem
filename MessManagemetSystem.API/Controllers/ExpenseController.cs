@@ -79,6 +79,18 @@ namespace MessManagemetSystem.API.Controllers
 
 		//Monthly
 
+		[HttpPost("add-monthly")]
+		public async Task<IActionResult> AddMonthlyAsync(ExpenseRequestModel model)
+		{
+			var result = await _expenseervice.AddMonthlyAsync(model);
+
+			if (!result.IsError)
+			{
+				return StatusCode(StatusCodes.Status201Created, result);
+			}
+			return BadRequest(result);
+		}
+
 		[HttpPost("get-monthly-expenses")]
 		public async Task<IActionResult> GetMonthlyAsync([FromBody] PaginationParams paginationParams)
 		{

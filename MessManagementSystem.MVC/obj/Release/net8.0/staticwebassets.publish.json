@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AV86ISxTIBxrqJ8eLc7lRZiaALtt/gvWhplT5RSCSd0=",
+  "Hash": "YTUEG9732MKSJO4iZ3GwIIpcOMhkiUDa+TETlFYz0KI=",
   "Source": "MessManagementSystem.MVC",
   "BasePath": "_content/MessManagementSystem.MVC",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\DreamTemplates\\css\\bootstrap.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\wwwroot\\DreamTemplates\\css\\bootstrap-datetimepicker.min.css",
+      "SourceId": "MessManagementSystem.MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\wwwroot\\",
+      "BasePath": "_content/MessManagementSystem.MVC",
+      "RelativePath": "DreamTemplates/css/bootstrap-datetimepicker.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\DreamTemplates\\css\\bootstrap-datetimepicker.min.css"
     },
     {
       "Identity": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\wwwroot\\DreamTemplates\\css\\dataTables.bootstrap4.min.css",

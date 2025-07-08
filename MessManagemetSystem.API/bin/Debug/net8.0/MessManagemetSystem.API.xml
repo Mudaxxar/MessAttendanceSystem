@@ -172,5 +172,65 @@
         <member name="M:MessManagemetSystem.API.Migrations.NullableExpenseHead.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:MessManagemetSystem.API.Migrations.UpdateDb">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.UpdateDb.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.UpdateDb.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.UpdateDb.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:MessManagemetSystem.API.Migrations.Updateclosing">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.Updateclosing.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.Updateclosing.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.Updateclosing.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:MessManagemetSystem.API.Migrations.StatusinClosing">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.StatusinClosing.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.StatusinClosing.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.StatusinClosing.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:MessManagemetSystem.API.Migrations.StatusinClosingnullable">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.StatusinClosingnullable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.StatusinClosingnullable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.StatusinClosingnullable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:MessManagemetSystem.API.Migrations.StatusinClosingnullable1">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.StatusinClosingnullable1.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.StatusinClosingnullable1.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.StatusinClosingnullable1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

@@ -30,6 +30,54 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/ExpenseHeads/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZUhlYWRzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/ExpenseHeads/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZUhlYWRzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/ExpenseHeads/GetExpenseHeads.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZUhlYWRzXEdldEV4cGVuc2VIZWFkcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/ExpenseHeads/_AddEditExpenseHeadsForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZUhlYWRzXF9BZGRFZGl0RXhwZW5zZUhlYWRzRm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/AddMonthly.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxBZGRNb250aGx5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/GetExpense.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxHZXRFeHBlbnNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/GetMonthlyExpense.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxHZXRNb250aGx5RXhwZW5zZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/MonthlyClosing.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxNb250aGx5Q2xvc2luZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/_AddEditExpenseForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxfQWRkRWRpdEV4cGVuc2VGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/_AddEditMonthlyExpenseForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxfQWRkRWRpdE1vbnRobHlFeHBlbnNlRm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Feedback/AddFeedback.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVlZGJhY2tcQWRkRmVlZGJhY2suY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -112,6 +160,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Student/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Student/GetAttendance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxHZXRBdHRlbmRhbmNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Student/Index.cshtml]

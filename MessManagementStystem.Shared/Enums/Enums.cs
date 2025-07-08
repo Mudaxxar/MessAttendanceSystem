@@ -27,5 +27,9 @@ namespace MessManagementSystem.Shared.Enums
 			Present = 1,
 		   Absent = 2
 		}
+		public enum ClosingStatus { 
+			Open = 1,
+		   Close = 2
+		}
 	}
 }

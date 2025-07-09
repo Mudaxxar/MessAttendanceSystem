@@ -26,8 +26,8 @@ namespace MessManagemetSystem.API.Controllers
         public async Task<SummaryResponseModel> GetDailySummary(DateTime? date = null)
         {
             date ??= DateTime.Today;
-            var presentCount = await _context.Attendances.CountAsync(a => a.Date == date && a.Status == PresenceStatus.Present);
-            var absentCount = await _context.Attendances.CountAsync(a => a.Date == date && a.Status == PresenceStatus.Absent);
+            var presentCount = await _context.Attendance.CountAsync(a => a.Date == date && a.Status == PresenceStatus.Present);
+            var absentCount = await _context.Attendance.CountAsync(a => a.Date == date && a.Status == PresenceStatus.Absent);
             var totalStudents = await _context.Users.Where(x=>x.RoleId == 2).CountAsync();
 
             //Recent User Registered

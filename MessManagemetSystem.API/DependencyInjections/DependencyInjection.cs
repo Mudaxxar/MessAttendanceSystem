@@ -35,6 +35,7 @@ namespace MessManagemetSystem.API.DependencyInjections
                 .AddScoped<IRoleRepository, RoleRepository>()
                 .AddScoped<IRolePermissionsRepository, RolePermissionsRepository>()
                 .AddScoped<IMenuRepository, MenuRepository>()
+                .AddScoped<IAccountsService, AccountsService>()
                 ;
 
             services.AddDbContext<MessDbContext>(options =>

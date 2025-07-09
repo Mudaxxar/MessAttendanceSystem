@@ -158,6 +158,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "MessManagemetSystem.API.Controllers.AccountsController",
+    "Method": "GetMonthlyClosingAsync",
+    "RelativePath": "api/Accounts/get-monthly-closing",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paginationParams",
+        "Type": "MessManagementSystem.Shared.Models.PaginationParams",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MessManagementSystem.Shared.Models.ResponseModels.PaginatedResponseModel\u00601[[MessManagementSystem.Shared.Models.ResponseModels.MonthlyClosingResponseModel, MessManagementSystem.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "MessManagemetSystem.API.Controllers.AttendanceController",
     "Method": "GetAttendance",
     "RelativePath": "api/Attendance/get-attendance",
@@ -216,6 +242,22 @@
       {
         "Name": "model",
         "Type": "MessManagementSystem.Shared.Models.RequestModels.ExpenseRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MessManagemetSystem.API.Controllers.ExpenseController",
+    "Method": "AddMonthlyClosing",
+    "RelativePath": "api/Expense/add-monthly-closing/{Id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

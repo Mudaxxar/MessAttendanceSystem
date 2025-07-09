@@ -8,10 +8,10 @@ namespace MessManagemetSystem.API.Entities
 		[ForeignKey("ApplicationUserId")]
 		public int ApplicationUserId { get; set; } // as student Id
 		public ApplicationUser ApplicationUser { get; set; }
-		public decimal Balance { get; set; } = 0;
-		public decimal TotalCredit { get; set; } = 0;
-		public decimal TotalDebit { get; set; } = 0;
-		public string? Remarks { get; set; }
 		public DateTime? Date { get; set; }
+		public decimal Credit { get; set; } = 0;
+		public decimal Debit { get; set; } = 0;
+		public decimal Balance { get; set; } = 0;
+		public string? Description { get; set; }
 	}
 }

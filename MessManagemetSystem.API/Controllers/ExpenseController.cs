@@ -102,6 +102,12 @@ namespace MessManagemetSystem.API.Controllers
 			});
 			return Ok(expense);
 		}
+        [HttpPost("add-monthly-closing/{Id}")]
+        public async Task<IActionResult> AddMonthlyClosing(int Id)
+        {
+            var result = await _expenseervice.AddMonthlyClosingAsync(Id);
+            return Ok(result);
+        }
 
 	}
 }

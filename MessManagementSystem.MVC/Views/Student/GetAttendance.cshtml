@@ -39,7 +39,7 @@
 									foreach (var item in Model.Records)
 									{
 										<tr>
-											<td>@Convert.ToDateTime(item.Date).ToString("dddd, MMM, yyyy")</td>
+											<td>@Convert.ToDateTime(item.Date).ToString("dddd,MMM,yyyy"), @item.Date</td>
 											<td>@item.Status</td>
 
 										</tr>

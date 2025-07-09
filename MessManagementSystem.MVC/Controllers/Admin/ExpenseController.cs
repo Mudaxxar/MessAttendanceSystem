@@ -114,12 +114,28 @@ namespace MessManagementSystem.MVC.Controllers.Admin
             var result = await _expenseClient.AddMonthlyAsync(model);
             return Ok(result);
         }
+        public async Task<IActionResult> EditMonthlyExpense(int Id)
+        {
+            var result = await _expenseClient.GetByIdAsync(Id);
 
+            return View(new ExpenseRequestModel
+            {
+                ExpenseHeadId = result.Data.ExpenseHeadId,
+                Id = result.Data.Id
+
+            });
+        }
 
         public async Task<IActionResult> MonthlyClosing()
         {
             ViewBag.ExpenseHeads = await _expenseHeadClient.GetAllAsync();
             return View(new ExpenseRequestModel());
+        }
+        [HttpPost]
+        public async Task<IActionResult> MonthlyClosing(int Id)
+        {
+            var result = await _expenseClient.AddMonthlyClosingAsync(Id);
+			return Ok(result);
         }
     }
 }

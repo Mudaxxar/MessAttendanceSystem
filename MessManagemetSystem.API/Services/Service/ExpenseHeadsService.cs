@@ -17,7 +17,7 @@ namespace MessManagemetSystem.API.Services.Service
 		}
 		public async Task<ApiResponse<ExpenseHeadsResponseModel>> AddAsync(ExpenseHeadsRequestModel model)
 		{
-			var existance = async () => await _messDbContext.ExpenseHead
+			var existance = async () => await _messDbContext.ExpenseHeads
 				.AnyAsync(x => x.Name.Equals(model.Name.ToLower()));
 			if (await existance())
 			{
@@ -53,11 +53,11 @@ namespace MessManagemetSystem.API.Services.Service
 
 		public async Task<ApiResponse<bool>> DeleteAsync(int id)
 		{
-			var expenseHead = await _messDbContext.ExpenseHead
+			var expenseHead = await _messDbContext.ExpenseHeads
 				.FirstOrDefaultAsync(x => x.Id == id);
 			if (expenseHead != null)
 			{
-				_messDbContext.ExpenseHead.Remove(expenseHead);
+				_messDbContext.ExpenseHeads.Remove(expenseHead);
 				await _messDbContext.SaveChangesAsync();
 
 				return new ApiResponse<bool>
@@ -83,7 +83,7 @@ namespace MessManagemetSystem.API.Services.Service
 
 		public async Task<ApiResponse<ExpenseHeadsResponseModel>> GetByIdAsync(int id)
 		{
-			var expenseHead = await _messDbContext.ExpenseHead
+			var expenseHead = await _messDbContext.ExpenseHeads
 				.FirstOrDefaultAsync(x => x.Id == id);
 			if (expenseHead == null)
 			{
@@ -112,7 +112,7 @@ namespace MessManagemetSystem.API.Services.Service
 			try {
 				var pageNumber = paginationParams.PageNumber > 0 ? paginationParams.PageNumber : 1;
 				var pageSize = paginationParams.PageSize > 0 ? paginationParams.PageSize : 10;
-				var query = _messDbContext.ExpenseHead.AsQueryable();
+				var query = _messDbContext.ExpenseHeads.AsQueryable();
 			if (!string.IsNullOrEmpty(paginationParams.Search))
 			{
 				query = query.Where(x => x.Name.ToLower().Contains(paginationParams.Search));
@@ -146,7 +146,7 @@ namespace MessManagemetSystem.API.Services.Service
 
 		public async Task<ApiResponse<bool>> UpdateAsync(int id, ExpenseHeadsRequestModel model)
 		{
-			var existance = async () => await _messDbContext.ExpenseHead
+			var existance = async () => await _messDbContext.ExpenseHeads
 				.AnyAsync(x => x.Name.Equals(model.Name.ToLower()) && x.Id != id);
 			if (await existance())
 			{
@@ -159,7 +159,7 @@ namespace MessManagemetSystem.API.Services.Service
 					};
 				
 			}
-			var expenseHead = await _messDbContext.ExpenseHead
+			var expenseHead = await _messDbContext.ExpenseHeads
 				.FirstOrDefaultAsync(x => x.Id == id);
 			if (expenseHead != null)
 			{
@@ -187,7 +187,7 @@ namespace MessManagemetSystem.API.Services.Service
         public async Task<List<ExpenseHeadsResponseModel>> GetAsync()
         {
 
-            var query = _messDbContext.ExpenseHead.AsQueryable();
+            var query = _messDbContext.ExpenseHeads.AsQueryable();
             var totalCount = await query.CountAsync();
             var result = await query
 

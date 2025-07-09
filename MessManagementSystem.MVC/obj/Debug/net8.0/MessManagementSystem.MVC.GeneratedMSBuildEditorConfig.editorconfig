@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Abdul\source\repos\MessManagementSystem\MessManagementSystem.MVC
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Accounts/GetMonthlyClosing.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcR2V0TW9udGhseUNsb3NpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Account/GetUsers.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxHZXRVc2Vycy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,6 +62,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/EditMonthlyExpense.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxFZGl0TW9udGhseUV4cGVuc2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/GetExpense.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxHZXRFeHBlbnNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,12 +78,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxNb250aGx5Q2xvc2luZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/_AddEditExpenseForm.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxfQWRkRWRpdEV4cGVuc2VGb3JtLmNzaHRtbA==
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/v.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVx2LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/_AddEditMonthlyExpenseForm.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxfQWRkRWRpdE1vbnRobHlFeHBlbnNlRm9ybS5jc2h0bWw=
+[C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Expense/_AddEditExpenseForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxfQWRkRWRpdEV4cGVuc2VGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Abdul/source/repos/MessManagementSystem/MessManagementSystem.MVC/Views/Feedback/AddFeedback.cshtml]

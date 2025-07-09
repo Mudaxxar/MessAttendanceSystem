@@ -1,0 +1,185 @@
+﻿@using MessManagementSystem.Shared.Models.ResponseModels
+@model PaginatedResponseModel<MonthlyClosingResponseModel>
+@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+<style>
+	div.dataTables_processing {
+		background-color: #35b2c2
+	}
+</style>
+<div class="page-wrapper">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>Expense List</h4>
+				<h6>Manage your Expense</h6>
+			</div>
+			@* <div class="page-btn">
+				<a class="btn btn-added" asp-action="Add" asp-controller="Expense"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add New</a>
+			</div> *@
+		</div>
+		<!-- /Expense list -->
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table" id="tblExpense">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Amount</th>
+								<th>Total Attendance</th>
+								<th>Meal Per Head</th>
+								<th>Description</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model.Records != null)
+							{
+								foreach (var item in Model.Records)
+								{
+									<tr>
+										<td> @Convert.ToDateTime(item.Date).ToString("MMMM, yyyy")</td>
+										<td>@item.Amount</td>
+										<td>@item.TotalAttendance</td>
+										<td>@item.PerMealAmount</td>
+										<td>@item.Description</td>
+
+									</tr>
+								}
+							}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- /Expense list -->
+	</div>
+</div>
+
+
+<script>
+
+
+	$(document).ready(function () {
+		var Datatable = null;
+
+		$('#tblExpense').on('draw.dt', function () {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+		Datatable = $('#tblExpense').DataTable({
+			"deferLoading": @Model.TotalRecords,
+			"sort": false,
+			"processing": true,
+			search: {
+				return: true
+			},
+			"serverSide": true,
+			"ajax": {
+				"url": "@Url.Action("GetMonthlyClosing")",
+				"type": "POST",
+				"datatype": "json"
+			},
+
+			columns: [
+
+				{
+					data: 'date',
+					name: 'Date',
+					autoWidth: true,
+					render: function (data, type, row) {
+						return moment(data).format("dddd, MMMM, yyyy");
+					}
+				},
+				{ data: 'amount', name: 'Amount', autoWidth: true },
+				{ data: 'totalAttendance', name: 'TotalAttendance', autoWidth: true },
+				{ data: 'perMealAmount', name: 'PerMealAmount', autoWidth: true },
+				{ data: 'description', name: 'Description', autoWidth: true },
+
+				
+				}
+			]
+
+
+		});
+		$('[data-toggle="tooltip"]').tooltip();
+
+		$('#tblExpense_filter input').unbind();
+		$('#tblExpense_filter input').bind('keyup', function (e) {
+			if (e.keyCode == 13) {
+				Datatable.search(this.value).draw();
+			}
+		});
+	});
+
+
+	function Delete(Id) {
+
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			type: "warning",
+			showCancelButton: !0,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!",
+			confirmButtonClass: "btn btn-primary",
+			cancelButtonClass: "btn btn-danger ml-1",
+			buttonsStyling: !1,
+		}).then(function (t) {
+			t.value &&
+				ConfirmDelete(Id);
+		});
+	}
+	function ConfirmDelete(id) {
+
+		$.ajax({
+			url: '/Expense/DeleteExpense/' + id,
+			type: "POST",
+			success: function (result, status) {
+
+				if (status == "success") {
+					Swal.fire({
+						type: "success",
+						title: "Deleted!",
+						text: "Expense has been deleted.",
+						confirmButtonClass: "btn btn-success",
+					});
+					debugger;
+					toastr.success(result.description);
+
+					window.location.reload();
+				}
+			},
+
+			error: function (result) {
+
+				toastr.error(result);
+			},
+		});
+
+		return false;
+	}
+	function UpdateStatus(Id) {
+		$.ajax({
+			url: '@Url.Action("ChangeStatus", "Account")',
+			type: 'POST',
+			data: { id: Id },
+			success: function (result, status) {
+				if (status === 'success') {
+					if (result.isSuccess) {
+						toastr.success(result.message);
+						window.location.reload();
+					} else {
+						toastr.error(result.message);
+					}
+				}
+			},
+			error: function (result) {
+				toastr.error(result.message);
+			}
+		});
+	}
+</script>

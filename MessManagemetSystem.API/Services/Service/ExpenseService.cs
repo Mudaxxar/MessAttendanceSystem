@@ -7,6 +7,8 @@ using MessManagemetSystem.API.Services.IService;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using static MessManagementSystem.Shared.Enums.Enums;
+using MessManagemetSystem.API.Repository.GenericRepository;
+using MessManagemetSystem.API.Identity;
 
 namespace MessManagemetSystem.API.Services.Service
 {
@@ -14,10 +16,13 @@ namespace MessManagemetSystem.API.Services.Service
     public class ExpenseService : IExpenseService
     {
         private readonly MessDbContext _messDbContext;
-        public ExpenseService(MessDbContext messDbContext)
+        private readonly IUnitOfWork _unitOfWork;
+        public ExpenseService(MessDbContext messDbContext
+            , IUnitOfWork unitofWork)
         {
             this._messDbContext = messDbContext;
-        }
+            _unitOfWork = unitofWork;
+		}
         public async Task<ApiResponse<ExpenseResponseModel>> AddAsync(ExpenseRequestModel model)
         {
           
@@ -88,7 +93,96 @@ namespace MessManagemetSystem.API.Services.Service
 				};
 			}
 		}
+		public async Task<ApiResponse<bool>> AddMonthlyClosingAsync(int id)
+		{
+            var repo = _unitOfWork.GetRepository<ExpenseEntity>();
+			// Check if the expense with the given ID exists and is open
+			var existingExpense = await repo.FirstOrDefaultAsync(x => x.Id == id && x.Status == ClosingStatus.Open);
+            if (existingExpense != null)
+            {
 
+                var totalexpensAmount = existingExpense.Amount;
+
+                var totalAttendace = await _messDbContext.Attendance
+					.Where(x => x.Date.Year == existingExpense.Date.Value.Year &&
+								x.Date.Month == existingExpense.Date.Value.Month)
+					.CountAsync();
+
+                var mealPerHead = totalexpensAmount / (totalAttendace * 2);
+				// Create a new MonthlyClosingEntity
+				var monthlyClosing = new MonthlyClosingEntity
+				{
+					
+					Date = existingExpense.Date.Value,
+                    Description = $"Monthly Closing for {existingExpense.Date.Value.ToString("MMMM yyyy")}",
+					Amount = totalexpensAmount,
+                    TotalAttendance = totalAttendace,
+					TotalMeals = totalAttendace * 2, // Assuming 2 meals per day
+                    MealPerHead = mealPerHead,
+					Status = ClosingStatus.Close,
+                    
+				};
+
+				// Add the monthly closing to the database
+				var closingRepo = _unitOfWork.GetRepository<MonthlyClosingEntity>();
+				await closingRepo.AddAsync(monthlyClosing);
+
+
+				var usersRepo = _unitOfWork.GetRepository<ApplicationUser>();
+				var Users = await usersRepo.GetIncludeAsync(
+					predicate: x => x.Role.Name.ToLower() == "student",
+					include: x => x.Include(u => u.Role)
+				);
+
+				foreach (var student in Users)
+                {
+                    var totalStudenAttendance = await _messDbContext.Attendance
+						.Where(x => x.ApplicationUserId == student.Id &&
+									x.Date.Year == existingExpense.Date.Value.Year &&
+									x.Date.Month == existingExpense.Date.Value.Month)
+						.CountAsync();
+                    var UserBalance = Convert.ToDecimal(student.Balance) - (totalStudenAttendance * mealPerHead * 2); // Assuming 2 meals per day
+					var userAccount = new AccountsEntity
+                    {
+                        ApplicationUserId = student.Id,
+                        Credit = 0,
+                        Debit = totalStudenAttendance * mealPerHead * 2, // Assuming 2 meals per day
+                        Date = existingExpense.Date.Value,
+                        Balance = UserBalance,
+						Description = $"Monthly Closing for {existingExpense.Date.Value.ToString("MMMM yyyy")}",
+                    };
+                    var userAccountRepo = _unitOfWork.GetRepository<AccountsEntity>();
+					await userAccountRepo.AddAsync(userAccount);
+
+
+                    student.Balance = Convert.ToDouble(UserBalance); // Update user balance
+					usersRepo.Update(student);
+				}
+
+
+				// Update the status to closed
+				existingExpense.Status = ClosingStatus.Close;
+                repo.Update(existingExpense);
+                await _unitOfWork.CommitAsync();
+
+                return new ApiResponse<bool>
+                {
+                    Description = "Successfully Updated!",
+                    Message = "Successfully Updated",
+                    IsError = false,
+                    Succeeded = true
+                };
+            }
+			return new ApiResponse<bool>
+			{
+				Description = "Error while Deleting!",
+				Message = "Error while Deleting",
+				IsError = false,
+				Succeeded = true
+
+			};
+
+		}
 		public async Task<ApiResponse<bool>> DeleteAsync(int id)
         {
             var entity = await _messDbContext.Expenses
@@ -138,7 +232,7 @@ namespace MessManagemetSystem.API.Services.Service
                 Data = new ExpenseResponseModel
                 {
                     Id = entity.Id,
-                    ExpenseHeadName = entity.ExpenseHead.Name,
+                    ExpenseHeadName = entity.ExpenseHead?.Name,
 					ExpenseHeadId = entity.ExpenseHeadId,
 					Description = entity.Description,
 					Amount = entity.Amount,

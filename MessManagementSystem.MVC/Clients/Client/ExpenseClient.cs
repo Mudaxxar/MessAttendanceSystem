@@ -35,6 +35,12 @@ namespace MessManagementSystem.MVC.Clients.Client
             var response = await _httpClientHelper.PostAsync<ApiResponse<ExpenseResponseModel>>(uri, model);
             return response;
         }
+        public async Task<ApiResponse<bool>> AddMonthlyClosingAsync(int Id)
+        {
+            var uri = $"{ApiEndPoint.AddMonthlyClosing}/{Id}";
+            var response = await _httpClientHelper.PostAsync<ApiResponse<bool>>(uri, null);
+            return response;
+        }
 
         public async Task<ApiResponse<bool>> DeleteAsync(int id)
         {

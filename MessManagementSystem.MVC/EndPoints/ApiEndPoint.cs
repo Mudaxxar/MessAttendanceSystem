@@ -72,6 +72,12 @@
         public const string GetMonthlyExpenses = "Expense/get-monthly-expenses";
         public const string GetExpense = "Expense/getbyId";
 
+        //Closing
+
+        public const string AddMonthlyClosing = "Expense/add-monthly-closing";
+        public const string GetMonthlyClosing = "Accounts/get-monthly-closing";
+
+
 
 
     }

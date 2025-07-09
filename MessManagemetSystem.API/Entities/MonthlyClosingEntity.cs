@@ -10,20 +10,10 @@ namespace MessManagemetSystem.API.Entities
         public string? Description { get; set; }
         public int? TotalAttendance { get; set; }
         public int? TotalMeals { get; set; }
+        public decimal? MealPerHead { get; set; }
         public ClosingStatus? Status { get; set; } 
 
-        // Calculated property
-        public int? AmountPerMeal
-        {
-            get
-            {
-                if (TotalAttendance.HasValue && TotalAttendance != 0)
-                {
-                    return (int)(Amount / TotalAttendance.Value);
-                }
-                return null;
-            }
-        }
+       
     }
 
 }

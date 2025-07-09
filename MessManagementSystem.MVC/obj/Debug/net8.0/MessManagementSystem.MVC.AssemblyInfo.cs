@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MessManagementSystem.MVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d4913d16bac442abdcf8b8a6b5661ab8c9d4565a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80a1aab8682731ef8d66e25ffc73bfc43ace5798")]
 [assembly: System.Reflection.AssemblyProductAttribute("MessManagementSystem.MVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MessManagementSystem.MVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

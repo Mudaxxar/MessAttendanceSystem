@@ -19,7 +19,7 @@ namespace MessManagemetSystem.API
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                if (DateTime.Now.Hour == 6)
+                if (DateTime.Now.Hour == 0)
                 {
                     using var scope = _services.CreateScope();
                     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -40,11 +40,11 @@ namespace MessManagemetSystem.API
 
                     foreach (var student in students)
                     {
-                        bool exists = await dbContext.Attendances
-                            .AnyAsync(a => a.ApplicationUserId == student.Id && a.Date == DateTime.Today);
+                        bool exists = await dbContext.Attendance
+							.AnyAsync(a => a.ApplicationUserId == student.Id && a.Date == DateTime.Today);
                         if (!exists)
                         {
-                            dbContext.Attendances.Add(new AttendanceEntity
+                            dbContext.Attendance.Add(new AttendanceEntity
                             {
                                 ApplicationUserId = student.Id,
                                 Date = DateTime.Today,

@@ -34,7 +34,7 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Accounts</h6>
                     <ul>
-                        <li class="@(currentController == "ExpenseHeads" && currentAction == "GetExpenseHeads" ? "active" : "")">
+                       @*  <li class="@(currentController == "ExpenseHeads" && currentAction == "GetExpenseHeads" ? "active" : "")">
                             <a asp-controller="ExpenseHeads" asp-action="GetExpenseHeads">
                                 <i data-feather="dollar-sign"></i><span>Expense Heads</span>
                             </a>
@@ -43,15 +43,15 @@
                             <a asp-controller="Expense" asp-action="GetExpense">
                                 <i data-feather="arrow-up-circle"></i><span>Daily Expenses</span>
                             </a>
-                        </li>
+                        </li> *@
 
                         <li class="@(currentController == "Expense" && currentAction == "GetMonthlyExpense" ? "active" : "")">
                             <a asp-controller="Expense" asp-action="GetMonthlyExpense">
-                                <i data-feather="bar-chart-2"></i><span>Monthly Expenses</span>
+                                <i data-feather="dollar-sign"></i><span>Monthly Expenses</span>
                             </a>
                         </li> 
-                        <li class="@(currentController == "Expense" && currentAction == "Closing" ? "active" : "")">
-                            <a asp-controller="Expense" asp-action="Closing">
+                        <li class="@(currentController == "Accounts" && currentAction == "GetMonthlyClosing" ? "active" : "")">
+                            <a asp-controller="Accounts" asp-action="GetMonthlyClosing">
                                 <i data-feather="calendar"></i><span>Monthly Closing</span>
                             </a>
                         </li>

@@ -5,6 +5,6 @@ namespace MessManagemetSystem.API.Services.IService
 {
     public interface IAccountsService
     {
-        Task<PaginatedResponseModel<ClosingResponseModel>> GetClosingAsync(PaginationParams pParams);
+        Task<PaginatedResponseModel<MonthlyClosingResponseModel>> GetMonthlyClosingAsync(PaginationParams pParams);
     }
 }

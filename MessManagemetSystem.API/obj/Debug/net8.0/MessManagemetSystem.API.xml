@@ -232,5 +232,41 @@
         <member name="M:MessManagemetSystem.API.Migrations.StatusinClosingnullable1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:MessManagemetSystem.API.Migrations.Updatedb">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.Updatedb.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.Updatedb.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.Updatedb.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:MessManagemetSystem.API.Migrations.addedmeal">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.addedmeal.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.addedmeal.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.addedmeal.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:MessManagemetSystem.API.Migrations.AttendanceCount">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.AttendanceCount.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.AttendanceCount.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MessManagemetSystem.API.Migrations.AttendanceCount.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

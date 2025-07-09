@@ -20,12 +20,12 @@ namespace MessManagemetSystem.API.DbContext
 			//GlobalQueryFiltering.RegisterGlobalQuery(modelBuilder); //Golobal query
 		}
 		public DbSet<MenuEntity> Menus { get; set; }
-		public DbSet<AttendanceEntity> Attendances { get; set; }
+		public DbSet<AttendanceEntity> Attendance { get; set; }
 		public DbSet<FeedbackEntity> Feedbacks { get; set; }
-		public DbSet<ExpenseHeadEntity> ExpenseHead{ get; set; }
+		public DbSet<ExpenseHeadEntity> ExpenseHeads{ get; set; }
 		public DbSet<ExpenseEntity> Expenses { get; set; }
 		public DbSet<AccountsEntity> Accounts { get; set; }
-		public DbSet<StudentMealSummaryEntity> StudentMealSummarys { get; set; }
-		public DbSet<MonthlyClosingEntity> MonthlyClosings { get; set; }
+		public DbSet<StudentMealSummaryEntity> StudentMealSummary { get; set; }
+		public DbSet<MonthlyClosingEntity> MonthlyClosing { get; set; }
 	}
 }

@@ -26,6 +26,7 @@ namespace MessManagementSystem.MVC.DependencyInjection
                 .AddScoped<ISummaryClient, SummaryClient>()
                 .AddScoped<IExpenseHeadsClient, ExpenseHeadsClient>()
                 .AddScoped<IExpenseClient, ExpenseClient>()
+                .AddScoped<IAccounsClient, AccountsClient>()
 
             //.AddHttpClient<IHttpClientHelper, HttpClientHelper>()
             ;

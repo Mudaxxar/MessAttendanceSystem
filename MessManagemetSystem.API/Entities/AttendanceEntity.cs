@@ -10,6 +10,7 @@ namespace MessManagemetSystem.API.Entities
 		public int ApplicationUserId { get; set; } // as student Id
 		public ApplicationUser ApplicationUser { get; set; }
 		public DateTime Date { get; set; }
-		public PresenceStatus Status { get; set; } 
+		public PresenceStatus Status { get; set; }
+		public int AttendaneCount { get; set; } = 1;
 	}
 }

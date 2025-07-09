@@ -1,7 +1,9 @@
 ﻿using MessManagementSystem.Shared.Models;
 using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagementSystem.Shared.Models.ResponseModels;
+using MessManagemetSystem.API.Entities;
 using MessManagemetSystem.API.Identity;
+using MessManagemetSystem.API.Repository.GenericRepository;
 using MessManagemetSystem.API.Services.IService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,17 +23,19 @@ namespace MessManagemetSystem.API.Services.Service
 		private RoleManager<UserRoles> _roleManager;
 		private IConfiguration _configuration;
 		private readonly IPermissionService _permissionService;
-
+		private readonly IUnitOfWork _unitOfWork;
 		public UserService(UserManager<ApplicationUser> userManager,
 			IConfiguration configuration
 			, IPermissionService permissionService
             , RoleManager<UserRoles> roleManager
+			, IUnitOfWork unitOfWork
             )
 		{
 			_userManger = userManager;
 			_configuration = configuration;
 			_permissionService = permissionService;
 			_roleManager = roleManager;
+			_unitOfWork = unitOfWork;
 
 
         }
@@ -70,15 +74,29 @@ namespace MessManagemetSystem.API.Services.Service
 				BatchClass = model.BatchClass,
 				Balance = model.Balance,
 				DecodedPassword = model.Password,
+				
 			};
 
 			var result = await _userManger.CreateAsync(identityUser, model.Password);
 
 			if (result.Succeeded)
 			{
+				if (model.Balance > 0)
+				{
 
-                // Assign user to role
-                var role = await _roleManager.FindByIdAsync(model.RoleId.ToString());
+					var accountRepo = _unitOfWork.GetRepository<AccountsEntity>();
+					// Create an account for the user
+					var account = await accountRepo.AddAsync(new AccountsEntity
+					{
+						ApplicationUserId = identityUser.Id,
+						Credit = Convert.ToDecimal(model.Balance),
+						Balance = Convert.ToDecimal(model.Balance),
+					});
+					await accountRepo.AddAsync(account);
+					await _unitOfWork.CommitAsync();
+				}
+				// Assign user to role
+				var role = await _roleManager.FindByIdAsync(model.RoleId.ToString());
 				if (role != null)
 				{
 					var roleResult = await _userManger.AddToRoleAsync(identityUser, role.Name);
@@ -123,7 +141,7 @@ namespace MessManagemetSystem.API.Services.Service
 
 			return new UserManagerResponse
 			{
-				Message = "User did not create",
+				Message = $"{"User did not create"}-{result.Errors.Select(e => e.Description)}",
 				IsSuccess = false,
 				Errors = result.Errors.Select(e => e.Description)
 			};

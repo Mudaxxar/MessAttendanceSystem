@@ -3,24 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagemetsystem.api\\services\\service\\expenseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|solutionrelative:messmanagemetsystem.api\\services\\service\\expenseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagementsystem.mvc\\views\\expense\\editmonthlyexpense.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|solutionrelative:messmanagementsystem.mvc\\views\\expense\\editmonthlyexpense.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagementsystem.mvc\\controllers\\admin\\expensecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|solutionrelative:messmanagementsystem.mvc\\controllers\\admin\\expensecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagemetsystem.api\\controllers\\expensecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|solutionrelative:messmanagemetsystem.api\\controllers\\expensecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagementsystem.mvc\\views\\expense\\_addeditexpenseform.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|solutionrelative:messmanagementsystem.mvc\\views\\expense\\_addeditexpenseform.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagementsystem.mvc\\views\\expense\\addmonthly.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|solutionrelative:messmanagementsystem.mvc\\views\\expense\\addmonthly.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagementsystem.mvc\\views\\expense\\getmonthlyexpense.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|solutionrelative:messmanagementsystem.mvc\\views\\expense\\getmonthlyexpense.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagementsystem.mvc\\controllers\\admin\\expensecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|solutionrelative:messmanagementsystem.mvc\\controllers\\admin\\expensecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagementsystem.mvc\\views\\expense\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|solutionrelative:messmanagementsystem.mvc\\views\\expense\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagemetsystem.api\\services\\service\\expenseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|solutionrelative:messmanagemetsystem.api\\services\\service\\expenseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagementsystem.mvc\\views\\shared\\_sidemenu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{37F99FD1-C269-45F5-9CAF-B5918C3B196E}|MessManagementSystem.MVC\\MessManagementSystem.MVC.csproj|solutionrelative:messmanagementsystem.mvc\\views\\shared\\_sidemenu.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|c:\\users\\abdul\\source\\repos\\messmanagementsystem\\messmanagemetsystem.api\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5634F5B4-C759-416D-AC50-91C4243830A6}|MessManagemetSystem.API\\MessManagemetSystem.API.csproj|solutionrelative:messmanagemetsystem.api\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,67 +58,106 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ExpenseService.cs",
-              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Services\\Service\\ExpenseService.cs",
-              "RelativeDocumentMoniker": "MessManagemetSystem.API\\Services\\Service\\ExpenseService.cs",
-              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Services\\Service\\ExpenseService.cs",
-              "RelativeToolTip": "MessManagemetSystem.API\\Services\\Service\\ExpenseService.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAEwCkAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T14:49:05.954Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ExpenseController.cs",
-              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Controllers\\ExpenseController.cs",
-              "RelativeDocumentMoniker": "MessManagemetSystem.API\\Controllers\\ExpenseController.cs",
-              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Controllers\\ExpenseController.cs",
-              "RelativeToolTip": "MessManagemetSystem.API\\Controllers\\ExpenseController.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAawFQAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T14:49:05.962Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "GetMonthlyExpense.cshtml",
-              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Expense\\GetMonthlyExpense.cshtml",
-              "RelativeDocumentMoniker": "MessManagementSystem.MVC\\Views\\Expense\\GetMonthlyExpense.cshtml",
-              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Expense\\GetMonthlyExpense.cshtml",
-              "RelativeToolTip": "MessManagementSystem.MVC\\Views\\Expense\\GetMonthlyExpense.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABMAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-08T14:50:11.22Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "AddMonthly.cshtml",
               "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Expense\\AddMonthly.cshtml",
               "RelativeDocumentMoniker": "MessManagementSystem.MVC\\Views\\Expense\\AddMonthly.cshtml",
               "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Expense\\AddMonthly.cshtml",
               "RelativeToolTip": "MessManagementSystem.MVC\\Views\\Expense\\AddMonthly.cshtml",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAAC4AAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-08T14:48:57.669Z",
+              "WhenOpened": "2025-07-09T05:01:48.054Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "_AddEditExpenseForm.cshtml",
+              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Expense\\_AddEditExpenseForm.cshtml",
+              "RelativeDocumentMoniker": "MessManagementSystem.MVC\\Views\\Expense\\_AddEditExpenseForm.cshtml",
+              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Expense\\_AddEditExpenseForm.cshtml",
+              "RelativeToolTip": "MessManagementSystem.MVC\\Views\\Expense\\_AddEditExpenseForm.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-09T05:01:10.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EditMonthlyExpense.cshtml",
+              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Expense\\EditMonthlyExpense.cshtml",
+              "RelativeDocumentMoniker": "MessManagementSystem.MVC\\Views\\Expense\\EditMonthlyExpense.cshtml",
+              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Expense\\EditMonthlyExpense.cshtml",
+              "RelativeToolTip": "MessManagementSystem.MVC\\Views\\Expense\\EditMonthlyExpense.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAACsAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-09T05:00:59.195Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Expense\\Edit.cshtml",
+              "RelativeDocumentMoniker": "MessManagementSystem.MVC\\Views\\Expense\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Expense\\Edit.cshtml",
+              "RelativeToolTip": "MessManagementSystem.MVC\\Views\\Expense\\Edit.cshtml",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAswEgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-09T04:59:32.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ExpenseController.cs",
               "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Controllers\\Admin\\ExpenseController.cs",
               "RelativeDocumentMoniker": "MessManagementSystem.MVC\\Controllers\\Admin\\ExpenseController.cs",
               "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Controllers\\Admin\\ExpenseController.cs",
               "RelativeToolTip": "MessManagementSystem.MVC\\Controllers\\Admin\\ExpenseController.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAtwG8AAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAywHQAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T14:48:45.64Z",
+              "WhenOpened": "2025-07-09T04:59:23.805Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ExpenseService.cs",
+              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Services\\Service\\ExpenseService.cs",
+              "RelativeDocumentMoniker": "MessManagemetSystem.API\\Services\\Service\\ExpenseService.cs",
+              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Services\\Service\\ExpenseService.cs",
+              "RelativeToolTip": "MessManagemetSystem.API\\Services\\Service\\ExpenseService.cs",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAAwNsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T04:56:55.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_SideMenu.cshtml",
+              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Shared\\_SideMenu.cshtml",
+              "RelativeDocumentMoniker": "MessManagementSystem.MVC\\Views\\Shared\\_SideMenu.cshtml",
+              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagementSystem.MVC\\Views\\Shared\\_SideMenu.cshtml",
+              "RelativeToolTip": "MessManagementSystem.MVC\\Views\\Shared\\_SideMenu.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAC0AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-09T04:55:20.359Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AccountsController.cs",
+              "DocumentMoniker": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Controllers\\AccountsController.cs",
+              "RelativeDocumentMoniker": "MessManagemetSystem.API\\Controllers\\AccountsController.cs",
+              "ToolTip": "C:\\Users\\Abdul\\source\\repos\\MessManagementSystem\\MessManagemetSystem.API\\Controllers\\AccountsController.cs",
+              "RelativeToolTip": "MessManagemetSystem.API\\Controllers\\AccountsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T04:54:43.324Z",
               "EditorCaption": ""
             }
           ]

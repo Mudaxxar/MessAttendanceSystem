@@ -72,3 +72,5 @@ MessManagementStystem.Shared/bin/Debug/net8.0/MessManagementSystem.Shared.pdb
 *.dll
 *.cs
 *.exe
+*.json
+/.vs/MessManagementSystem/v17

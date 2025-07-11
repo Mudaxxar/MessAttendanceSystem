@@ -9,12 +9,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MessManagementSystem.Shared.Models.RequestModels;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MessManagemetSystem.API.Controllers
 {
 
 	[Route("api/[controller]")]
 	[ApiController]
+	[HasPermission(AdminPermissions.Admin)]
 	public class AccountController : ControllerBase
 	{
 		private IUserService _userService;
@@ -63,6 +65,7 @@ namespace MessManagemetSystem.API.Controllers
 
 		// /api/account/login
 		[HttpPost("Login")]
+		[AllowAnonymous]
 		public async Task<IActionResult> LoginAsync([FromBody] LoginRequestModel model)
 		{
 			if (ModelState.IsValid)
@@ -166,6 +169,8 @@ namespace MessManagemetSystem.API.Controllers
 		}
 
 		[HttpGet("user/{Id}")]
+		[HasPermission(AdminPermissions.Student)]
+
 		public async Task<IActionResult> GetStudent(int Id)
 		{
 			string email = User.FindFirstValue(ClaimTypes.NameIdentifier);

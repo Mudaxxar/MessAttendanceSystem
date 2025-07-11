@@ -18,9 +18,12 @@ namespace MessManagemetSystem.API.Seeds
 				new PermissionEntity { Id = 2, Name = AdminPermissions.Student.ToString() },
 				new PermissionEntity { Id = 3, Name = AdminPermissions.Operator.ToString() }
 				);
+
 			modelBuilder.Entity<RolePermissionEntity>()
 			.HasData(
-			   new RolePermissionEntity() { Id = 1, RoleId = 1, PermissionId = 1 });
+			   new RolePermissionEntity() { Id = 1, RoleId = 1, PermissionId = 1 },
+			   new RolePermissionEntity() { Id = 2, RoleId = 2, PermissionId = 2 },
+			   new RolePermissionEntity() { Id = 3, RoleId = 3, PermissionId = 3 });
 
 		
 

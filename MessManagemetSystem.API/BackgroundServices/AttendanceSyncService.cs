@@ -19,7 +19,7 @@ namespace MessManagemetSystem.API
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                if (DateTime.Now.Hour == 0)
+                if (DateTime.Now.Hour == 18)
                 {
                     using var scope = _services.CreateScope();
                     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -30,24 +30,27 @@ namespace MessManagemetSystem.API
                     var students = (await userManager.GetUsersInRoleAsync(studentRole)).ToList();
 
 
-                    //var allUsers = await userManager.Users.ToListAsync();
-                    //foreach (var user in allUsers)
-                    //{
-                    //    var userRoles = await userManager.GetRolesAsync(user);
-                    //    Console.WriteLine($"User: {user.UserName} - Roles: {string.Join(", ", userRoles)}");
-                    //}
+                    var allUsers = await userManager.Users.ToListAsync();
+					foreach (var user in allUsers)
+					{
+						var userRoles = await userManager.GetRolesAsync(user);
+						Console.WriteLine($"{user.UserName}: {string.Join(", ", userRoles)}");
+					}
 
+					var user1 = await userManager.FindByEmailAsync("user@yopmail.com");
+					var roles1 = await userManager.GetRolesAsync(user1);
 
-                    foreach (var student in students)
+					Console.WriteLine($"{user1.Email} roles: {string.Join(", ", roles)}");
+					foreach (var student in students)
                     {
                         bool exists = await dbContext.Attendance
-							.AnyAsync(a => a.ApplicationUserId == student.Id && a.Date == DateTime.Today);
+							.AnyAsync(a => a.ApplicationUserId == student.Id && a.Date == DateTime.Today.AddDays(1));
                         if (!exists)
                         {
                             dbContext.Attendance.Add(new AttendanceEntity
                             {
                                 ApplicationUserId = student.Id,
-                                Date = DateTime.Today,
+                                Date = DateTime.Today.AddDays(1),
                                 Status = student.Status
                             });
                         }

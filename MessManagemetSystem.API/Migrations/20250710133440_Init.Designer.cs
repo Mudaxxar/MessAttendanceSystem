@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MessManagemetSystem.API.Migrations
 {
     [DbContext(typeof(MessDbContext))]
-    [Migration("20250704180922_Accounts")]
-    partial class Accounts
+    [Migration("20250710133440_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace MessManagemetSystem.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MessManagemetSystem.API.Entities.AccountEntity", b =>
+            modelBuilder.Entity("MessManagemetSystem.API.Entities.AccountsEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,8 +45,17 @@ namespace MessManagemetSystem.API.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Debit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IP")
                         .HasColumnType("nvarchar(max)");
@@ -56,15 +65,6 @@ namespace MessManagemetSystem.API.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalCredit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalDebit")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -88,6 +88,9 @@ namespace MessManagemetSystem.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AttendaneCount")
                         .HasColumnType("int");
 
                     b.Property<int?>("CreatedBy")
@@ -121,7 +124,7 @@ namespace MessManagemetSystem.API.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Attendances");
+                    b.ToTable("Attendance");
                 });
 
             modelBuilder.Entity("MessManagemetSystem.API.Entities.ExpenseEntity", b =>
@@ -144,7 +147,10 @@ namespace MessManagemetSystem.API.Migrations
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ExpenseHeadId")
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ExpenseHeadId")
                         .HasColumnType("int");
 
                     b.Property<string>("IP")
@@ -156,8 +162,8 @@ namespace MessManagemetSystem.API.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -169,7 +175,7 @@ namespace MessManagemetSystem.API.Migrations
 
                     b.HasIndex("ExpenseHeadId");
 
-                    b.ToTable("Expense");
+                    b.ToTable("Expenses");
                 });
 
             modelBuilder.Entity("MessManagemetSystem.API.Entities.ExpenseHeadEntity", b =>
@@ -207,7 +213,7 @@ namespace MessManagemetSystem.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ExpenseHead");
+                    b.ToTable("ExpenseHeads");
                 });
 
             modelBuilder.Entity("MessManagemetSystem.API.Entities.FeedbackEntity", b =>
@@ -256,7 +262,7 @@ namespace MessManagemetSystem.API.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("FeedbackEntities");
+                    b.ToTable("Feedbacks");
                 });
 
             modelBuilder.Entity("MessManagemetSystem.API.Entities.MenuEntity", b =>
@@ -301,6 +307,61 @@ namespace MessManagemetSystem.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Menus");
+                });
+
+            modelBuilder.Entity("MessManagemetSystem.API.Entities.MonthlyClosingEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("MealPerHead")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TotalAttendance")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TotalMeals")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MonthlyClosing");
                 });
 
             modelBuilder.Entity("MessManagemetSystem.API.Entities.StudentMealSummaryEntity", b =>
@@ -371,7 +432,7 @@ namespace MessManagemetSystem.API.Migrations
                     b.Property<string>("Active")
                         .HasColumnType("varchar(MAX)");
 
-                    b.Property<double?>("Balance")
+                    b.Property<double>("Balance")
                         .HasColumnType("float");
 
                     b.Property<string>("BatchClass")
@@ -476,8 +537,8 @@ namespace MessManagemetSystem.API.Migrations
                             Active = "1",
                             Balance = 0.0,
                             CompanyId = 0,
-                            ConcurrencyStamp = "ce9759c9-85cd-47c0-b657-7258740298d4",
-                            CreatedOn = new DateTime(2025, 7, 4, 23, 9, 22, 18, DateTimeKind.Local).AddTicks(2385),
+                            ConcurrencyStamp = "d766722a-84e0-4977-9e51-733698720895",
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1976),
                             Email = "mudassar@yopmail.com",
                             EmailConfirmed = true,
                             FirstName = "Mudassar",
@@ -485,7 +546,7 @@ namespace MessManagemetSystem.API.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "mudassar@yopmail.com",
                             NormalizedUserName = "mudassar@yopmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJwIxeXamfyQA2LIpd6VjrJFasCEQkhgrDwyMHLML7g4Jj+jrHJA2TTmN4XiKStr6w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFqE0tc8yI3NywCaAGUYHnbjvqlX7FkoiZIBiXaOUHCxM6NVmXoPKkujB2npBKDoxQ==",
                             PhoneNumberConfirmed = false,
                             RoleId = 1,
                             Status = 2,
@@ -536,7 +597,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2025, 7, 4, 23, 9, 22, 18, DateTimeKind.Local).AddTicks(1715),
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1368),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Admin"
@@ -544,7 +605,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2025, 7, 4, 23, 9, 22, 18, DateTimeKind.Local).AddTicks(1887),
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1531),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Student"
@@ -552,7 +613,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2025, 7, 4, 23, 9, 22, 18, DateTimeKind.Local).AddTicks(1891),
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1533),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Operator"
@@ -603,8 +664,26 @@ namespace MessManagemetSystem.API.Migrations
                         {
                             RoleId = 1,
                             PermissionId = 1,
-                            CreatedOn = new DateTime(2025, 7, 4, 23, 9, 22, 18, DateTimeKind.Local).AddTicks(2262),
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1842),
                             Id = 1,
+                            IsActive = true,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 2,
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1844),
+                            Id = 2,
+                            IsActive = true,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            PermissionId = 3,
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1845),
+                            Id = 3,
                             IsActive = true,
                             IsDeleted = false
                         });
@@ -646,7 +725,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "47448594-71a1-486f-8fd8-d9c87178516c",
+                            ConcurrencyStamp = "4dac25e7-ebd5-4bdf-a0b1-81b05a7bbb82",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "Admin"
@@ -654,7 +733,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "22c66276-6338-45d9-8c55-1b81f8313e57",
+                            ConcurrencyStamp = "68081603-b60a-41f0-811b-abf5afa1e31a",
                             IsDeleted = false,
                             Name = "Student",
                             NormalizedName = "Student"
@@ -662,7 +741,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "00bd84e6-4d30-4832-81ae-27717abbce75",
+                            ConcurrencyStamp = "66a8ae3c-3a3a-462b-9910-d9932396f9c6",
                             IsDeleted = false,
                             Name = "Operator",
                             NormalizedName = "Operator"
@@ -779,7 +858,7 @@ namespace MessManagemetSystem.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MessManagemetSystem.API.Entities.AccountEntity", b =>
+            modelBuilder.Entity("MessManagemetSystem.API.Entities.AccountsEntity", b =>
                 {
                     b.HasOne("MessManagemetSystem.API.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany()
@@ -805,9 +884,7 @@ namespace MessManagemetSystem.API.Migrations
                 {
                     b.HasOne("MessManagemetSystem.API.Entities.ExpenseHeadEntity", "ExpenseHead")
                         .WithMany()
-                        .HasForeignKey("ExpenseHeadId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExpenseHeadId");
 
                     b.Navigation("ExpenseHead");
                 });

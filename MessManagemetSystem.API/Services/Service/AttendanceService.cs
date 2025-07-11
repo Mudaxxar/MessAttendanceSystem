@@ -75,14 +75,14 @@ namespace MessManagemetSystem.API.Services.Service
             if (student != null)
             {
                 var repo = _unitOfWork.GetRepository<AttendanceEntity>();
-                var alreadyMarked = await repo.FirstOrDefaultAsync(x => x.ApplicationUserId == student.Id && x.Date == DateTime.Today);
+                var alreadyMarked = await repo.FirstOrDefaultAsync(x => x.ApplicationUserId == student.Id && x.Date == DateTime.Today.AddDays(1));
 
                 if (alreadyMarked == null)
                 {
                     await repo.AddAsync(new AttendanceEntity
                     {
                         ApplicationUserId = student.Id,
-                        Date = DateTime.Today,
+                        Date = DateTime.Today.AddDays(1),
                         Status = model.Status
                     });
                 }

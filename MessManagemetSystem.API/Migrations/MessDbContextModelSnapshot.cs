@@ -534,8 +534,8 @@ namespace MessManagemetSystem.API.Migrations
                             Active = "1",
                             Balance = 0.0,
                             CompanyId = 0,
-                            ConcurrencyStamp = "10e202c6-f15d-4109-a803-097e74291894",
-                            CreatedOn = new DateTime(2025, 7, 9, 8, 48, 7, 955, DateTimeKind.Local).AddTicks(9732),
+                            ConcurrencyStamp = "d766722a-84e0-4977-9e51-733698720895",
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1976),
                             Email = "mudassar@yopmail.com",
                             EmailConfirmed = true,
                             FirstName = "Mudassar",
@@ -543,7 +543,7 @@ namespace MessManagemetSystem.API.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "mudassar@yopmail.com",
                             NormalizedUserName = "mudassar@yopmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDuE+KF+Ylpe3maZ6b4h8ZpBGz12b8/le/sF7JP+36mZsiD4briD/zkB2oTzJvUJcw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFqE0tc8yI3NywCaAGUYHnbjvqlX7FkoiZIBiXaOUHCxM6NVmXoPKkujB2npBKDoxQ==",
                             PhoneNumberConfirmed = false,
                             RoleId = 1,
                             Status = 2,
@@ -594,7 +594,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2025, 7, 9, 8, 48, 7, 955, DateTimeKind.Local).AddTicks(8948),
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1368),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Admin"
@@ -602,7 +602,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2025, 7, 9, 8, 48, 7, 955, DateTimeKind.Local).AddTicks(9167),
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1531),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Student"
@@ -610,7 +610,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2025, 7, 9, 8, 48, 7, 955, DateTimeKind.Local).AddTicks(9170),
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1533),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Operator"
@@ -661,8 +661,26 @@ namespace MessManagemetSystem.API.Migrations
                         {
                             RoleId = 1,
                             PermissionId = 1,
-                            CreatedOn = new DateTime(2025, 7, 9, 8, 48, 7, 955, DateTimeKind.Local).AddTicks(9599),
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1842),
                             Id = 1,
+                            IsActive = true,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 2,
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1844),
+                            Id = 2,
+                            IsActive = true,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            PermissionId = 3,
+                            CreatedOn = new DateTime(2025, 7, 10, 18, 34, 39, 268, DateTimeKind.Local).AddTicks(1845),
+                            Id = 3,
                             IsActive = true,
                             IsDeleted = false
                         });
@@ -704,7 +722,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "3329e5a1-48b3-405c-9daa-a14e56ef411f",
+                            ConcurrencyStamp = "4dac25e7-ebd5-4bdf-a0b1-81b05a7bbb82",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "Admin"
@@ -712,7 +730,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "f147ca67-5e21-4f8b-961b-a573dd76f580",
+                            ConcurrencyStamp = "68081603-b60a-41f0-811b-abf5afa1e31a",
                             IsDeleted = false,
                             Name = "Student",
                             NormalizedName = "Student"
@@ -720,7 +738,7 @@ namespace MessManagemetSystem.API.Migrations
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "55e80ced-7cfa-41c8-a20a-763bef5dab70",
+                            ConcurrencyStamp = "66a8ae3c-3a3a-462b-9910-d9932396f9c6",
                             IsDeleted = false,
                             Name = "Operator",
                             NormalizedName = "Operator"

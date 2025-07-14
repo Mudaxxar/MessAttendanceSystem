@@ -7,8 +7,8 @@ namespace MessManagementSystem.MVC.Clients.IClients
 	public interface IStudentClient
 	{
 		Task<StudentResponseModel> GetStudent(int Id);
-		Task<ApiResponse<string>> MarkAttendance(AttendanceRequestModel input);
-		Task<PaginatedResponseModel<AttendanceResponseModel>> GetAsync(PaginationParams paginationParams);
+		Task<List<AccountsResponseModel>> GetStatement(int Id);
+		
 		Task<ApiResponse<string>> CreateFeedback(FeedbackRequestModel input);
 		Task<ApiResponse<List<FeedbackResponseModel>>> GetFeedbacks();
 	}

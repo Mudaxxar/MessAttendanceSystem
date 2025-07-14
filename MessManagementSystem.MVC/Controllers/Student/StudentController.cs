@@ -13,9 +13,11 @@ namespace MessManagementSystem.MVC.Controllers.Student
     public class StudentController : BaseController
     {
         private readonly IStudentClient _studentClient;
-        public StudentController(IStudentClient studentClient)
+        private readonly IAttendanceClient _attendanceClient;
+        public StudentController(IStudentClient studentClient, IAttendanceClient attendanceClient)
         {
             _studentClient = studentClient;
+            _attendanceClient = attendanceClient;
         }
         public IActionResult Index()
         {
@@ -30,24 +32,11 @@ namespace MessManagementSystem.MVC.Controllers.Student
         }
 
         [HttpGet]
-        public IActionResult MarkAttendance()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> MarkAttendance([FromBody] AttendanceRequestModel dto)
-        {
-            var result = await _studentClient.MarkAttendance(dto);
-            return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAttendance(int pageNumber = 0, int pageSize = 10, string search = null)
+        public async Task<IActionResult> MarkAttendance(int pageNumber = 0, int pageSize = 10, string search = null)
         {
             var userId = ConfigService.GetUserId();
 
-            var result = await _studentClient.GetAsync(new PaginationParams
+            var result = await _attendanceClient.GetAsync(new PaginationParams
             {
                 PageNumber = pageNumber,
                 PageSize = pageSize,
@@ -57,11 +46,36 @@ namespace MessManagementSystem.MVC.Controllers.Student
             });
             return View(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> MarkAttendance([FromBody] AttendanceRequestModel dto)
+        {
+            dto.UserId = ConfigService.GetUserId();
+            var result = await _attendanceClient.MarkAsync(dto);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAttendance(int pageNumber = 0, int pageSize = 10, string search = null)
+        {
+            var userId = ConfigService.GetUserId();
+
+            var result = await _attendanceClient.GetAsync(new PaginationParams
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Search = search,
+                UserId = userId
+
+            });
+            return View(result);
+        }
+       
         [HttpPost]
         public async Task<IActionResult> GetAttendance([FromForm] DtParams dtParams)
         {
             var userId = ConfigService.GetUserId();
-            var result = await _studentClient.GetAsync(new PaginationParams
+            var result = await _attendanceClient.GetAsync(new PaginationParams
             {
                 PageNumber = dtParams.Start / 10,
                 PageSize = dtParams.Length,
@@ -80,5 +94,11 @@ namespace MessManagementSystem.MVC.Controllers.Student
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetStatement(int Id)
+        {
+            var result = await _studentClient.GetStatement(Id);
+            return View(result);
+        }
     }
 }

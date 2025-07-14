@@ -16,4 +16,9 @@
     <ProjectReference Include="..\MessManagementStystem.Shared\MessManagementSystem.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\DreamTemplates\plugins\fontawesome\css\" />
+    <Folder Include="wwwroot\DreamTemplates\plugins\fontawesome\webfonts\" />
+  </ItemGroup>
+
 </Project>

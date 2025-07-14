@@ -16,7 +16,6 @@ namespace MessManagemetSystem.API.Controllers
 
 	[Route("api/[controller]")]
 	[ApiController]
-	[HasPermission(AdminPermissions.Admin)]
 	public class AccountController : ControllerBase
 	{
 		private IUserService _userService;
@@ -36,7 +35,7 @@ namespace MessManagemetSystem.API.Controllers
 		}
 
 		// /api/account/register
-		//[HasPermission(AdminPermissions.Admin)]
+		[HasPermission(AdminPermissions.Admin)]
 
 		[HttpPost("Register")]
 		public async Task<IActionResult> RegisterAsync([FromBody] RegistrationRequestModel model)
@@ -135,8 +134,7 @@ namespace MessManagemetSystem.API.Controllers
 		}
 
 		[HttpPost("get-users")]
-		//[HasPermission(AdminPermissions.Admin)]
-
+		[HasPermission(AdminPermissions.Admin)]
 		public async Task<IActionResult> GetUsers([FromBody] PaginationParams paginationParams)
 		{
 			var result = await _userService.GetUsers(new PaginationParams
@@ -149,7 +147,6 @@ namespace MessManagemetSystem.API.Controllers
 		}
 
 		[HasPermission(AdminPermissions.Admin)]
-
 		[HttpPost("user-status/{id}")]
 		public async Task<IActionResult> ChangeStatus(int id)
 		{
@@ -173,9 +170,9 @@ namespace MessManagemetSystem.API.Controllers
 
 		public async Task<IActionResult> GetStudent(int Id)
 		{
-			string email = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			//string email = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-			var result = await _userService.GetUser(email);
+			var result = await _userService.GetByIdAsync(Id);
 
 			return Ok(result);
 		}

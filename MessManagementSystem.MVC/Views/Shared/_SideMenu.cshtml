@@ -10,7 +10,7 @@
             <ul>
                 <!-- Peoples -->
                 <li class="submenu-open">
-                    <h6 class="submenu-hdr">Peoples</h6>
+                    <h6 class="submenu-hdr">DashBoard</h6>
                     <ul>
                         <li class="@(currentController == "Home" && currentAction == "Index" ? "active" : "")">
                             <a asp-controller="home" asp-action="index">
@@ -22,7 +22,11 @@
                                 <i data-feather="list"></i><span>Menus</span>
                             </a>
                         </li>
-                      
+                        <li class="@(currentController == "Attendance" && currentAction == "MarkAttendance" ? "active" : "")">
+                            <a asp-controller="Attendance" asp-action="MarkAttendance">
+                                <i data-feather="list"></i><span>Mark Attendance</span>
+                            </a>
+                        </li>
                         <li class="@(currentController == "Feedback" && currentAction == "GetFeedbacks" ? "active" : "")">
                             <a asp-controller="Feedback" asp-action="GetFeedbacks">
                                 <i data-feather="message-circle"></i><span>Feed Backs</span>
@@ -53,6 +57,11 @@
                         <li class="@(currentController == "Accounts" && currentAction == "GetMonthlyClosing" ? "active" : "")">
                             <a asp-controller="Accounts" asp-action="GetMonthlyClosing">
                                 <i data-feather="calendar"></i><span>Monthly Closing</span>
+                            </a>
+                        </li>
+                        <li class="@(currentController == "Accounts" && currentAction == "GetStudentsStatement" ? "active" : "")">
+                            <a asp-controller="Accounts" asp-action="GetStudentsStatement">
+                                <i data-feather="calendar"></i><span>Reports</span>
                             </a>
                         </li>
                     </ul>

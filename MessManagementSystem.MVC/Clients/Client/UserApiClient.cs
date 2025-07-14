@@ -18,6 +18,7 @@ namespace MessManagementSystem.MVC.Services.Service
         {
             _httpClient = httpClient;
             _siteConfiguration = siteConfiguration;
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ConfigService.GetJwtToken());
         }
 
         public async Task<PaginatedResponseModel<UserResponseModel>> GetUsers(PaginationParams paginationParams)
@@ -25,7 +26,6 @@ namespace MessManagementSystem.MVC.Services.Service
             var uri = $"{_siteConfiguration.ApiBaseUrl}{ApiEndPoint.GetUsers}";
             var jsonData = JsonConvert.SerializeObject(paginationParams);
             var body = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ConfigService.GetJwtToken());
 
             var response = _httpClient.PostAsync(uri, body).Result;
             var contents = response.Content.ReadAsStringAsync().Result;
@@ -35,15 +35,16 @@ namespace MessManagementSystem.MVC.Services.Service
 
         public async Task<UserManagerResponseModel> LoginAsync(LoginRequestModel requestModel)
         {
-            try { 
-            var uri = $"{_siteConfiguration.ApiBaseUrl}{ApiEndPoint.LoginUser}";
+            try
+            {
+                var uri = $"{_siteConfiguration.ApiBaseUrl}{ApiEndPoint.LoginUser}";
 
-            var jsonData = JsonConvert.SerializeObject(requestModel);
-            var body = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var response = _httpClient.PostAsync(uri, body).Result;
-            var contents = response.Content.ReadAsStringAsync().Result;
-            var result = JsonConvert.DeserializeObject<UserManagerResponseModel>(contents);
-            return result;
+                var jsonData = JsonConvert.SerializeObject(requestModel);
+                var body = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                var response = _httpClient.PostAsync(uri, body).Result;
+                var contents = response.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<UserManagerResponseModel>(contents);
+                return result;
             }
             catch (Exception ex)
             {

@@ -9,6 +9,7 @@
         public const string UserStatus = "Account/user-status";
         public const string UsersCount = "Account/users-count";
         public const string GetStudent = "Account/user";
+        public const string GetStatement = "Accounts/get-statement";
 
 
 
@@ -72,10 +73,11 @@
         public const string GetMonthlyExpenses = "Expense/get-monthly-expenses";
         public const string GetExpense = "Expense/getbyId";
 
-        //Closing
+        //Accounts Closing
 
-        public const string AddMonthlyClosing = "Expense/add-monthly-closing";
+        public const string AddMonthlyClosing = "Accounts/add-monthly-closing";
         public const string GetMonthlyClosing = "Accounts/get-monthly-closing";
+        public const string GetStudentsStatement = "Accounts/get-students-statement";
 
 
 

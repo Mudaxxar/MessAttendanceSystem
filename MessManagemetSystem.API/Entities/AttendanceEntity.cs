@@ -11,6 +11,6 @@ namespace MessManagemetSystem.API.Entities
 		public ApplicationUser ApplicationUser { get; set; }
 		public DateTime Date { get; set; }
 		public PresenceStatus Status { get; set; }
-		public int AttendaneCount { get; set; } = 1;
+		public int AttendanceCount { get; set; } = 1;
 	}
 }

@@ -18,5 +18,6 @@ namespace MessManagementSystem.Shared.Models.ResponseModels
         public string? MessNumber { get; set; }
         public string? BatchClass { get; set; }
         public double? Balance { get; set; }
+        public double? SecurityFees { get; set; }
     }
 }

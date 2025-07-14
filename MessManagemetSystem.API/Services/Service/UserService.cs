@@ -73,6 +73,7 @@ namespace MessManagemetSystem.API.Services.Service
 				MessNumber = model.MessNumber,
 				BatchClass = model.BatchClass,
 				Balance = model.Balance,
+				SecurityFees = model.SecurityFees,
 				DecodedPassword = model.Password,
 				
 			};
@@ -336,9 +337,11 @@ namespace MessManagemetSystem.API.Services.Service
 					Active = u.Active,
 					MessNumber = u.MessNumber,
 					Balance = u.Balance,
-					BatchClass = u.BatchClass
+					BatchClass = u.BatchClass,
+					SecurityFees = u.SecurityFees,
 					
 				})
+				.OrderByDescending(x=>x.Id)
 				.ToListAsync();
 
 			var totalRecords = result.Count();
@@ -393,7 +396,7 @@ namespace MessManagemetSystem.API.Services.Service
 			return count;
 		}
 
-		public async Task<UserResponseModel> GetUser(string email)
+		public async Task<UserResponseModel> GetByEmailAsync(string email)
 		{
 			var result =  await _userManger.Users
 				.Where(x => x.Email == email).FirstOrDefaultAsync();
@@ -407,13 +410,31 @@ namespace MessManagemetSystem.API.Services.Service
 				Active = result.Active,
 				MessNumber = result.MessNumber,
 				Balance = (double)result.Balance,
-				BatchClass = result.BatchClass
+				BatchClass = result.BatchClass,
+				SecurityFees = result.SecurityFees,
 			};
 		}
-
+        public async Task<UserResponseModel> GetByIdAsync(int UserId)
+        {
+            var result = await _userManger.Users
+                .Where(x => x.Id == UserId).FirstOrDefaultAsync();
+            return new UserResponseModel
+            {
+                Id = result.Id,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                Email = result.Email,
+                Role = result?.Role?.Name,
+                Active = result.Active,
+                MessNumber = result.MessNumber,
+                Balance = (double)result.Balance,
+                BatchClass = result.BatchClass,
+                SecurityFees = result.SecurityFees,
+            };
+        }
         public async Task<UserManagerResponse> UpdateAttendance(AttendanceRequestModel input)
         {
-            var user = await _userManger.FindByIdAsync(input.userId);
+            var user = await _userManger.FindByIdAsync(input.UserId.ToString());
             if (user == null)
             {
                 return new UserManagerResponse

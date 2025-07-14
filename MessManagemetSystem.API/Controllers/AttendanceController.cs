@@ -25,7 +25,8 @@ namespace MessManagemetSystem.API.Controllers
             {
                 return BadRequest("Attendance data is required.");
             }
-            dto.userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            dto.UserEmail = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var result = await _attendanceService.MarAttendance(dto);
             if (!result)
             {

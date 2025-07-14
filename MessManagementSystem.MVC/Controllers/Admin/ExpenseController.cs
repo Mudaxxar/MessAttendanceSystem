@@ -110,7 +110,6 @@ namespace MessManagementSystem.MVC.Controllers.Admin
         [HttpPost]
         public async Task<IActionResult> AddMonthlyExpense(ExpenseRequestModel model)
         {
-            
             var result = await _expenseClient.AddMonthlyAsync(model);
             return Ok(result);
         }

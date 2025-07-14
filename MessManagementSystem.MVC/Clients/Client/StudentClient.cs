@@ -20,7 +20,8 @@ namespace MessManagementSystem.MVC.Clients.Client
 			_siteConfiguration = siteConfiguration;
 			_httpClient = httpClient;
 			_httpClientHelper = httpClientHelper;
-		}
+			_httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {ConfigService.GetJwtToken()}");
+        }
 		public async Task<StudentResponseModel> GetStudent(int Id)
 		{
 			var uri = $"{ApiEndPoint.GetStudent}/{Id}";
@@ -28,12 +29,7 @@ namespace MessManagementSystem.MVC.Clients.Client
 			return response;
 		}
 
-		public async Task<ApiResponse<string>> MarkAttendance(AttendanceRequestModel input)
-		{
-			var uri = ApiEndPoint.MarkAttendance;
-			var response = await _httpClientHelper.PostAsync<ApiResponse<string>>(uri, input);
-			return response;
-		}
+		
 		public async Task<ApiResponse<string>> CreateFeedback(FeedbackRequestModel input)
 		{
 			var uri = ApiEndPoint.AddFeedBack;
@@ -48,11 +44,13 @@ namespace MessManagementSystem.MVC.Clients.Client
 			return response;
 		}
 
-		public async Task<PaginatedResponseModel<AttendanceResponseModel>> GetAsync(PaginationParams paginationParams)
-		{
-			var uri = ApiEndPoint.GetAttendance;
-			var response = await _httpClientHelper.PostAsync<PaginatedResponseModel<AttendanceResponseModel>>(uri, paginationParams);
-			return response;
-		}
-	}
+		
+
+        public async Task<List<AccountsResponseModel>> GetStatement(int Id)
+        {
+            var uri = $"{ApiEndPoint.GetStatement}/{Id}";
+            var response = await _httpClientHelper.GetAsync<List<AccountsResponseModel>>(uri);
+            return response;
+        }
+    }
 }

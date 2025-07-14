@@ -118,6 +118,19 @@ namespace MessManagementSystem.MVC.Controllers.Admin
             return Ok(result);
         }
 
+		public async Task<IActionResult> EditUser(int Id)
+		{
+			var result = await _roleService.GetByIdAsync(Id);
+			var permissionIds = result.RolePermissions.Select(rp => rp.PermissionId).ToList();
 
-    }
+			return View(new RolesRequestModel
+			{
+				Id = result.Id,
+				Name = result.Name,
+				Permissions = permissionIds
+			});
+		}
+
+
+	}
 }

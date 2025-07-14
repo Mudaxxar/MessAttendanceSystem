@@ -39,7 +39,6 @@
 				data: ExpenseHeadsData,
 				success: function (result, status) {
 					if (status == "success") {
-						debugger;
 						if (result.isError === false) {
 							toastr.success(result.description);
 						}

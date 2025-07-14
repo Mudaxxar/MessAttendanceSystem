@@ -9,7 +9,8 @@ namespace MessManagemetSystem.API.Services.IService
         Task<UserManagerResponse> RegisterUserAsync(RegistrationRequestModel model);
         Task<UserManagerResponse> LoginUserAsync(LoginRequestModel model);
         Task<PaginatedResponseModel<UserResponseModel>> GetUsers(PaginationParams paginationParams);
-        Task<UserResponseModel> GetUser(string Email);
+        Task<UserResponseModel> GetByEmailAsync(string Email);
+        Task<UserResponseModel> GetByIdAsync(int UserId);
         Task<UserManagerResponse> ConfirmEmailAsync(string userId, string token);
         Task<UserManagerResponse> ForgetPasswordAsync(string email);
         Task<UserManagerResponse> UserStatus(int Id);

@@ -1,0 +1,159 @@
+﻿@using MessManagementSystem.Shared.Models.ResponseModels
+@using static MessManagementSystem.Shared.Enums.Enums
+@model PaginatedResponseModel<AttendanceResponseModel>
+@{
+    ViewData["Title"] = "Mark Attendance";
+    Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content">
+
+      
+
+        <!-- Attendance History -->
+        <div class="mt-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white border-0">
+                    <h4 class="mb-0">📅 Attendance History</h4>
+                    <small class="text-muted">View your meal attendance record</small>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle" id="tblAttendance">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Mess Number</th>
+                                    <th>Class</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model?.Records is not null)
+                                {
+                                    foreach (var item in Model.Records)
+                                    {
+                                        <tr>
+                                            <td>@item.UserName</td>
+                                            <td>@item.MessNumber</td>
+                                            <td>@item.Class</td>
+                                            <td>@Convert.ToDateTime(item.Date).ToString("dddd, MMM dd, yyyy")</td>
+                                            <td>
+                                                <span class="badge @((item.Status == PresenceStatus.Present) ? "bg-success" : "bg-danger") text-white">
+                                                    @item.Status
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+        const statusMap = {
+            present: 1,
+            absent: 2
+        };
+      
+        function SaveAttendance() {
+            var selected = $('input[name="status"]:checked').val();
+            var enumValue = statusMap[selected];
+
+            if (!enumValue) {
+                toastr.error("Please select attendance status.");
+                return;
+            }
+
+            $.ajax({
+                url: '/Attendance/MarkAttendance',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ status: enumValue }),
+                success: function (result) {
+                    if (result && result.message) {
+                        toastr.success(result.message);
+                    } else {
+                        toastr.success("Attendance marked successfully!");
+                    }
+                },
+                error: function (xhr) {
+                    toastr.error("Something went wrong while submitting attendance.");
+                }
+            });
+        }
+    
+        //History table
+        $(document).ready(function () {
+            var Datatable = null;
+
+            $('#tblAttendance').on('draw.dt', function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+            Datatable = $('#tblAttendance').DataTable({
+                "deferLoading": @Model.TotalRecords,
+                "sort": false,
+                "processing": true,
+                search: {
+                    return: true
+                },
+                "serverSide": true,
+                "ajax": {
+                    "url": "@Url.Action("GetAttendance")",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+
+                columns: [
+                    {data:"userName", name: "UserName", autoWidth: true},
+                    { data: "messNumber", name: "MessNumber", autoWidth: true },
+                    { data: "class", name: "Class", autoWidth: true },
+
+                    {
+                        data: 'date',
+                        name: 'Date',
+                        autoWidth: true,
+                        render: function (data, type, row) {
+                            return moment(data).format("dddd, MMMM, yyyy");
+                        }
+                    },
+                    {
+                        data: 'status',
+                        name: 'Status',
+                        autoWidth: true,
+                        render: function (data, type, row) {
+                            // Check if data contains any HTML tags
+                            const hasHtml = /<\/?[a-z][\s\S]*>/i.test(data);
+
+                            if (hasHtml) {
+                                return data; // Already contains HTML span badge
+                            }
+                            const isPresent = data === 1 || data === "1";
+                            const badgeClass = isPresent ? "bg-success" : "bg-danger";
+                            const label = isPresent ? "Present" : "Absent";
+                            return `<span class="badge ${badgeClass} text-white">${label}</span>`;
+                        }
+                    }
+                ]
+
+            });
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('#tblAttendance_filter input').unbind();
+            $('#tblAttendance_filter input').bind('keyup', function (e) {
+                if (e.keyCode == 13) {
+                    Datatable.search(this.value).draw();
+                }
+            });
+        });
+    </script>
+}

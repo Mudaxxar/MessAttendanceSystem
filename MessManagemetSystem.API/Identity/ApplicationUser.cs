@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MessManagemetSystem.API.Entities;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using static MessManagementSystem.Shared.Enums.Enums;
 
@@ -34,10 +35,11 @@ namespace MessManagemetSystem.API.Identity
 		public virtual UserRoles? Role { get; set; }
 		public PresenceStatus Status { get; set; } = PresenceStatus.Absent;
 		public DateTime? LastStatusChange { get; set; } = null;
+		public double SecurityFees { get; set; } = 0;
 		public double Balance { get; set; } = 0;
 		public string? MessNumber { get; set; } 
 		public string? BatchClass { get; set; } 
-
+		public ICollection<AttendanceEntity> Attendances { get; set; }
 
     }
 }

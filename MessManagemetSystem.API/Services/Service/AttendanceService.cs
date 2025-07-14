@@ -9,6 +9,7 @@ using MessManagemetSystem.API.Services.IService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using static MessManagementSystem.Shared.Enums.Enums;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MessManagemetSystem.API.Services.Service
@@ -44,7 +45,7 @@ namespace MessManagemetSystem.API.Services.Service
 										search.ApplicationUser.Email.ToLower().Contains(dtParams.Search.ToLower()));
 			}
 			var totalRecords = await query.CountAsync();
-			var paginatedResult = await PaginatedHelper<AttendanceEntity>.GetPaginatedRecored(query, x => x.Id, dtParams);
+			var paginatedResult = await PaginatedHelper<AttendanceEntity>.GetPaginatedRecored(query, x => x.Date, dtParams);
 
 			var response = paginatedResult.Select(x => new AttendanceResponseModel
 			{
@@ -71,7 +72,10 @@ namespace MessManagemetSystem.API.Services.Service
         {
             try
             {
-            var student = await _userService.GetUser(model.userId);
+             model.AttendanceCount = model.Status == PresenceStatus.Present ? model.AttendanceCount : 0;
+             model.Date = model.Date == null ? DateTime.Now.Date.AddDays(1) : model.Date;
+
+            var student = await _userService.GetByIdAsync(model.UserId);
             if (student != null)
             {
                 var repo = _unitOfWork.GetRepository<AttendanceEntity>();
@@ -82,8 +86,9 @@ namespace MessManagemetSystem.API.Services.Service
                     await repo.AddAsync(new AttendanceEntity
                     {
                         ApplicationUserId = student.Id,
-                        Date = DateTime.Today.AddDays(1),
-                        Status = model.Status
+                        Date = Convert.ToDateTime(model.Date),
+                        Status = model.Status,
+                        AttendanceCount = model.AttendanceCount,
                     });
                 }
                 else
@@ -92,7 +97,7 @@ namespace MessManagemetSystem.API.Services.Service
                     alreadyMarked.Status = model.Status;
                     await repo.UpdateAsync(alreadyMarked.Id, alreadyMarked);
                 }
-                 model.userId = student.Id.ToString();
+                 model.UserId = student.Id;
                 await _userService.UpdateAttendance(model); // Update User status as well.
                 await _unitOfWork.CommitAsync();
                 return true;

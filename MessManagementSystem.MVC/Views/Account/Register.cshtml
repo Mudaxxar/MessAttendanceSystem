@@ -39,7 +39,7 @@
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Security Fee </label>
-                            <input id="balance" type="text" placeholder="Enter Balance">
+                            <input id="securityFee" type="text" placeholder="Enter Security Fee">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
@@ -110,6 +110,10 @@
                 toastr.error("Please enter Balance!");
                 isValid = false;
             }
+            if ($("#securityFee").val() == "" || $("#securityFee").val() == null) {
+                toastr.error("Please enter Security Fee!");
+                isValid = false;
+            }
             if ($("#email").val() == "" || $("#email").val() == null) {
                 toastr.error("Please enter email!");
                 isValid = false;
@@ -135,6 +139,7 @@
                     MessNumber: $("#messNumber").val(),
                     BatchClass: $("#batchClass").val(),
                     Balance: $("#balance").val(),
+                    SecurityFee: $("#securityFee").val(),
                     Email: $("#email").val(),
                     Role: $("#selectRole option:selected").text(),
                     Password: $("#password").val(),
@@ -156,7 +161,6 @@
                             }
                             else {
                                 if (result.isSuccess === false) {
-                                    $("#global-loader").hide();
                                     toastr.error(result.message);
                                 } else {
                                     toastr.error(result.message);
@@ -171,6 +175,7 @@
                         toastr.error(result.message);
                     },
                 });
+                $("#global-loader").hide();
             }
         }
 

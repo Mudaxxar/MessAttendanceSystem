@@ -111,12 +111,12 @@
 				{ data: 'batchClass', name: 'BatchClass', autoWidth: true },
 				{ data: 'balance', name: 'Balance', autoWidth: true },
 				{ data: 'role', name: 'Role', autoWidth: true },
-				// {
-				// 	data: "id", name: "Id", autoWidth: true,
-				// 	render: function (data, type, row, meta) {
-				// 		return `<a href="/Account/Edit/${row.id}" onclick="Edit(${row.id} class="bnt btn-added")"></a>`;
-				// 	}
-				// }
+				{
+					data: "id", name: "Id", autoWidth: true,
+					render: function (data, type, row, meta) {
+						return `<a href="/Account/EditUser/${row.id}" onclick="Edit(${row.id})"> <img src="../DreamTemplates/images/edit.svg" /></a>
+											<a href="javascript:void(0);" onclick="ShowMarkAttendance(${row.id})"><img  src="../DreamTemplates/images/delete.svg"/></a>`;
+					}
 			]
 
 

@@ -10,8 +10,9 @@ namespace MessManagementSystem.MVC.Configuration
             {
                 AppContext.Current.Response.Cookies.Append("AspNetCore.Usk", jwtToken, new CookieOptions
                 {
-                    HttpOnly = true
-                });
+                    HttpOnly = true,
+					Expires = DateTimeOffset.UtcNow.AddMinutes(30)
+				});
             }
         }
         public static string GetJwtToken()

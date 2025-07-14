@@ -1,0 +1,149 @@
+﻿@using MessManagementSystem.Shared.Models.ResponseModels
+@model PaginatedResponseModel<StudentClosingResponse>
+@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+<style>
+	div.dataTables_processing {
+		background-color: #35b2c2
+	}
+</style>
+<div class="page-wrapper">
+	
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>Expense List</h4>
+				<h6>Manage your Expense</h6>
+			</div>
+			@* <div class="page-btn">
+				<a class="btn btn-added" asp-action="Add" asp-controller="Expense"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add New</a>
+			</div> *@
+		</div>
+		<div class="card">
+			<div class="card-body pb-1">
+				<form action="sales-report.html">
+					<div class="row align-items-end">
+						 <div class="col-lg-3 col-sm-6 col-12">
+                <div class="mb-3">
+                    <label class="form-label">Date<span class="text-danger ms-1">*</span></label>
+                    <div class="input-groupicon calender-input">
+                        <input type="text" id="date" class="datetimepicker form-control" placeholder="Choose">
+                    </div>
+                </div>
+            </div>
+						
+						<div class="col-lg-2">
+							<div class="mb-3">
+								<button class="btn btn-danger w-100" type="submit">Generate Report</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- /Expense list -->
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table" id="tblExpense">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Class</th>
+								<th>Total Attendance</th>
+								<th>Meals Amount</th>
+								<th>Advance</th>
+								<th>Previous</th>
+								<th>Total</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model.Records != null)
+							{
+								foreach (var item in Model.Records)
+								{
+									<tr>
+										<td>@item.Name</td>
+										<td>@item.Class</td>
+										<td>@item.AttendanceCount</td>
+										<td>@((int)item.MealAmount)</td>
+										<td>@((int)item.Advance)</td>
+										<td>@((int)item.Previous)</td>
+										<td>@((int)item.Total)</td>
+
+									</tr>
+								}
+							}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- /Expense list -->
+	</div>
+</div>
+
+
+<script>
+
+
+	$(document).ready(function () {
+		var Datatable = null;
+
+		$('#tblExpense').on('draw.dt', function () {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+
+		Datatable = $('#tblExpense').DataTable({
+			"deferLoading": @Model.TotalRecords,
+			"sort": false,
+			"processing": true,
+			search: {
+				return: true
+			},
+			"serverSide": true,
+			"ajax": {
+				"url": "@Url.Action("GetStudentsStatement")",
+				"type": "POST",
+				"datatype": "json",
+				"data": function (d) {
+        d.date = $('#date').val(); // Send date with a key
+    }
+			},
+			columns: [
+				{ data: 'name', name: 'Name', autoWidth: true },
+				{ data: 'class', name: 'Class', autoWidth: true },
+				{ data: 'attendanceCount', name: 'AttendanceCount', autoWidth: true },
+				{ data: 'mealAmount', name: 'MealAmount', autoWidth: true },
+				{ data: 'advance', name: 'Advance', autoWidth: true },
+				{ data: 'previous', name: 'Previous', autoWidth: true },
+				{ data: 'total', name: 'Total', autoWidth: true },
+			]
+		});
+		$('[data-toggle="tooltip"]').tooltip();
+
+		$('#tblExpense_filter input').unbind();
+		$('#tblExpense_filter input').bind('keyup', function (e) {
+			if (e.keyCode == 13) {
+				Datatable.search(this.value).draw();
+			}
+		});
+	});
+
+	$(function () {
+		$('#date').datetimepicker({
+			format: 'MM/YYYY',       // or 'MMMM YYYY' for full month
+			viewMode: 'months',      // shows month/year picker
+		});
+	});
+let d = new Date();
+d.setMonth(d.getMonth() - 1);
+$('#date').val((d.getMonth()+1).toString().padStart(2, '0') + '/' + d.getFullYear());
+
+
+
+
+</script>

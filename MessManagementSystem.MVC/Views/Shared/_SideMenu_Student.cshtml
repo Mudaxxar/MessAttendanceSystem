@@ -21,11 +21,11 @@
                             <a asp-controller="Home" asp-action="Index"><i data-feather="book-open"></i><span> Mess Menu</span></a>
                         </li>
 
-                        <li class="@(currentController == "Student" && currentAction == "MarkAttendance" ? "active" : "")">
+                        <li class="@(currentController == "Attendance" && currentAction == "MarkAttendance" ? "active" : "")">
                             <a asp-controller="Student" asp-action="MarkAttendance"><i data-feather="user-check"></i><span>Check IN</span></a>
                         </li>
-                        <li class="@(currentController == "Student" && currentAction == "GetAttendance" ? "active" : "")">
-                            <a asp-controller="Student" asp-action="GetAttendance"><i data-feather="activity"></i><span>History</span></a>
+                        <li class="@(currentController == "Student" && currentAction == "GetStatement" ? "active" : "")">
+                            <a asp-controller="Student" asp-action="GetStatement"><i data-feather="activity"></i><span>History</span></a>
                         </li>
 
                         <li class="@(currentController == "Feedback" && currentAction == "AddFeedback" ? "active" : "")">

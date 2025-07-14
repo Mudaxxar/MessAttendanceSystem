@@ -3,6 +3,7 @@ using MessManagementSystem.MVC.Configuration;
 using MessManagementSystem.MVC.EndPoints;
 using MessManagementSystem.MVC.Helper;
 using MessManagementSystem.Shared.Models;
+using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagementSystem.Shared.Models.ResponseModels;
 
 namespace MessManagementSystem.MVC.Clients.Client
@@ -28,5 +29,12 @@ namespace MessManagementSystem.MVC.Clients.Client
 			var response = await _httpClientHelper.PostAsync<PaginatedResponseModel<MonthlyClosingResponseModel>>(uri, paginationParams);
 			return response;
 		}
-	}
+
+        public async Task<PaginatedResponseModel<StudentClosingResponse>> GetStudentStatementAsync(StudentStatementRequestModel requestModel)
+        {
+            var uri = ApiEndPoint.GetStudentsStatement;
+            var response = await _httpClientHelper.PostAsync<PaginatedResponseModel<StudentClosingResponse>>(uri, requestModel);
+            return response;
+        }
+    }
 }

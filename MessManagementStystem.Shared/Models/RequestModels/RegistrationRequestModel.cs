@@ -28,6 +28,7 @@ namespace MessManagementSystem.Shared.Models.RequestModels
 
 		public string MessNumber { get; set; }
 		public string BatchClass { get; set; }
+		public double SecurityFees { get; set; } = 0;
 		public double Balance { get; set; } = 0;
 
 

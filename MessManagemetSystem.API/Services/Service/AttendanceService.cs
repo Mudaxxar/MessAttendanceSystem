@@ -79,7 +79,7 @@ namespace MessManagemetSystem.API.Services.Service
             if (student != null)
             {
                 var repo = _unitOfWork.GetRepository<AttendanceEntity>();
-                var alreadyMarked = await repo.FirstOrDefaultAsync(x => x.ApplicationUserId == student.Id && x.Date == DateTime.Today.AddDays(1));
+                var alreadyMarked = await repo.FirstOrDefaultAsync(x => x.ApplicationUserId == student.Id && x.Date == model.Date.Value);
 
                 if (alreadyMarked == null)
                 {
@@ -93,8 +93,9 @@ namespace MessManagemetSystem.API.Services.Service
                 }
                 else
                 {
-                    alreadyMarked.Date = DateTime.Today;
+                    //alreadyMarked.Date = model.Date;
                     alreadyMarked.Status = model.Status;
+                        alreadyMarked.AttendanceCount = model.AttendanceCount;
                     await repo.UpdateAsync(alreadyMarked.Id, alreadyMarked);
                 }
                  model.UserId = student.Id;

@@ -1,0 +1,118 @@
+﻿@using MessManagementSystem.Shared.Models.ResponseModels
+@model PaginatedResponseModel<AttendanceResponseModel>
+@{
+	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+}
+<style>
+	div.dataTables_processing {
+		background-color: #35b2c2
+	}
+</style>
+<div class="page-wrapper">
+	<div class="content">
+		<div class="page-header">
+			<div class="page-title">
+				<h4>Attendance List</h4>
+				<h6>Manage your Attendance</h6>
+			</div>
+			@* 	<div class="page-btn">
+			<a class="btn btn-added" asp-action="Add" asp-controller="Attendance"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add Role</a>
+			</div> *@
+		</div>
+		<!-- /role list -->
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table" id="tblAttendance">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Mess#</th>
+								<th>Class</th>
+								<th>Date</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							@if (Model is PaginatedResponseModel<AttendanceResponseModel>)
+							{
+								if (Model.Records is not null)
+								{
+									foreach (var item in Model.Records)
+									{
+										<tr>
+											<td>@item.UserName</td>
+											<td>@item.MessNumber</td>
+											<td>@item.Class</td>
+											<td>@Convert.ToDateTime(item.Date).ToString("dddd,MMM,yyyy"), @item.Date</td>
+											<td>@item.Status</td>
+
+										</tr>
+									}
+								}
+							}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- /role list -->
+	</div>
+</div>
+
+
+<script>
+
+
+	$(document).ready(function () {
+		var Datatable = null;
+
+		$('#tblAttendance').on('draw.dt', function () {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+		Datatable = $('#tblAttendance').DataTable({
+			"deferLoading": @Model.TotalRecords,
+			"sort": false,
+			"processing": true,
+			search: {
+				return: true
+			},
+			"serverSide": true,
+			"ajax": {
+				"url": "@Url.Action("GetAttendance")",
+				"type": "POST",
+				"datatype": "json"
+			},
+
+			columns: [
+				{ data: 'userName', name: 'UserName', autoWidth: true },
+				{ data: 'messNumber', name: 'MessNumber', autoWidth: true },
+				{ data: 'class', name: 'Class', autoWidth: true },
+
+				{
+					data: 'date',
+					name: 'Date',
+					autoWidth: true,
+					render: function (data, type, row) {
+						return moment(data).format("dddd, MMMM, yyyy");
+					}
+				},
+				{ data: 'status', name: 'Status', autoWidth: true },
+
+			]
+
+
+		});
+		$('[data-toggle="tooltip"]').tooltip();
+
+		$('#tblAttendance_filter input').unbind();
+		$('#tblAttendance_filter input').bind('keyup', function (e) {
+			if (e.keyCode == 13) {
+				Datatable.search(this.value).draw();
+			}
+		});
+	});
+
+
+</script>

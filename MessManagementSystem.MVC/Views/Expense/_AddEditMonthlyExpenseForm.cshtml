@@ -1,35 +1,33 @@
-﻿
-<div class="card">
+﻿<div class="card">
     <div class="card-body">
         <div class="row">
 
-            <div class="col-lg-3 col-sm-6 col-12">
-                <div class="mb-3">
-                    <label class="form-label">Date<span class="text-danger ms-1">*</span></label>
+            <!-- Date -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label>Date <span class="text-danger ms-1">*</span></label>
                     <div class="input-groupicon calender-input">
-                        <input type="text" id="date" class="datetimepicker form-control" placeholder="Choose">
+                        <input type="text" id="date" class="datetimepicker form-control" placeholder="Choose Date">
                     </div>
                 </div>
             </div>
 
-        
-
-
-
-            <div class="col-lg-3 col-sm-6 col-12">
+            <!-- Amount -->
+            <div class="col-lg-4 col-sm-6 col-12">
                 <div class="form-group">
                     <label>Amount</label>
-                    <input type="text" id="amount" value="@Model.Amount">
+                    <input type="text" id="amount" class="form-control" value="@Model.Amount" placeholder="Enter amount">
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 col-12">
+
+            <!-- Description -->
+            <div class="col-lg-4 col-sm-6 col-12">
                 <div class="form-group">
                     <label>Description</label>
-                    <input type="text" id="description" value="@Model.Description">
+                    <input type="text" id="description" class="form-control" value="@Model.Description" placeholder="Enter description">
                 </div>
             </div>
+
         </div>
-
-
     </div>
 </div>

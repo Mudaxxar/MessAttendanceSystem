@@ -32,6 +32,7 @@
 					<table class="table" id="tblUsers">
 						<thead>
 							<tr>
+								<th style="display:none">Id</th>
 								<th>Mess#</th>
 								<th>Name</th>
 								<th>Email</th>
@@ -50,13 +51,13 @@
 									foreach (var item in Model.Records)
 									{
 										<tr>
+											<td style=" display:none">@item.Id</td>
 											<td>@item.MessNumber</td>
 											<td>@item.FirstName</td>
 											<td>@item.Email</td>
 											<td>@item.BatchClass</td>
-											<td>@item.Balance</td>
+											<td>@Convert.ToInt32(item.Balance)</td>
 											<td>@item.Role</td>
-											
 
 											<td class="text-center">
 												<a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,18 +65,27 @@
 												</a>
 												<ul class="dropdown-menu" style="">
 												
-													<li>
+												@* 	<li>
 														<a href="javascript:void(0);" class="dropdown-item" data-id="@item.Id" data-bs-toggle="modal" data-bs-target="#showAttendance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign info-img"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>Show Attendances</a>
-													</li>
+													</li> *@
 													<li>
-														<a href="javascript:void(0);" 
-														class="dropdown-item"
-														data-id="@item.Id" 
-														onclick="document.getElementById('createAttendanceUserId').value='@item.Id'"
-														data-bs-toggle="modal"
-														data-bs-target="#createAttendance">
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle info-img"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Create Attendance</a>
+														<a href="javascript:void(0);"
+														   class="dropdown-item"
+														   onclick="setAttendanceUser(5)"
+														   data-bs-toggle="modal"
+														   data-bs-target="#createAttendance">
+															<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+																 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+																 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+																 class="feather feather-plus-circle info-img">
+																<circle cx="12" cy="12" r="10"></circle>
+																<line x1="12" y1="8" x2="12" y2="16"></line>
+																<line x1="8" y1="12" x2="16" y2="12"></line>
+															</svg>
+															Create Attendance
+														</a>
 													</li>
+
 																			
 												</ul>
 											</td>
@@ -158,28 +168,28 @@
 			},
 
 			columns: [
+				{ data: 'id', name: 'Id', autowidth: true,visible:false },
 				{ data: 'messNumber', name: 'MessNumber', autowidth: true },
 				{ data: 'firstName', name: 'FirstName', autoWidth: true },
 				{ data: 'email', name: 'Email', autoWidth: true },
 				{ data: 'batchClass', name: 'BatchClass', autoWidth: true },
 				{ data: 'balance', name: 'Balance', autoWidth: true },
 				{ data: 'role', name: 'Role', autoWidth: true },
+				
 				{
-					data: "id", name: "Action", autoWidth: true,
+					data: "action", name: "Action", autoWidth: true,
 					render: function (data, type, row, meta) {
+						debugger;
 						return `<a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
 														<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
 													</a>
 													<ul class="dropdown-menu" style="">
 
 														<li>
-															<a href="javascript:void(0);" class="dropdown-item" data-id="(${row.Id})" data-bs-toggle="modal" data-bs-target="#showAttendance"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign info-img"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>Show Attendances</a>
-														</li>
-														<li>
 															<a href="javascript:void(0);"
 															class="dropdown-item"
-																data-id="(${row.Id})"
-																onclick="document.getElementById('createAttendanceUserId').value='(${row.Id})'"
+																data-id="(${row.id})"
+																	onclick="setAttendanceUser(${row.id})"
 															data-bs-toggle="modal"
 															data-bs-target="#createAttendance">
 															<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle info-img"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Create Attendance</a>
@@ -204,6 +214,7 @@
 	});
 
   function MarkAttendance() {
+	  debugger;
     var userId = $('#createAttendanceUserId').val()?.trim();
     var count = $('#attendanceCount').val()?.trim();
 
@@ -212,7 +223,7 @@
 		var isoDate = momentDate.format('YYYY-MM-DD');      // "2025-07-15"
 
     // Basic validation (same as before)
-    if (!userId) {
+    if (!userId && userId === 'undefined') {
         toastr.error("User ID is missing.");
         return;
     }
@@ -242,6 +253,9 @@
     });
 }
 
-
+	function setAttendanceUser(id) {
+		debugger;
+		document.getElementById('createAttendanceUserId').value = id;
+	}
 
 </script>

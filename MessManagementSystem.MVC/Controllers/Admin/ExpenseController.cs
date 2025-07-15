@@ -18,8 +18,50 @@ namespace MessManagementSystem.MVC.Controllers.Admin
             _expenseClient = Expenseervice;
             _expenseHeadClient = expenseHeadClient;
         }
+		//Monthly Expenses
+		[HttpGet]
+		public async Task<IActionResult> GetMonthlyExpense(int pageNumber = 1, int pageSize = 10, string search = null)
+		{
+			var result = await _expenseClient.GetMonthlyAsync(new PaginationParams
+			{
+				PageNumber = pageNumber,
+				PageSize = pageSize,
+				Search = search
+			});
+			return View(result);
+		}
+		public async Task<IActionResult> AddMonthly()
+		{
+			ViewBag.ExpenseHeads = await _expenseHeadClient.GetAllAsync();
+			return View(new ExpenseRequestModel());
+		}
 
-        [HttpGet]
+		[HttpPost]
+		public async Task<IActionResult> AddMonthlyExpense(ExpenseRequestModel model)
+		{
+			var result = await _expenseClient.AddMonthlyAsync(model);
+			return Ok(result);
+		}
+		public async Task<IActionResult> EditMonthlyExpense(int Id)
+		{
+			var result = await _expenseClient.GetByIdAsync(Id);
+
+			return View(result);
+		}
+
+		public async Task<IActionResult> MonthlyClosing()
+		{
+			ViewBag.ExpenseHeads = await _expenseHeadClient.GetAllAsync();
+			return View(new ExpenseRequestModel());
+		}
+		[HttpPost]
+		public async Task<IActionResult> MonthlyClosing(int Id)
+		{
+			var result = await _expenseClient.AddMonthlyClosingAsync(Id);
+			return Ok(result);
+		}
+
+		[HttpGet]
         public async Task<IActionResult> GetExpense(int pageNumber = 1, int pageSize = 10, string search = null)
         {
             var result = await _expenseClient.GetAsync(new PaginationParams
@@ -89,52 +131,6 @@ namespace MessManagementSystem.MVC.Controllers.Admin
             return Ok(result);
         }
 
-        //Monthly Expenses
-        [HttpGet]
-        public async Task<IActionResult> GetMonthlyExpense(int pageNumber = 1, int pageSize = 10, string search = null)
-        {
-            var result = await _expenseClient.GetMonthlyAsync(new PaginationParams
-            {
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                Search = search
-            });
-            return View(result);
-        }
-        public async Task<IActionResult> AddMonthly()
-        {
-            ViewBag.ExpenseHeads = await _expenseHeadClient.GetAllAsync();
-            return View(new ExpenseRequestModel());
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddMonthlyExpense(ExpenseRequestModel model)
-        {
-            var result = await _expenseClient.AddMonthlyAsync(model);
-            return Ok(result);
-        }
-        public async Task<IActionResult> EditMonthlyExpense(int Id)
-        {
-            var result = await _expenseClient.GetByIdAsync(Id);
-
-            return View(new ExpenseRequestModel
-            {
-                ExpenseHeadId = result.Data.ExpenseHeadId,
-                Id = result.Data.Id
-
-            });
-        }
-
-        public async Task<IActionResult> MonthlyClosing()
-        {
-            ViewBag.ExpenseHeads = await _expenseHeadClient.GetAllAsync();
-            return View(new ExpenseRequestModel());
-        }
-        [HttpPost]
-        public async Task<IActionResult> MonthlyClosing(int Id)
-        {
-            var result = await _expenseClient.AddMonthlyClosingAsync(Id);
-			return Ok(result);
-        }
+       
     }
 }

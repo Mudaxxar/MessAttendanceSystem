@@ -71,7 +71,7 @@
                                     foreach (var item in Model.Records)
                                     {
                                         <tr>
-                                            <td>@Convert.ToDateTime(item.Date).ToString("dddd, MMM dd, yyyy")</td>
+                                            <td>@Convert.ToDateTime(item.Date).ToString("DD MMM, yyyy")</td>
                                             <td>
                                                 <span class="badge @((item.Status == PresenceStatus.Present) ? "bg-success" : "bg-danger") text-white">
                                                     @item.Status
@@ -163,7 +163,7 @@
                         name: 'Date',
                         autoWidth: true,
                         render: function (data, type, row) {
-                            return moment(data).format("dddd, MMMM, yyyy");
+                            return moment(data).format("DD MMM,YYYY");
                         }
                     },
                     {

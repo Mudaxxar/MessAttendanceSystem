@@ -49,22 +49,14 @@ namespace MessManagementSystem.MVC.Controllers
 			};
 			return Ok(response);
 		}
-		[HttpGet]
-        public async Task<IActionResult> MarkAttendance(int pageNumber = 0, int pageSize = 10, string search = null)
-        {
-
-            var result = await _attendanceClient.GetAsync(new PaginationParams
-            {
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                Search = search,
-
-            });
-            return View(result);
-        }
+	
         [HttpPost]
         public async Task<IActionResult> MarkAttendance([FromBody] AttendanceRequestModel dto)
         {
+			if(dto == null)
+			{
+				return BadRequest("No data found!");
+			}
             var result = await _attendanceClient.MarkAsync(dto);
             return Ok(result);
         }

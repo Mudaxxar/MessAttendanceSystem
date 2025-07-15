@@ -6,88 +6,99 @@
 
 <div class="page-wrapper">
     <div class="content">
+        <!-- Page Header -->
         <div class="page-header">
             <div class="page-title">
                 <h4>User Management</h4>
                 <h6>Register User</h6>
             </div>
         </div>
-        <!-- /add -->
+
+        <!-- Registration Card -->
         <div class="card">
             <div class="card-body">
+                <form id="registerForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input id="firstname" type="text" class="form-control" placeholder="Enter Name">
+                            </div>
+                        </div>
 
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label> Name </label>
-                            <input id="firstname" type="text" placeholder="Enter Name">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Mess Number</label>
+                                <input id="messNumber" type="text" class="form-control" placeholder="Enter Mess Number">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Class</label>
+                                <input id="batchClass" type="text" class="form-control" placeholder="Enter Class">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Security Fee</label>
+                                <input id="securityFee" type="number" class="form-control" placeholder="Enter Security Fee">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Balance</label>
+                                <input id="balance" type="number" class="form-control" placeholder="Enter Balance">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input id="email" type="email" class="form-control" placeholder="Enter Email">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input id="password" type="password" class="form-control" placeholder="Enter Password">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input id="confirmpassword" type="password" class="form-control" placeholder="Confirm Password">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Role</label>
+                                <select class="form-select select" id="selectRole">
+                                    <option selected disabled>Select Role</option>
+                                    @foreach (var r in roles)
+                                    {
+                                        <option value="@r.Id">@r.Name</option>
+                                    }
+                                </select>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Mess Number </label>
-                            <input id="messNumber" type="text" placeholder="Enter Mess Number">
-                        </div>
+                    <!-- Submit Button -->
+                    <div class="mt-4 text-end">
+                        <a class="btn btn-submit" href="javascript:void(0);" onclick="Save()">Submit</a>
                     </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Class </label>
-                            <input id="batchClass" type="text" placeholder="Enter Class">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Security Fee </label>
-                            <input id="securityFee" type="text" placeholder="Enter Security Fee">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Balance </label>
-                            <input id="balance" type="text" placeholder="Enter Balance">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Email </label>
-                            <input id="email" type="text" placeholder="Enter email">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Password </label>
-                            <input id="password" type="text" placeholder="Enter password">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Confirm Password </label>
-                            <input id="confirmpassword" type="text" placeholder="Enter confirm password">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Role </label>
-                            <select class="select" id="selectRole">
-                                <option selected>Select Role</option>
-                                @foreach (var r in roles)
-                                {
-                                    <option value="@r.Id">@r.Name</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
-        <div class="col-lg-12">
-            <a class="btn btn-submit me-2" href="javascript:void(0);" id="submit" onclick="Save()"> Submit</a>
-        </div>
-        <!-- /add -->
     </div>
-
 </div>
+
 
 @section Scripts {
     <script>

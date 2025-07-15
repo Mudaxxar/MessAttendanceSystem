@@ -17,12 +17,18 @@ namespace MessManagemetSystem.API.Services.Service
 	{
 		private readonly MessDbContext _dbContext;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IConfiguration _configuration;
         public AccountsService(MessDbContext messDbContext
-, IUnitOfWork unitOfWork          )
+, IUnitOfWork unitOfWork      
+            ,IConfiguration configuration1)
         {
             _dbContext = messDbContext;
             _unitOfWork = unitOfWork;
-        }
+			_configuration = configuration1;
+            mealCount = int.Parse(_configuration.GetSection("Settings:AttendanceCount").Value);
+		}
+        int mealCount = 1;
+
         public async Task<ApiResponse<bool>> AddMonthlyClosingAsync(int id)
         {
             var repo = _unitOfWork.GetRepository<ExpenseEntity>();
@@ -30,92 +36,97 @@ namespace MessManagemetSystem.API.Services.Service
             var existingExpense = await repo.FirstOrDefaultAsync(x => x.Id == id && x.Status == ClosingStatus.Open);
             if (existingExpense != null)
             {
-
-                var totalexpensAmount = existingExpense.Amount;
-
-                var totalAttendace = await _dbContext.Attendance
-                    .Where(x => x.Date.Year == existingExpense.Date.Value.Year &&
-                                x.Date.Month == existingExpense.Date.Value.Month)
-                    .SumAsync(x => x.AttendanceCount);
-
-                var mealPerHead = totalexpensAmount / (totalAttendace * 2);
-                // Create a new MonthlyClosingEntity
-                var monthlyClosing = new MonthlyClosingEntity
+                try
                 {
+                    var totalexpensAmount = existingExpense.Amount;
 
-                    Date = existingExpense.Date.Value,
-                    Description = $"Monthly Closing for {existingExpense.Date.Value.ToString("MMMM yyyy")}",
-                    Amount = totalexpensAmount,
-                    TotalAttendance = totalAttendace,
-                    TotalMeals = totalAttendace * 2, // Assuming 2 meals per day
-                    MealPerHead = mealPerHead,
-                    Status = ClosingStatus.Close,
-
-                };
-
-                // Add the monthly closing to the database
-                var closingRepo = _unitOfWork.GetRepository<MonthlyClosingEntity>();
-                await closingRepo.AddAsync(monthlyClosing);
-
-
-                var usersRepo = _unitOfWork.GetRepository<ApplicationUser>();
-                var Users = await usersRepo.GetIncludeAsync(
-                    predicate: x => (x.
-                                    Role.Name.ToLower() == "student" 
-                                    || x.Role.Name.ToLower() == "staff") 
-                                    && x.Attendances.Sum(a => a.AttendanceCount) >= 1,
-                    include: x => x
-                                  .Include(u => u.Role )
-                                  .Include(u => u.Attendances)
-                );
-
-                foreach (var student in Users)
-                {
-                    var countStudentAttendance = await _dbContext.Attendance
-                        .Where(x => x.ApplicationUserId == student.Id &&
-                                    x.Date.Year == existingExpense.Date.Value.Year &&
+                    var totalAttendace = await _dbContext.Attendance
+                        .Where(x => x.Date.Year == existingExpense.Date.Value.Year &&
                                     x.Date.Month == existingExpense.Date.Value.Month)
-                        .SumAsync(a=>a.AttendanceCount);
+                        .SumAsync(x => x.AttendanceCount);
 
-                    var UserBalance = Convert.ToDecimal(student.Balance) - (countStudentAttendance * mealPerHead * 2); // Assuming 2 meals per day
-                    
-                    var userAccount = new AccountsEntity
+                    var mealPerHead = totalexpensAmount / (totalAttendace * mealCount);
+                    // Create a new MonthlyClosingEntity
+                    var monthlyClosing = new MonthlyClosingEntity
                     {
-                        ApplicationUserId = student.Id,
-                        Credit = 0,
-                        Debit = countStudentAttendance * mealPerHead * 2, // Assuming 2 meals per day
+
                         Date = existingExpense.Date.Value,
-                        Balance = UserBalance,
                         Description = $"Monthly Closing for {existingExpense.Date.Value.ToString("MMMM yyyy")}",
+                        Amount = totalexpensAmount,
+                        TotalAttendance = totalAttendace,
+                        TotalMeals = totalAttendace * mealCount, // Assuming 2 meals per day
+                        MealPerHead = mealPerHead,
+                        Status = ClosingStatus.Close,
+
                     };
+
+                    // Add the monthly closing to the database
+                    var closingRepo = _unitOfWork.GetRepository<MonthlyClosingEntity>();
+                    await closingRepo.AddAsync(monthlyClosing);
+
+
+                    var usersRepo = _unitOfWork.GetRepository<ApplicationUser>();
                     var userAccountRepo = _unitOfWork.GetRepository<AccountsEntity>();
-                    await userAccountRepo.AddAsync(userAccount);
-                    student.Balance = Convert.ToDouble(UserBalance); // Update user balance
-                    usersRepo.Update(student);
+
+                    var Users = await usersRepo.GetIncludeAsync(
+                        predicate: x => x.Attendances.Sum(a => a.AttendanceCount) >= 1,
+                        include: x => x
+                                      .Include(u => u.Attendances)
+
+                    );
+
+                    foreach (var student in Users)
+                    {
+                        var countStudentAttendance = await _dbContext.Attendance
+                            .Where(x => x.ApplicationUserId == student.Id &&
+                                        x.Date.Year == existingExpense.Date.Value.Year &&
+                                        x.Date.Month == existingExpense.Date.Value.Month)
+                            .SumAsync(a => a.AttendanceCount);
+
+                        var UserBalance = Convert.ToDecimal(student.Balance) + (countStudentAttendance * mealPerHead * mealCount); // Assuming 2 meals per day
+
+                        var userAccount = new AccountsEntity
+                        {
+                            ApplicationUserId = student.Id,
+                            Credit = 0,
+                            Debit = countStudentAttendance * mealPerHead * mealCount, // Assuming 2 meals per day
+                            Date = existingExpense.Date.Value,
+                            Balance = UserBalance,
+                            Description = $"Monthly Closing for {existingExpense.Date.Value.ToString("MMMM yyyy")}",
+                        };
+                        await userAccountRepo.AddAsync(userAccount);
+                        // Update user balance
+                        student.Balance = Convert.ToDouble(UserBalance); // Update user balance
+                        usersRepo.Update(student);
+                    }
+
+                    // Update the status to closed
+                    existingExpense.Status = ClosingStatus.Close;
+                    repo.Update(existingExpense);
+                    await _unitOfWork.CommitAsync();
+
+                    return new ApiResponse<bool>
+                    {
+                        Description = "Successfully Updated!",
+                        Message = "Successfully Updated",
+                        IsError = false,
+                        Succeeded = true
+                    };
                 }
-
-                // Update the status to closed
-                existingExpense.Status = ClosingStatus.Close;
-                repo.Update(existingExpense);
-                await _unitOfWork.CommitAsync();
-
-                return new ApiResponse<bool>
+                catch (Exception ex)
                 {
-                    Description = "Successfully Updated!",
-                    Message = "Successfully Updated",
-                    IsError = false,
-                    Succeeded = true
-                };
+
+                }
+                
             }
             return new ApiResponse<bool>
             {
-                Description = "Error while Deleting!",
-                Message = "Error while Deleting",
+                Description = $"Monthly Closing for {existingExpense.Date.Value.ToString("MMMM yyyy")} is closed!",
+                Message = $"Monthly Closing for {existingExpense.Date.Value.ToString("MMMM yyyy")} is closed!",
                 IsError = false,
                 Succeeded = true
 
             };
-
         }
         public async Task<PaginatedResponseModel<MonthlyClosingResponseModel>> GetMonthlyClosingAsync(PaginationParams pParams)
 		{
@@ -224,10 +235,10 @@ namespace MessManagemetSystem.API.Services.Service
                     Name = x.ApplicationUser.FirstName,
                     Class = x.ApplicationUser.BatchClass,
                     AttendanceCount = x.ApplicationUser.Attendances.Sum(a => a.AttendanceCount),
-                    MealAmount = (decimal)x.ApplicationUser.Attendances.Sum(a => a.AttendanceCount) * 2 * mealPerHead, // Assuming 2 meals per day
+                    MealAmount = (decimal)x.ApplicationUser.Attendances.Sum(a => a.AttendanceCount) * mealCount * mealPerHead, // Assuming 2 meals per day
                     Advance = x.ApplicationUser.SecurityFees,
                     Previous = x.ApplicationUser.Balance,
-                    Total = x.ApplicationUser.Attendances.Sum(a => a.AttendanceCount) * 2 * mealPerHead + (decimal)x.ApplicationUser.Balance,
+                    Total = x.ApplicationUser.Attendances.Sum(a => a.AttendanceCount) * mealCount * mealPerHead + (decimal)x.ApplicationUser.Balance,
 
                 })
                 .ToListAsync();

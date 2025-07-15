@@ -19,50 +19,60 @@ namespace MessManagemetSystem.API
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                if (DateTime.Now.Hour == 18)
+                var now = DateTime.Now;
+                var todayAt4PM = DateTime.Today.AddHours(0); // 12 PM today
+
+                // If already past 4 PM, schedule for tomorrow
+                var nextRunTime = now > todayAt4PM
+                    ? todayAt4PM.AddDays(1)
+                    : todayAt4PM;
+
+                var delay = nextRunTime - now;
+
+                await Task.Delay(delay, stoppingToken); // ⏳ Wait until 4 PM
+
+                if (stoppingToken.IsCancellationRequested)
+                    break;
+
+                try
                 {
                     using var scope = _services.CreateScope();
                     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<UserRoles>>();
                     var dbContext = scope.ServiceProvider.GetRequiredService<MessDbContext>();
-                    var roles = await roleManager.Roles.ToListAsync();
-                    string studentRole = roles[1].Name;
-                    var students = (await userManager.GetUsersInRoleAsync(studentRole)).ToList();
 
+                    var students = await dbContext.Users
+                        .Include(x => x.Role)
+                        .Where(r => r.Role.Name.ToLower() == "student")
+                        .ToListAsync(stoppingToken);
 
-                    var allUsers = await userManager.Users.ToListAsync();
-					foreach (var user in allUsers)
-					{
-						var userRoles = await userManager.GetRolesAsync(user);
-						Console.WriteLine($"{user.UserName}: {string.Join(", ", userRoles)}");
-					}
-
-					var user1 = await userManager.FindByEmailAsync("user@yopmail.com");
-					var roles1 = await userManager.GetRolesAsync(user1);
-
-					Console.WriteLine($"{user1.Email} roles: {string.Join(", ", roles)}");
-					foreach (var student in students)
+                    foreach (var student in students)
                     {
-                        bool exists = await dbContext.Attendance
-							.AnyAsync(a => a.ApplicationUserId == student.Id && a.Date == DateTime.Today.AddDays(1));
+                        bool exists = await dbContext.Attendance.AnyAsync(a =>
+                            a.ApplicationUserId == student.Id &&
+                            a.Date == DateTime.Today.AddDays(1), stoppingToken);
+
                         if (!exists)
                         {
                             dbContext.Attendance.Add(new AttendanceEntity
                             {
                                 ApplicationUserId = student.Id,
                                 Date = DateTime.Today.AddDays(1),
-                                Status = student.Status
+                                Status = student.Status,
+                                AttendanceCount = 1
                             });
                         }
                     }
 
-                    await dbContext.SaveChangesAsync();
+                    await dbContext.SaveChangesAsync(stoppingToken);
                 }
-
-                await Task.Delay(TimeSpan.FromHours(4), stoppingToken);
-                //await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                catch (Exception ex)
+                {
+                    // Optional: Log error
+                }
             }
         }
+
     }
 
 }

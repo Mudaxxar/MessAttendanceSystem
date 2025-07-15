@@ -35,6 +35,10 @@
 						
 						<div class="col-lg-2">
 							<div class="mb-3">
+								<button class="btn btn-success w-100" type="button" onclick="LoadStatement()">Get</button>
+							</div>
+						</div><div class="col-lg-2">
+							<div class="mb-3">
 								<button class="btn btn-danger w-100" type="submit">Generate Report</button>
 							</div>
 						</div>
@@ -110,7 +114,7 @@
 				"type": "POST",
 				"datatype": "json",
 				"data": function (d) {
-        d.date = $('#date').val(); // Send date with a key
+				d.date = $('#date').val(); // Send date with a key
     }
 			},
 			columns: [
@@ -145,5 +149,24 @@ $('#date').val((d.getMonth()+1).toString().padStart(2, '0') + '/' + d.getFullYea
 
 
 
+	function LoadStatement() {
+		var isValid = true;
 
+		if ($("#date").val() === "" || $("#date").val() == null) {
+			toastr.error("Date is missing!");
+			isValid = false;
+		}
+
+		if (isValid) {
+			// Trigger DataTable reload
+			$('#tblExpense').DataTable().ajax.reload();
+		}
+	}
+
+
+
+	$('#date').datetimepicker({
+		format: 'MM/YYYY',       // or 'MMMM YYYY' for full month
+		viewMode: 'months'       // shows month/year picker
+	});
 </script>

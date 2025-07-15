@@ -418,19 +418,28 @@ namespace MessManagemetSystem.API.Services.Service
         {
             var result = await _userManger.Users
                 .Where(x => x.Id == UserId).FirstOrDefaultAsync();
-            return new UserResponseModel
-            {
-                Id = result.Id,
-                FirstName = result.FirstName,
-                LastName = result.LastName,
-                Email = result.Email,
-                Role = result?.Role?.Name,
-                Active = result.Active,
-                MessNumber = result.MessNumber,
-                Balance = (double)result.Balance,
-                BatchClass = result.BatchClass,
-                SecurityFees = result.SecurityFees,
-            };
+			if (result != null)
+			{
+
+
+				return new UserResponseModel
+				{
+					Id = result.Id,
+					FirstName = result.FirstName,
+					LastName = result.LastName,
+					Email = result.Email,
+					Role = result?.Role?.Name,
+					Active = result.Active,
+					MessNumber = result.MessNumber,
+					Balance = (double)result.Balance,
+					BatchClass = result.BatchClass,
+					SecurityFees = result.SecurityFees,
+				};
+			}
+			return new UserResponseModel
+			{
+
+			};
         }
         public async Task<UserManagerResponse> UpdateAttendance(AttendanceRequestModel input)
         {

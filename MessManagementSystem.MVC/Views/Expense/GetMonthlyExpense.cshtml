@@ -116,11 +116,21 @@
 				{
 					data: "id", name: "Action", autoWidth: true,
 					render: function (data, type, row, meta) {
-						return `<a href="/Expense/Edit/${row.id}" onclick="Edit(${row.id})"> <img src="../DreamTemplates/images/edit.svg" /></a>
 
-												<a href="javascript:void(0);" onclick="Close(${row.id})"><img src="../DreamTemplates/images/icons/dash1 (1).svg" alt="Close" /></a>`;
+						let html = '';
+						if (row.status === "Opened") {
+							html += `<a href="/Expense/EditMonthlyExpense/${row.id}" onclick="Edit(${row.id})">
+								<img src="../DreamTemplates/images/edit.svg" alt="Edit" />
+							</a>`;
+							html += `<a href="javascript:void(0);" onclick="Close(${row.id})">
+							<img src="../DreamTemplates/images/icons/dash1 (1).svg" alt="Close" />
+						</a>`;
+						}
+
+						return html;
 					}
-				},
+				}
+
 
 			]
 

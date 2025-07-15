@@ -27,6 +27,7 @@ namespace MessManagementSystem.MVC.Controllers.Student
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
+            Id = ConfigService.GetUserId();
             var result = await _studentClient.GetStudent(Id);
             return View(result);
         }

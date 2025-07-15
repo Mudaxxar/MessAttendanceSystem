@@ -23,8 +23,8 @@
                             </a>
                         </li>
                         <li class="@(currentController == "Attendance" && currentAction == "GetAttendance" ? "active" : "")">
-                            <a asp-controller="Attendance" asp-action="MarkAttendance">
-                                <i data-feather="list"></i><span>View Attendance</span>
+                            <a asp-controller="Attendance" asp-action="GetAttendance">
+                                <i data-feather="calendar"></i><span>View Attendances</span>
                             </a>
                         </li>
                         <li class="@(currentController == "Feedback" && currentAction == "GetFeedbacks" ? "active" : "")">
@@ -53,7 +53,12 @@
                             <a asp-controller="Expense" asp-action="GetMonthlyExpense">
                                 <i data-feather="dollar-sign"></i><span>Monthly Expenses</span>
                             </a>
-                        </li> 
+                        </li>
+                        <li class="@(currentController == "Expense" && currentAction == "AddMonthly" ? "active" : "")">
+                            <a asp-controller="Expense" asp-action="AddMonthly">
+                                <i data-feather="dollar-sign"></i><span>Add Monthly Expenses</span>
+                            </a>
+                        </li>
                         <li class="@(currentController == "Accounts" && currentAction == "GetMonthlyClosing" ? "active" : "")">
                             <a asp-controller="Accounts" asp-action="GetMonthlyClosing">
                                 <i data-feather="calendar"></i><span>Monthly Closing</span>

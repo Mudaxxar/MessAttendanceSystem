@@ -45,21 +45,8 @@
 										<td>@item.Description</td>
 										<td>@item.Amount</td>
 									
-										<td>
-								@if (item.Status == ClosingStatus.Open)
-								{
-												<button class="btn btn-primary">
-								Open
-								</button>
-								}
-								else if (item.Status == ClosingStatus.Close)
-								{
-												<button class="btn btn-secondary">
-								Closed
-								</button>
-								}
-
-								</td>
+									
+										<td>@item.Status</td>
 										<td>@item.Id</td>
 
 									</tr>
@@ -111,14 +98,26 @@
 				},
 				{ data: 'description', name: 'Description', autoWidth: true },
 				{ data: 'amount', name: 'Amount', autoWidth: true },
-				{ data: 'status', name: 'Status', autoWidth: true },
+				{ data: 'status', name: 'Status', autoWidth: true,
+				render: function(data, type, row ,meta)
+				{
+				if(row.status ==='Open'|| row.status === 1)
+				{
+				return '<button class="btn btn-secondary">Open</button>'
+
+				}
+				else{
+				return '<button class="btn btn-secondary">Closed</button>'
+				}
+				}
+				},
 
 				{
 					data: "id", name: "Action", autoWidth: true,
 					render: function (data, type, row, meta) {
 
 						let html = '';
-						if (row.status === "Opened") {
+						if (row.status === "Open" || row.status === 1) {
 							html += `<a href="/Expense/EditMonthlyExpense/${row.id}" onclick="Edit(${row.id})">
 								<img src="../DreamTemplates/images/edit.svg" alt="Edit" />
 							</a>`;

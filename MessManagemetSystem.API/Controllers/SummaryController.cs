@@ -26,8 +26,12 @@ namespace MessManagemetSystem.API.Controllers
         public async Task<SummaryResponseModel> GetDailySummary(DateTime? date = null)
         {
             date ??= DateTime.Today;
-            var presentCount = await _context.Attendance.CountAsync(a => a.Date == date && a.Status == PresenceStatus.Present);
-            var absentCount = await _context.Attendance.CountAsync(a => a.Date == date && a.Status == PresenceStatus.Absent);
+            //If Role is Student, count one attendance row.
+           //If Role is not Student, add AttendanceCount instead.
+            var presentCount = await _context.Attendance.Where(a => a.Date.Date == date.Value.Date && a.Status == PresenceStatus.Present).CountAsync();
+			var mealsCount = await _context.Attendance.SumAsync(a => a.MealsCount);
+
+			var absentCount = await _context.Attendance.CountAsync(a => a.Date == date && a.Status == PresenceStatus.Absent);
             var totalStudents = await _context.Users.Where(x=>x.RoleId == 2).CountAsync();
 
             //Recent User Registered
@@ -43,6 +47,7 @@ namespace MessManagemetSystem.API.Controllers
 			return (new SummaryResponseModel
             {
                 PresentCount = presentCount,
+                MealsCount = mealsCount,
                 AbsentCount = absentCount,
                 TotalCount = totalStudents,
                 RecentlyRegister = mappedUsers,

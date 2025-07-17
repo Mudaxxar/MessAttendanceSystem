@@ -13,13 +13,29 @@
 	<div class="content">
 		<div class="page-header">
 			<div class="page-title">
-				<h4>Expense List</h4>
-				<h6>Manage your Expense</h6>
+				<h4>Report List</h4>
+				<h6>Manage your Reports</h6>
 			</div>
 			@* <div class="page-btn">
 				<a class="btn btn-added" asp-action="Add" asp-controller="Expense"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add New</a>
 			</div> *@
 		</div>
+	@* 	<div id="mealPerHeadContainer">
+			<div class="card">
+				<div class="card-body pb-1">
+					<div class="row">
+						@if (Model.Records != null)
+						{
+							<h6>
+								Meals Per Head: @Convert.ToDecimal(Model.Records?.FirstOrDefault()?.MealPerHead ?? 0)
+							</h6>
+						}
+					</div>
+				</div>
+			</div>
+		</div> *@
+
+
 		<div class="card">
 			<div class="card-body pb-1">
 				<form action="sales-report.html">
@@ -121,10 +137,30 @@
 				{ data: 'name', name: 'Name', autoWidth: true },
 				{ data: 'class', name: 'Class', autoWidth: true },
 				{ data: 'attendanceCount', name: 'AttendanceCount', autoWidth: true },
-				{ data: 'mealAmount', name: 'MealAmount', autoWidth: true },
-				{ data: 'advance', name: 'Advance', autoWidth: true },
-				{ data: 'previous', name: 'Previous', autoWidth: true },
-				{ data: 'total', name: 'Total', autoWidth: true },
+				{
+					data: 'mealAmount', name: 'MealAmount', autoWidth: true,
+					render: function (data, type, row) {
+						return Math.round(data);
+					}
+				},
+				{
+					data: 'advance', name: 'Advance', autoWidth: true,
+					render: function (data, type, row) {
+						return Math.round(data);
+					}
+					},
+					{
+					data: 'previous', name: 'Previous', autoWidth: true,
+					render: function (data, type, row) {
+						return Math.round(data);
+					}
+					},
+					{
+					data: 'total', name: 'Total', autoWidth: true,
+					render: function (data, type, row) {
+						return Math.round(data);
+					}
+					},
 			]
 		});
 		$('[data-toggle="tooltip"]').tooltip();
@@ -165,8 +201,5 @@ $('#date').val((d.getMonth()+1).toString().padStart(2, '0') + '/' + d.getFullYea
 
 
 
-	$('#date').datetimepicker({
-		format: 'MM/YYYY',       // or 'MMMM YYYY' for full month
-		viewMode: 'months'       // shows month/year picker
-	});
+
 </script>

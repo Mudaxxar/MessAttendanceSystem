@@ -175,6 +175,7 @@ namespace MessManagemetSystem.API.Services.Service
                         Date = x.Date,
                         ExpenseHeadName = x.ExpenseHead.Name,
                         ExpenseHeadId = x.ExpenseHeadId,
+                        Status = x.Status
                         
                     })
                     .ToListAsync();

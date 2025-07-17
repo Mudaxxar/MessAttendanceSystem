@@ -15,6 +15,7 @@ namespace MessManagementSystem.Shared.Models.ResponseModels
 		public string? Class { get; set; } 
 		public string? MessNumber { get; set; } 
 		public DateTime Date { get; set; } 
+		public int MealsCount { get; set; } 
 		public PresenceStatus Status { get; set; }
 	}
 }

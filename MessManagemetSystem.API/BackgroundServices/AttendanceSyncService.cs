@@ -43,7 +43,7 @@ namespace MessManagemetSystem.API
 
                     var students = await dbContext.Users
                         .Include(x => x.Role)
-                        .Where(r => r.Role.Name.ToLower() == "student")
+                        .Where(r => r.Role.Name.ToLower() == "student" && r.Status == MessManagementSystem.Shared.Enums.Enums.PresenceStatus.Present)
                         .ToListAsync(stoppingToken);
 
                     foreach (var student in students)
@@ -59,7 +59,7 @@ namespace MessManagemetSystem.API
                                 ApplicationUserId = student.Id,
                                 Date = DateTime.Today.AddDays(1),
                                 Status = student.Status,
-                                AttendanceCount = 1
+                                MealsCount = 2
                             });
                         }
                     }

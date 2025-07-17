@@ -30,6 +30,7 @@
 								<th>Mess#</th>
 								<th>Class</th>
 								<th>Date</th>
+								<th>Meals Count</th>
 								<th>Status</th>
 							</tr>
 						</thead>
@@ -44,9 +45,9 @@
 											<td>@item.UserName</td>
 											<td>@item.MessNumber</td>
 											<td>@item.Class</td>
-											<td>@Convert.ToDateTime(item.Date).ToString("dddd,MMM,yyyy"), @item.Date</td>
+											<td> @item.Date</td>
+											<td> @item.MealsCount</td>
 											<td>@item.Status</td>
-
 										</tr>
 									}
 								}
@@ -98,7 +99,22 @@
 						return moment(data).format("dddd, MMMM, yyyy");
 					}
 				},
-				{ data: 'status', name: 'Status', autoWidth: true },
+				{ data: 'mealsCount', name: 'MealsCount', autoWidth: true },
+
+				
+				{
+					data: "status", name: "Status", autoWidth: true,
+					render: function (data, type, row, meta) {
+						let html = '';
+						if (row.status === 1 || row.status ==='Present') {
+							html += `<span class="badge table-badge bg-success fw-medium fs-10">Present</span>`;
+						}
+						else if (row.status === 2 || row.status === 'Absent') {
+							html += `<span class="badge table-badge bg-danger fw-medium fs-10">Absent</span>`;
+						}
+						return html;
+					}
+				},
 
 			]
 

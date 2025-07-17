@@ -37,6 +37,7 @@
 								<th>Name</th>
 								<th>Email</th>
 								<th>Class</th>
+								<th>Security Fees</th>
 								<th>Balance</th>
 								<th>Role</th>
 								<th style="display:none"></th>
@@ -56,6 +57,7 @@
 											<td>@item.FirstName</td>
 											<td>@item.Email</td>
 											<td>@item.BatchClass</td>
+											<td>@Convert.ToInt32(item.SecurityFees)</td>
 											<td>@Convert.ToInt32(item.Balance)</td>
 											<td>@item.Role</td>
 
@@ -173,6 +175,7 @@
 				{ data: 'firstName', name: 'FirstName', autoWidth: true },
 				{ data: 'email', name: 'Email', autoWidth: true },
 				{ data: 'batchClass', name: 'BatchClass', autoWidth: true },
+				{ data: 'securityFees', name: 'SecurityFees', autoWidth: true },
 				{ data: 'balance', name: 'Balance', autoWidth: true },
 				{ data: 'role', name: 'Role', autoWidth: true },
 				

@@ -25,9 +25,8 @@ namespace MessManagemetSystem.API.Services.Service
             _dbContext = messDbContext;
             _unitOfWork = unitOfWork;
 			_configuration = configuration1;
-            mealCount = int.Parse(_configuration.GetSection("Settings:AttendanceCount").Value);
+            //mealCount = int.Parse(_configuration.GetSection("Settings:AttendanceCount").Value);
 		}
-        int mealCount = 1;
 
         public async Task<ApiResponse<bool>> AddMonthlyClosingAsync(int id)
         {
@@ -40,12 +39,15 @@ namespace MessManagemetSystem.API.Services.Service
                 {
                     var totalexpensAmount = existingExpense.Amount;
 
-                    var totalAttendace = await _dbContext.Attendance
+                    var totalMealsCount = await _dbContext.Attendance
                         .Where(x => x.Date.Year == existingExpense.Date.Value.Year &&
                                     x.Date.Month == existingExpense.Date.Value.Month)
-                        .SumAsync(x => x.AttendanceCount);
-
-                    var mealPerHead = totalexpensAmount / (totalAttendace * mealCount);
+                        .SumAsync(x => x.MealsCount);
+                    var totalAttendance = await _dbContext.Attendance
+						.Where(x => x.Date.Year == existingExpense.Date.Value.Year &&
+									x.Date.Month == existingExpense.Date.Value.Month)
+						.CountAsync();
+					var mealPerHead = totalexpensAmount / totalMealsCount;
                     // Create a new MonthlyClosingEntity
                     var monthlyClosing = new MonthlyClosingEntity
                     {
@@ -53,8 +55,8 @@ namespace MessManagemetSystem.API.Services.Service
                         Date = existingExpense.Date.Value,
                         Description = $"Monthly Closing for {existingExpense.Date.Value.ToString("MMMM yyyy")}",
                         Amount = totalexpensAmount,
-                        TotalAttendance = totalAttendace,
-                        TotalMeals = totalAttendace * mealCount, // Assuming 2 meals per day
+                        TotalAttendance = totalAttendance,
+                        TotalMeals = totalMealsCount,
                         MealPerHead = mealPerHead,
                         Status = ClosingStatus.Close,
 
@@ -69,7 +71,7 @@ namespace MessManagemetSystem.API.Services.Service
                     var userAccountRepo = _unitOfWork.GetRepository<AccountsEntity>();
 
                     var Users = await usersRepo.GetIncludeAsync(
-                        predicate: x => x.Attendances.Sum(a => a.AttendanceCount) >= 1,
+                        predicate: x => x.Attendances.Sum(a => a.MealsCount) >= 1,
                         include: x => x
                                       .Include(u => u.Attendances)
 
@@ -77,19 +79,19 @@ namespace MessManagemetSystem.API.Services.Service
 
                     foreach (var student in Users)
                     {
-                        var countStudentAttendance = await _dbContext.Attendance
+                        var mealsCount = await _dbContext.Attendance
                             .Where(x => x.ApplicationUserId == student.Id &&
                                         x.Date.Year == existingExpense.Date.Value.Year &&
                                         x.Date.Month == existingExpense.Date.Value.Month)
-                            .SumAsync(a => a.AttendanceCount);
+                            .SumAsync(a => a.MealsCount);
 
-                        var UserBalance = Convert.ToDecimal(student.Balance) + (countStudentAttendance * mealPerHead * mealCount); // Assuming 2 meals per day
+                        var UserBalance = Convert.ToDecimal(student.Balance) + (mealsCount * mealPerHead ); 
 
                         var userAccount = new AccountsEntity
                         {
                             ApplicationUserId = student.Id,
                             Credit = 0,
-                            Debit = countStudentAttendance * mealPerHead * mealCount, // Assuming 2 meals per day
+                            Debit = mealsCount * mealPerHead, 
                             Date = existingExpense.Date.Value,
                             Balance = UserBalance,
                             Description = $"Monthly Closing for {existingExpense.Date.Value.ToString("MMMM yyyy")}",
@@ -234,12 +236,12 @@ namespace MessManagemetSystem.API.Services.Service
                 {
                     Name = x.ApplicationUser.FirstName,
                     Class = x.ApplicationUser.BatchClass,
-                    AttendanceCount = x.ApplicationUser.Attendances.Sum(a => a.AttendanceCount),
-                    MealAmount = (decimal)x.ApplicationUser.Attendances.Sum(a => a.AttendanceCount) * mealCount * mealPerHead, // Assuming 2 meals per day
+                    AttendanceCount = x.ApplicationUser.Attendances.Sum(a => a.MealsCount),
+                    MealAmount = (decimal)x.ApplicationUser.Attendances.Sum(a => a.MealsCount)  * mealPerHead, // Assuming 2 meals per day
                     Advance = x.ApplicationUser.SecurityFees,
                     Previous = x.ApplicationUser.Balance,
-                    Total = x.ApplicationUser.Attendances.Sum(a => a.AttendanceCount) * mealCount * mealPerHead + (decimal)x.ApplicationUser.Balance,
-
+                    Total = x.ApplicationUser.Attendances.Sum(a => a.MealsCount) * mealPerHead + (decimal)x.ApplicationUser.Balance,
+                    MealPerHead = mealPerHead
                 })
                 .ToListAsync();
 

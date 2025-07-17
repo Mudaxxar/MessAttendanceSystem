@@ -15,5 +15,6 @@ namespace MessManagementSystem.Shared.Models.ResponseModels
         public double? Advance { get; set; }
         public double? Previous { get; set; }
         public decimal? Total { get; set; }
+        public decimal? MealPerHead { get; set; }
     }
 }

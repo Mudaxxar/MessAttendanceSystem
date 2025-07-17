@@ -399,7 +399,8 @@ namespace MessManagemetSystem.API.Services.Service
 		public async Task<UserResponseModel> GetByEmailAsync(string email)
 		{
 			var result =  await _userManger.Users
-				.Where(x => x.Email == email).FirstOrDefaultAsync();
+				.Where(x => x.Email == email)
+                .Include(r => r.Role).FirstOrDefaultAsync();
 			return new UserResponseModel
 			{
 				Id = result.Id,
@@ -417,11 +418,10 @@ namespace MessManagemetSystem.API.Services.Service
         public async Task<UserResponseModel> GetByIdAsync(int UserId)
         {
             var result = await _userManger.Users
-                .Where(x => x.Id == UserId).FirstOrDefaultAsync();
+                .Where(x => x.Id == UserId)
+				.Include(r=>r.Role).FirstOrDefaultAsync();
 			if (result != null)
 			{
-
-
 				return new UserResponseModel
 				{
 					Id = result.Id,

@@ -43,7 +43,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Security Fee</label>
-                                <input id="securityFee" type="number" class="form-control" placeholder="Enter Security Fee">
+                                <input id="securityFees" type="number" class="form-control" placeholder="Enter Security Fee">
                             </div>
                         </div>
 
@@ -121,7 +121,7 @@
                 toastr.error("Please enter Balance!");
                 isValid = false;
             }
-            if ($("#securityFee").val() == "" || $("#securityFee").val() == null) {
+            if ($("#securityFees").val() == "" || $("#securityFees").val() == null) {
                 toastr.error("Please enter Security Fee!");
                 isValid = false;
             }
@@ -150,7 +150,7 @@
                     MessNumber: $("#messNumber").val(),
                     BatchClass: $("#batchClass").val(),
                     Balance: $("#balance").val(),
-                    SecurityFee: $("#securityFee").val(),
+                    SecurityFees: $("#securityFees").val(),
                     Email: $("#email").val(),
                     Role: $("#selectRole option:selected").text(),
                     Password: $("#password").val(),

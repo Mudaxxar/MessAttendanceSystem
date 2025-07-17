@@ -31,14 +31,12 @@ namespace MessManagementSystem.MVC.Controllers
 		[HttpPost]
 		public async Task<IActionResult> GetAttendance([FromForm] DtParams dtParams)
 		{
-			var userId = ConfigService.GetUserId();
 			var result = await _attendanceClient.GetAsync(new PaginationParams
 			{
 				PageNumber = dtParams.Start / 10,
 				PageSize = dtParams.Length,
 				Search = dtParams.Search.Value,
 				SortOrder = dtParams.SortOrder,
-				UserId = userId
 			});
 
 			var response = new DtResult<AttendanceResponseModel>()

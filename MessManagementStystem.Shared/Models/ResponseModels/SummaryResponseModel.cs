@@ -10,6 +10,7 @@ namespace MessManagementSystem.Shared.Models.ResponseModels
     {
         public int PresentCount { get; set; }
         public int AbsentCount { get; set; }
+        public int MealsCount { get; set; }
         public int TotalCount { get; set; }
         public List<UserResponseModel> RecentlyRegister { get; set; }
         public List<FeedbackResponseModel> RecentlyFeedbacks { get; set; }

@@ -56,6 +56,7 @@ namespace MessManagemetSystem.API.Services.Service
 				UserName = x.ApplicationUser.FirstName,
                 Class = x.ApplicationUser.BatchClass,
 				MessNumber = x.ApplicationUser.MessNumber,
+                MealsCount = x.MealsCount
                 
 
 			}).ToList();
@@ -72,36 +73,39 @@ namespace MessManagemetSystem.API.Services.Service
         {
             try
             {
-             model.AttendanceCount = model.Status == PresenceStatus.Present ? model.AttendanceCount : 0;
-             model.Date = model.Date == null ? DateTime.Now.Date.AddDays(1) : model.Date;
+                model.AttendanceCount = model.Status == PresenceStatus.Present ? model.AttendanceCount : 0;
+                model.Date = model.Date == null ? DateTime.Now.Date.AddDays(1) : model.Date;
 
-            var student = await _userService.GetByIdAsync(model.UserId);
-            if (student != null)
-            {
-                var repo = _unitOfWork.GetRepository<AttendanceEntity>();
-                var alreadyMarked = await repo.FirstOrDefaultAsync(x => x.ApplicationUserId == student.Id && x.Date == model.Date.Value);
-
-                if (alreadyMarked == null)
+                var student = await _userService.GetByIdAsync(model.UserId);
+                if (student != null)
                 {
-                    await repo.AddAsync(new AttendanceEntity
+                    //For student there should be two meals in a day.
+                    model.AttendanceCount = student.Role.ToLower() == "student" ? model.AttendanceCount * 2 : model.AttendanceCount;
+
+                    var repo = _unitOfWork.GetRepository<AttendanceEntity>();
+                    var alreadyMarked = await repo.FirstOrDefaultAsync(x => x.ApplicationUserId == student.Id && x.Date == model.Date.Value);
+
+                    if (alreadyMarked == null)
                     {
-                        ApplicationUserId = student.Id,
-                        Date = Convert.ToDateTime(model.Date),
-                        Status = model.Status,
-                        AttendanceCount = model.AttendanceCount,
-                    });
-                }
-                else
-                {
-                    //alreadyMarked.Date = model.Date;
-                    alreadyMarked.Status = model.Status;
-                        alreadyMarked.AttendanceCount = model.AttendanceCount;
-                    await repo.UpdateAsync(alreadyMarked.Id, alreadyMarked);
-                }
-                 model.UserId = student.Id;
-                await _userService.UpdateAttendance(model); // Update User status as well.
-                await _unitOfWork.CommitAsync();
-                return true;
+                        await repo.AddAsync(new AttendanceEntity
+                        {
+                            ApplicationUserId = student.Id,
+                            Date = Convert.ToDateTime(model.Date),
+                            Status = model.Status,
+                            MealsCount = model.AttendanceCount,
+                        });
+                    }
+                    else
+                    {
+                        //alreadyMarked.Date = model.Date;
+                        alreadyMarked.Status = model.Status;
+                        alreadyMarked.MealsCount = model.AttendanceCount;
+                        await repo.UpdateAsync(alreadyMarked.Id, alreadyMarked);
+                    }
+                    model.UserId = student.Id;
+                    await _userService.UpdateAttendance(model); // Update User status as well.
+                    await _unitOfWork.CommitAsync();
+                    return true;
 
                 }
             }

@@ -1,1 +1,145 @@
-﻿
+﻿@using MessManagementSystem.Shared.Models.ResponseModels
+@model MessManagementSystem.Shared.Models.ResponseModels.UserResponseModel
+@{
+    Layout = "~/Views/Shared/_DreamLayout.cshtml";
+      var roles = ViewBag.Roles as IEnumerable<RoleResponseModel>;
+}
+
+
+
+<div class="page-wrapper">
+    <div class="content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-title">
+                <h4>User Management</h4>
+                <h6>Edit User</h6>
+            </div>
+        </div>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col-lg-3 col-sm-6 col-12 mb-3">
+                <div class="form-group">
+                    <label>Mess#</label>
+                    <input type="text" id="messNumber" class="form-control" value="@Model.MessNumber" >
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12 mb-3">
+                <div class="form-group">
+                    <label>Class</label>
+                    <input type="text" id="batchClass" class="form-control" value="@Model.BatchClass" >
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12 mb-3">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="firstName" class="form-control" value="@Model.FirstName" >
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12 mb-3">
+                <div class="form-group">
+                    <label>Security Fee</label>
+                    <input type="text" id="securityFees" class="form-control" value="@Model.SecurityFees" >
+                </div>
+            </div>
+
+           
+               <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Role</label>
+                            <select class="select" aria-label="Select Role" id="selectRole">
+                            <option  selected>Select Role</option>
+                            @foreach (var i in roles)
+                            {
+                            <option value="@i.Id" selected="@(i.Id == Model.RoleId)">@i.Name</option>
+                            }
+                            </select>
+                            </div>
+                        </div>
+              <div class="mt-4 text-end">
+                        <a class="btn btn-submit" href="javascript:void(0);" onclick="Update()">Update</a>
+                    </div>
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+<script>
+
+    function Update() {
+        var isValid = true;
+        if ($("#firstName").val() == "" || $("#firstName").val() == null) {
+            toastr.error("Please enter name!");
+            isValid = false;
+        }
+        if ($("#messNumber").val() == "" || $("#messNumber").val() == null) {
+            toastr.error("Please enter messNumber!");
+            isValid = false;
+        }
+        if ($("#batchClass").val() == "" || $("#batchClass").val() == null) {
+            toastr.error("Please enter Class!");
+            isValid = false;
+        }
+      
+        if ($("#securityFees").val() == "" || $("#securityFees").val() == null) {
+            toastr.error("Please enter Security Fee!");
+            isValid = false;
+        }
+      
+      
+        var roleIndex = $("#selectRole").prop('selectedIndex');
+        if (roleIndex == 0) {
+            toastr.error("Please Select Role");
+            $("#selectRole").focus();
+            return;
+        }
+        if (isValid) {
+
+            var userData = {
+                FirstName: $("#firstName").val(),
+                MessNumber: $("#messNumber").val(),
+                BatchClass: $("#batchClass").val(),
+                SecurityFees: $("#securityFees").val(),
+                Role: $("#selectRole option:selected").text(),
+                RoleId: $("#selectRole").val()
+            };
+        
+            var StudentData = userData;
+        if (StudentData == null) {
+            return;
+        }
+            $("#global-loader").show();
+
+        $.ajax({
+                url: '/account/UpdateUser/'+ @Model.Id,
+            type: "POST",
+            data: StudentData,
+            success: function (result, status) {
+                debugger;
+                if (result.isSuccess == true) {
+
+                    toastr.success(result.message);
+                window.location.href = '@Url.Action("GetUsers", "Account")';
+
+                }
+                else{
+                    toastr.error(result.message);
+                }
+
+            },
+            error: function (result) {
+                toastr.error(result.message);
+            },
+        });
+            $("#global-loader").hide();
+    }
+    }
+</script>

@@ -10,7 +10,6 @@ namespace MessManagementSystem.MVC.Clients.Client
 {
 	public class StudentClient : IStudentClient
 	{
-		private readonly HttpClient _httpClient;
 		private readonly IHttpClientHelper _httpClientHelper;
 		private readonly ISiteConfiguration _siteConfiguration;
 		public StudentClient(ISiteConfiguration siteConfiguration
@@ -18,9 +17,7 @@ namespace MessManagementSystem.MVC.Clients.Client
 								, IHttpClientHelper httpClientHelper)
 		{
 			_siteConfiguration = siteConfiguration;
-			_httpClient = httpClient;
 			_httpClientHelper = httpClientHelper;
-			_httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {ConfigService.GetJwtToken()}");
         }
 		public async Task<StudentResponseModel> GetStudent(int Id)
 		{

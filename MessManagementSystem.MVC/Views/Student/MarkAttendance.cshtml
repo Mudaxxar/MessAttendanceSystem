@@ -103,7 +103,6 @@
         $('input[name="status"]').on("change", updateSelectedStatus);
 
         function SaveAttendance() {
-            debugger;
             var selected = $('input[name="status"]:checked').val();
             var enumValue = statusMap[selected];
 

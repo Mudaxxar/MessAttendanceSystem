@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using MessManagementSystem.Shared.Models;
 using MessManagementSystem.Shared.Models.RequestModels;
+using MessManagementSystem.MVC.Helper;
 
 namespace MessManagementSystem.MVC.Services.Service
 {
@@ -14,11 +15,14 @@ namespace MessManagementSystem.MVC.Services.Service
     {
         private readonly HttpClient _httpClient;
         private readonly ISiteConfiguration _siteConfiguration;
-        public UserApiClient(HttpClient httpClient, ISiteConfiguration siteConfiguration)
+		private readonly IHttpClientHelper _httpClientHelper;
+		public UserApiClient(HttpClient httpClient, ISiteConfiguration siteConfiguration
+            ,IHttpClientHelper httpClientHelper)
         {
             _httpClient = httpClient;
             _siteConfiguration = siteConfiguration;
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ConfigService.GetJwtToken());
+            _httpClientHelper = httpClientHelper;
+			_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ConfigService.GetJwtToken());
         }
 
         public async Task<PaginatedResponseModel<UserResponseModel>> GetUsers(PaginationParams paginationParams)
@@ -79,6 +83,18 @@ namespace MessManagementSystem.MVC.Services.Service
             var result = JsonConvert.DeserializeObject<UserManagerResponseModel>(contents);
             return result;
         }
+		public async Task<UserResponseModel> GetUserAsync(int Id)
+		{
+			var uri = $"{ApiEndPoint.GetStudent}/{Id}";
+			var response = await _httpClientHelper.GetAsync<UserResponseModel>(uri);
+			return response;
+		}
+        public async Task<UserManagerResponse> UpdateAsync(int Id, UserRequestModel model)
+		{
+			var uri = $"{ApiEndPoint.UpdateUser}/{Id}";
+			var response = await _httpClientHelper.PostAsync<UserManagerResponse>(uri, model);
+			return response;
+		}
 		public Task<double> UsersCount()
 		{
 			var uri = $"{_siteConfiguration.ApiBaseUrl}{ApiEndPoint.UsersCount}";

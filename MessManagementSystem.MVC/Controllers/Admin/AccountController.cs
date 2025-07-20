@@ -80,6 +80,19 @@ namespace MessManagementSystem.MVC.Controllers.Admin
         }
 
         [HttpGet]
+		public async Task<IActionResult> EditUser(int Id)
+		{
+			var result = await _userService.GetUserAsync(Id);
+            ViewBag.Roles = await _roleService.GetAsync();
+            return View(result);
+		}
+        [HttpPost]
+		public async Task<IActionResult> UpdateUser(int Id, UserRequestModel model)
+		{
+			var result = await _userService.UpdateAsync(Id,model);
+			return Ok(result);
+		}
+		[HttpGet]
         public async Task<IActionResult> GetUsers(int pageNumber = 0, int pageSize = 10, string search = null)
         {
             var result = await _userService.GetUsers(new PaginationParams
@@ -118,18 +131,18 @@ namespace MessManagementSystem.MVC.Controllers.Admin
             return Ok(result);
         }
 
-		public async Task<IActionResult> EditUser(int Id)
-		{
-			var result = await _roleService.GetByIdAsync(Id);
-			var permissionIds = result.RolePermissions.Select(rp => rp.PermissionId).ToList();
+		//public async Task<IActionResult> EditUser(int Id)
+		//{
+		//	var result = await _roleService.GetByIdAsync(Id);
+		//	var permissionIds = result.RolePermissions.Select(rp => rp.PermissionId).ToList();
 
-			return View(new RolesRequestModel
-			{
-				Id = result.Id,
-				Name = result.Name,
-				Permissions = permissionIds
-			});
-		}
+		//	return View(new RolesRequestModel
+		//	{
+		//		Id = result.Id,
+		//		Name = result.Name,
+		//		Permissions = permissionIds
+		//	});
+		//}
 
 
 	}

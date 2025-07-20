@@ -45,7 +45,7 @@ namespace MessManagemetSystem.API.Controllers
 			if (ModelState.IsValid && role != null)
 			{
 				model.RoleId = role.Id;
-				var result = await _userService.RegisterUserAsync(model);
+				var result = await _userService.RegisterAsync(model);
 
 				if (result.IsSuccess)
 				{
@@ -166,13 +166,22 @@ namespace MessManagemetSystem.API.Controllers
 		}
 
 		[HttpGet("user/{Id}")]
-		[HasPermission(AdminPermissions.Student)]
+		//[HasPermission(AdminPermissions.Student)]
 
 		public async Task<IActionResult> GetStudent(int Id)
 		{
 			//string email = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 			var result = await _userService.GetByIdAsync(Id);
+
+			return Ok(result);
+		}
+
+		[HttpPost("update-user/{Id}")]
+		public async Task<IActionResult> UpdateUserAsync(int Id, UserRequestModel model)
+		{
+
+			var result = await _userService.UpdateAsync(Id, model);
 
 			return Ok(result);
 		}

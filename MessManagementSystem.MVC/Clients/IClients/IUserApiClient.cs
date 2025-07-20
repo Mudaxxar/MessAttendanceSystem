@@ -10,6 +10,8 @@ namespace MessManagementSystem.MVC.Services.IService
         Task<UserManagerResponseModel> RegisterAsync(RegistrationRequestModel requestModel);
         Task<PaginatedResponseModel<UserResponseModel>> GetUsers(PaginationParams paginationParams);
         Task<UserManagerResponseModel> UserStatus(int Id);
+        Task<UserResponseModel> GetUserAsync(int Id);
+        Task<UserManagerResponse> UpdateAsync( int Id, UserRequestModel model);
         Task<double> UsersCount();
     }
 }

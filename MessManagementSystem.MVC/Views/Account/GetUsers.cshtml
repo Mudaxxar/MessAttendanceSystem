@@ -131,7 +131,9 @@
 									<div class="col-lg-6 col-sm-12 col-12">
 										<div class="mb-3">
 											<label class="form-label">Attendance Counts<span class="text-danger ms-1">*</span></label>
+											
 											<input id="attendanceCount" type="text" class="form-control">
+							<span class="text-danger ms-1">1 Attendance = 2 meals (only for students)</span>
 										</div>
 									</div>
 									<input type="hidden" id="createAttendanceUserId" name="UserId" />
@@ -182,8 +184,7 @@
 				{
 					data: "action", name: "Action", autoWidth: true,
 					render: function (data, type, row, meta) {
-						debugger;
-						return `<a class="action-set" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+						return `<a class="action-set"  data-bs-toggle="dropdown" aria-expanded="false">
 														<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
 													</a>
 													<ul class="dropdown-menu" style="">
@@ -192,15 +193,22 @@
 															<a href="javascript:void(0);"
 															class="dropdown-item"
 																data-id="(${row.id})"
-																	onclick="setAttendanceUser(${row.id})"
+																onclick="setAttendanceUser(${row.id})"
 															data-bs-toggle="modal"
 															data-bs-target="#createAttendance">
 															<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle info-img"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Create Attendance</a>
 														</li>
+															<li>
+																	<a href="/Account/EditUser/${row.id}"
+																class="dropdown-item"
+																>
+																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle info-img"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Edit </a>
+															</li>
 
-													</ul>`;
+													</ul>
+													`;
 					}
-				},
+				}
 				
 			]
 
@@ -217,7 +225,6 @@
 	});
 
   function MarkAttendance() {
-	  debugger;
     var userId = $('#createAttendanceUserId').val()?.trim();
     var count = $('#attendanceCount').val()?.trim();
 
@@ -257,7 +264,6 @@
 }
 
 	function setAttendanceUser(id) {
-		debugger;
 		document.getElementById('createAttendanceUserId').value = id;
 	}
 

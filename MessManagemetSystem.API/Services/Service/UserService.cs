@@ -40,7 +40,7 @@ namespace MessManagemetSystem.API.Services.Service
 
         }
 
-		public async Task<UserManagerResponse> RegisterUserAsync(RegistrationRequestModel model)
+		public async Task<UserManagerResponse> RegisterAsync(RegistrationRequestModel model)
 		{
 			if (model == null)
 				throw new NullReferenceException("Reigster Model is null");
@@ -389,6 +389,56 @@ namespace MessManagemetSystem.API.Services.Service
 			}
 		}
 
+		public async Task<UserManagerResponse> UpdateAsync(int Id, UserRequestModel model)
+		{
+            var existing = await _userManger.Users.FirstOrDefaultAsync(x => x.MessNumber == model.MessNumber && x.Id != Id);
+            if (existing != null)
+            {
+                return new UserManagerResponse
+                {
+                    Message = "Mess number Already in use",
+                    IsSuccess = false,
+                };
+            }
+
+            var user = await _userManger.FindByIdAsync(Id.ToString());
+			if (user == null)
+			{
+				return new UserManagerResponse
+				{
+					IsSuccess = false,
+					Message = "User not found",
+				};
+			}
+
+			user.MessNumber = model.MessNumber;
+			user.BatchClass = model.BatchClass;
+			user.BatchClass = model.BatchClass;
+			user.FirstName = model.FirstName;
+			user.SecurityFees = model.SecurityFees;
+			user.RoleId = model.RoleId;
+
+			var result = await _userManger.UpdateAsync(user);
+
+			if (result.Succeeded)
+			{
+				return new UserManagerResponse
+				{
+					IsSuccess = true,
+					Message = "Status updated successfully",
+				};
+			}
+			else
+			{
+				return new UserManagerResponse
+				{
+					IsSuccess = false,
+					Message = "Failed to updated status",
+					Errors = result.Errors.Select(e => e.Description),
+				};
+			}
+		}
+
 		public async Task<double> UsersCount()
 		{
 			var count = await _userManger.Users
@@ -434,11 +484,12 @@ namespace MessManagemetSystem.API.Services.Service
 					Balance = (double)result.Balance,
 					BatchClass = result.BatchClass,
 					SecurityFees = result.SecurityFees,
+					RoleId = (int)result.RoleId
 				};
 			}
 			return new UserResponseModel
 			{
-
+				
 			};
         }
         public async Task<UserManagerResponse> UpdateAttendance(AttendanceRequestModel input)

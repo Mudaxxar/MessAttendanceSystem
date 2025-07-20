@@ -29,7 +29,7 @@ namespace MessManagemetSystem.API.Controllers
             //If Role is Student, count one attendance row.
            //If Role is not Student, add AttendanceCount instead.
             var presentCount = await _context.Attendance.Where(a => a.Date.Date == date.Value.Date && a.Status == PresenceStatus.Present).CountAsync();
-			var mealsCount = await _context.Attendance.SumAsync(a => a.MealsCount);
+			var mealsCount = await _context.Attendance.Where(a => a.Date.Date == date.Value.Date).SumAsync(a =>  a.MealsCount);
 
 			var absentCount = await _context.Attendance.CountAsync(a => a.Date == date && a.Status == PresenceStatus.Absent);
             var totalStudents = await _context.Users.Where(x=>x.RoleId == 2).CountAsync();

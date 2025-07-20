@@ -9,6 +9,12 @@
         public const string UserStatus = "Account/user-status";
         public const string UsersCount = "Account/users-count";
         public const string GetStudent = "Account/user";
+        public const string UpdateUser = "Account/update-user";
+        
+        
+        /// <summary>
+        /// Accounts
+        /// </summary>
         public const string GetStatement = "Accounts/get-statement";
 
 

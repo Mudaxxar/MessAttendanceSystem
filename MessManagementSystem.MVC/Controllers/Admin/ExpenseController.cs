@@ -4,6 +4,7 @@ using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagementSystem.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
+using MessManagementSystem.MVC.Configuration;
 
 namespace MessManagementSystem.MVC.Controllers.Admin
 {
@@ -22,6 +23,7 @@ namespace MessManagementSystem.MVC.Controllers.Admin
 		[HttpGet]
 		public async Task<IActionResult> GetMonthlyExpense(int pageNumber = 1, int pageSize = 10, string search = null)
 		{
+            
 			var result = await _expenseClient.GetMonthlyAsync(new PaginationParams
 			{
 				PageNumber = pageNumber,

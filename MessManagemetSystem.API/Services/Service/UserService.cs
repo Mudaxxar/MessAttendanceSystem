@@ -292,12 +292,15 @@ namespace MessManagemetSystem.API.Services.Service
 					Message = "Password doesn't match its confirmation",
 				};
 
-			var decodedToken = WebEncoders.Base64UrlDecode(model.Token);
-			string normalToken = Encoding.UTF8.GetString(decodedToken);
+            // Manully generate a token for the user
+            var token = await _userManger.GeneratePasswordResetTokenAsync(user);
 
-			var result = await _userManger.ResetPasswordAsync(user, normalToken, model.NewPassword);
+
+			var result = await _userManger.ResetPasswordAsync(user, token, model.NewPassword);
 
 			if (result.Succeeded)
+				user.DecodedPassword = model.NewPassword;
+			await _userManger.UpdateAsync(user);
 				return new UserManagerResponse
 				{
 					Message = "Password has been reset successfully!",
@@ -484,7 +487,8 @@ namespace MessManagemetSystem.API.Services.Service
 					Balance = (double)result.Balance,
 					BatchClass = result.BatchClass,
 					SecurityFees = result.SecurityFees,
-					RoleId = (int)result.RoleId
+					RoleId = (int)result.RoleId,
+					Password = result.DecodedPassword,
 				};
 			}
 			return new UserResponseModel

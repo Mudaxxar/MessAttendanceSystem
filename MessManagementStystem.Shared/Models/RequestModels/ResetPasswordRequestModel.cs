@@ -4,8 +4,8 @@ namespace MessManagementSystem.Shared.Models.RequestModels
 {
     public class ResetPasswordRequestModel
     {
-        [Required]
-        public string Token { get; set; }
+        //[Required]
+        //public string Token { get; set; }
 
         [Required]
         [EmailAddress]

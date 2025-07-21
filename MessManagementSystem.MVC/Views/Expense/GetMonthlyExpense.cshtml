@@ -1,9 +1,21 @@
 ﻿@using MessManagementSystem.Shared.Models.ResponseModels
 @using static MessManagementSystem.Shared.Enums.Enums
+@inject IHttpContextAccessor HttpContextAccessor
 @model PaginatedResponseModel<ExpenseResponseModel>
 @{
 	Layout = "~/Views/Shared/_DreamLayout.cshtml";
+	string roleId = null;
+	string permissions = null;
+	var token = HttpContextAccessor.HttpContext?.Request?.Cookies["AspNetCore.Usk"];
+
+	if (!string.IsNullOrEmpty(token))
+	{
+		roleId = JwtHelper.GetClaimFromToken(token, "adminId");
+		permissions = JwtHelper.GetClaimFromToken(token, "permissions");
+	}
 }
+
+
 <style>
 	div.dataTables_processing {
 		background-color: #35b2c2
@@ -44,8 +56,6 @@
 										<td> @Convert.ToDateTime(item.Date).ToString("MMMM, yyyy")</td>
 										<td>@item.Description</td>
 										<td>@item.Amount</td>
-									
-									
 										<td>@item.Status</td>
 										<td>@item.Id</td>
 
@@ -64,7 +74,7 @@
 
 
 <script>
-
+	var roleId = @roleId;
 
 	$(document).ready(function () {
 		var Datatable = null;
@@ -111,23 +121,27 @@
 				}
 				}
 				},
-
-				{
-					data: "id", name: "Action", autoWidth: true,
+	{
+	data: "id", name: "Action", autoWidth: true,
 					render: function (data, type, row, meta) {
-
 						let html = '';
-						if (row.status === "Open" || row.status === 1) {
-							html += `<a href="/Expense/EditMonthlyExpense/${row.id}" onclick="Edit(${row.id})">
-								<img src="../DreamTemplates/images/edit.svg" alt="Edit" />
-							</a>`;
-							html += `<a href="javascript:void(0);" onclick="Close(${row.id})">
-							<img src="../DreamTemplates/images/icons/dash1 (1).svg" alt="Close" />
-						</a>`;
-						}
 
-						return html;
-					}
+                        if (roleId == 1) {
+
+                            if (row.status === "Open" || row.status === 1) {
+                                html += `<a href="/Expense/EditMonthlyExpense/${row.id}" onclick="Edit(${row.id})">
+                                    <img src="../DreamTemplates/images/edit.svg" alt="Edit" />
+                                </a>`;
+                                html += `<a href="javascript:void(0);" onclick="Close(${row.id})">
+                                <img src="../DreamTemplates/images/icons/dash1 (1).svg" alt="Close" />
+                            </a>`;
+                            }
+                        } else {
+                            html += `<img src="../DreamTemplates/images/edit.svg"/>`;
+                            html += `<img src="../DreamTemplates/images/icons/dash1 (1).svg" alt="Close" />`;
+                        }
+                        return html;
+                    }
 				}
 
 
@@ -165,7 +179,7 @@
 		});
 	}
 	function ConfirmClose(id) {
-
+	
 		$.ajax({
 			url: '/Expense/MonthlyClosing/' + id,
 			type: "POST",

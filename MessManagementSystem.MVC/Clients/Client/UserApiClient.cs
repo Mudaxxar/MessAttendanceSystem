@@ -94,6 +94,12 @@ namespace MessManagementSystem.MVC.Services.Service
 			var uri = $"{ApiEndPoint.UpdateUser}/{Id}";
 			var response = await _httpClientHelper.PostAsync<UserManagerResponse>(uri, model);
 			return response;
+		} 
+        public async Task<UserManagerResponseModel> ResetPasswordAsync(ResetPasswordRequestModel model)
+		{
+			var uri = $"{ApiEndPoint.PasswordReset}";
+			var response = await _httpClientHelper.PostAsync<UserManagerResponseModel>(uri, model);
+			return response;
 		}
 		public Task<double> UsersCount()
 		{

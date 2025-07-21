@@ -10,6 +10,7 @@
         public const string UsersCount = "Account/users-count";
         public const string GetStudent = "Account/user";
         public const string UpdateUser = "Account/update-user";
+        public const string PasswordReset = "Account/reset-password";
         
         
         /// <summary>

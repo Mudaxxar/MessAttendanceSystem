@@ -43,10 +43,35 @@
             <div class="col-lg-3 col-sm-6 col-12 mb-3">
                 <div class="form-group">
                     <label>Balance</label>
-                    <input type="text" id="balance" class="form-control" value="@Model.Balance" readonly>
+                    <input type="text" id="balance" class="form-control" value="@Convert.ToInt32(Model.Balance)" readonly>
                 </div>
             </div>
 
+            <div class="col-lg-3 col-sm-6 col-12 mb-3">
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="text" id="password" class="form-control" value="@Model.Password" readonly>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12 mb-3">
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="text" id="newPassword" class="form-control" value="">
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 col-12 mb-3">
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="text" id="confirmPassword" class="form-control" value="">
+                </div>
+            </div>
+
+           
+        </div>
+        <div class="col-lg-12">
+            <a class="btn btn-submit me-2" id="btnUpdate" onclick="ResetPassword()"> Reset Password</a>
         </div>
     </div>
 </div>

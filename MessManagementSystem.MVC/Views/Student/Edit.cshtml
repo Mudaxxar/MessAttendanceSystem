@@ -13,33 +13,49 @@
 		<!-- /add -->
 
 		<partial name="_AddEditStudentForm" model="Model" />
-		@* <div class="col-lg-12">
-			<a class="btn btn-submit me-2" id="btnUpdate" onclick="Update()"> Update</a>
-			<a class="btn btn-cancel" href="@Url.Action("GetStudents", "Student")" id="btnCancel" ">Cancel</a>
-		</div> *@
+		
 		<!-- /add -->
 	</div>
 </div>
 
 <script>
 
-	function Update() {
+	function ResetPassword() {
 
-		var StudentData = StudentData();
+		 var isValid = true;
+		if ($("#newPassword").val() == "" || $("#newPassword").val() == null) {
+                toastr.error("Please enter New Password!");
+                isValid = false;
+            }
+            if ($("#confirmPassword").val() == "" || $("#confirmPassword").val() == null) {
+                toastr.error("Please enter confirm password!");
+                isValid = false;
+            }    
+			if ($("#email").val() == "" || $("#email").val() == null) {
+                toastr.error("Please enter email!");
+                isValid = false;
+            }
+			
+		var StudentData = {
+						
+							Email: $("#email").val(),
+							NewPassword: $("#newPassword").val(),
+							ConfirmPassword: $("#confirmPassword").val(),
+					  };
 		if (StudentData == null) {
 			return;
 		}
 		$.ajax({
-			url: '/account/UpdateStudent/' + @Model.Id,
+			url: '/account/ResetPassword',
 			type: "POST",
 			data: StudentData,
 			success: function (result, status) {
-				if (status == "success") {
+				debugger;
+				if (result.isSuccess == true) {
 
-					toastr.success(result);
+					toastr.success(result.message);
 				}
-				Clear();
-				window.location.href = '@Url.Action("GetStudents", "Student")';
+				window.location.reload();
 
 			},
 			error: function (result) {

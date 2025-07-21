@@ -117,8 +117,8 @@ namespace MessManagemetSystem.API.Controllers
 		}
 
 		// api/account/resetpassword
-		[HttpPost("ResetPassword")]
-		public async Task<IActionResult> ResetPassword([FromForm] ResetPasswordRequestModel model)
+		[HttpPost("reset-password")]
+		public async Task<IActionResult> ResetPassword(ResetPasswordRequestModel model)
 		{
 			if (ModelState.IsValid)
 			{

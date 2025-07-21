@@ -131,6 +131,13 @@ namespace MessManagementSystem.MVC.Controllers.Admin
             return Ok(result);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequestModel model)
+        {
+            var result = await _userService.ResetPasswordAsync(model);
+            return Ok(result);
+		}
+
 		//public async Task<IActionResult> EditUser(int Id)
 		//{
 		//	var result = await _roleService.GetByIdAsync(Id);

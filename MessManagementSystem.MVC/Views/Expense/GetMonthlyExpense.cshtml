@@ -28,9 +28,12 @@
 				<h4>Expense List</h4>
 				<h6>Manage your Expense</h6>
 			</div>
-			<div class="page-btn">
-				<a class="btn btn-added" asp-action="AddMonthly" asp-controller="Expense"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add New</a>
+			@if (roleId == "1")
+			{
+				<div class="page-btn">
+					<a class="btn btn-added" asp-action="AddMonthly" asp-controller="Expense"><img src="~/DreamTemplates/images/plus.svg" alt="img">Add New</a>
 			</div>
+			}
 		</div>
 		<!-- /Expense list -->
 		<div class="card">

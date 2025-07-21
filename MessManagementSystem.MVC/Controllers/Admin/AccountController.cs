@@ -36,7 +36,8 @@ namespace MessManagementSystem.MVC.Controllers.Admin
         public async Task<IActionResult> LoginUser(LoginRequestModel model)
         {
             var result = await _userService.LoginAsync(model);
-            if (result.IsSuccess)
+
+            if (result is not null && result.IsSuccess)
             {
                 ConfigService.SetJwtToken(result.Token);
                 // 🔍 Extract UserId from JWT and store in cookie

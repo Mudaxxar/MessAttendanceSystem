@@ -13,7 +13,6 @@ namespace MessManagementSystem.MVC.Clients.Client
 		private readonly IHttpClientHelper _httpClientHelper;
 		private readonly ISiteConfiguration _siteConfiguration;
 		public StudentClient(ISiteConfiguration siteConfiguration
-								, HttpClient httpClient
 								, IHttpClientHelper httpClientHelper)
 		{
 			_siteConfiguration = siteConfiguration;

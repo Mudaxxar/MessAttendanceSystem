@@ -10,12 +10,9 @@ namespace MessManagementSystem.MVC.Services.Service
 {
     public class PermissionService : IPermissionClient
     {
-        private readonly HttpClient _httpClient;
         private readonly IHttpClientHelper _httpClientHelper;
-        public PermissionService(HttpClient httpClient
-                                , IHttpClientHelper httpClientHelper)
+        public PermissionService(IHttpClientHelper httpClientHelper)
         {
-            _httpClient = httpClient;
             _httpClientHelper = httpClientHelper;
         }
 

@@ -8,15 +8,12 @@ namespace MessManagementSystem.MVC.Clients.Client
 {
     public class SummaryClient : ISummaryClient
     {
-        private readonly HttpClient _httpClient;
         private readonly IHttpClientHelper _httpClientHelper;
         private readonly ISiteConfiguration _siteConfiguration;
         public SummaryClient(ISiteConfiguration siteConfiguration
-                                , HttpClient httpClient
                                 , IHttpClientHelper httpClientHelper)
         {
             _siteConfiguration = siteConfiguration;
-            _httpClient = httpClient;
             _httpClientHelper = httpClientHelper;
         }
         public async Task<SummaryResponseModel> GetSummaryAsync(int userId, DateTime date)

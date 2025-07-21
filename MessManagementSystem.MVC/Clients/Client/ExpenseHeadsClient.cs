@@ -10,7 +10,6 @@ namespace MessManagementSystem.MVC.Clients.Client
 {
 	public class ExpenseHeadsClient : IExpenseHeadsClient
 	{
-		private readonly HttpClient _httpClient;
 		private readonly IHttpClientHelper _httpClientHelper;
 		private readonly ISiteConfiguration _siteConfiguration;
 
@@ -18,7 +17,6 @@ namespace MessManagementSystem.MVC.Clients.Client
 			,IHttpClientHelper httpClientHelper
 			, ISiteConfiguration siteConfiguration)
         {
-			_httpClient = httpClient;
 			_httpClientHelper = httpClientHelper;
 			_siteConfiguration = siteConfiguration;
 		}

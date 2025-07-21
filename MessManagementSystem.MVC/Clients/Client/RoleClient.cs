@@ -9,12 +9,9 @@ namespace MessManagementSystem.MVC.Services.Service
 {
     public class RoleClient : IRoleClient
     {
-        private readonly HttpClient _httpClient;
         private readonly IHttpClientHelper _httpClientHelper;
-        public RoleClient(HttpClient httpClient
-                                , IHttpClientHelper httpClientHelper)
+        public RoleClient(IHttpClientHelper httpClientHelper)
         {
-            _httpClient = httpClient;
             _httpClientHelper = httpClientHelper;
         }
 

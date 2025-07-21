@@ -10,7 +10,6 @@ namespace MessManagementSystem.MVC.Clients.Client
 {
     public class MenuClient : IMenuClient
 	{
-		private readonly HttpClient _httpClient;
 		private readonly IHttpClientHelper _httpClientHelper;
 		private readonly ISiteConfiguration _siteConfiguration;
 		public MenuClient(ISiteConfiguration siteConfiguration
@@ -18,7 +17,6 @@ namespace MessManagementSystem.MVC.Clients.Client
 								, IHttpClientHelper httpClientHelper)
 		{
 			_siteConfiguration = siteConfiguration;
-			_httpClient = httpClient;
 			_httpClientHelper = httpClientHelper;
 		}
 		public async Task<ApiResponse<string>> AddAsync(MenuRequestModel MenuRequestModel)

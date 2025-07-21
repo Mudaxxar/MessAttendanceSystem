@@ -10,17 +10,13 @@ namespace MessManagementSystem.MVC.Clients.Client
 {
     public class AttendanceClient : IAttendanceClient
     {
-        private readonly HttpClient _httpClient;
         private readonly IHttpClientHelper _httpClientHelper;
         private readonly ISiteConfiguration _siteConfiguration;
         public AttendanceClient(ISiteConfiguration siteConfiguration
-                                , HttpClient httpClient
                                 , IHttpClientHelper httpClientHelper)
         {
             _siteConfiguration = siteConfiguration;
-            _httpClient = httpClient;
             _httpClientHelper = httpClientHelper;
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {ConfigService.GetJwtToken()}");
         }
         public async Task<ApiResponse<string>> MarkAsync(AttendanceRequestModel input)
         {

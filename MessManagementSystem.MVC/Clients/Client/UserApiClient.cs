@@ -13,27 +13,20 @@ namespace MessManagementSystem.MVC.Services.Service
 {
     public class UserApiClient : IUserApiClient
     {
-        private readonly HttpClient _httpClient;
         private readonly ISiteConfiguration _siteConfiguration;
 		private readonly IHttpClientHelper _httpClientHelper;
-		public UserApiClient(HttpClient httpClient, ISiteConfiguration siteConfiguration
+		public UserApiClient( ISiteConfiguration siteConfiguration
             ,IHttpClientHelper httpClientHelper)
         {
-            _httpClient = httpClient;
             _siteConfiguration = siteConfiguration;
             _httpClientHelper = httpClientHelper;
-			_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ConfigService.GetJwtToken());
         }
 
         public async Task<PaginatedResponseModel<UserResponseModel>> GetUsers(PaginationParams paginationParams)
         {
-            var uri = $"{_siteConfiguration.ApiBaseUrl}{ApiEndPoint.GetUsers}";
-            var jsonData = JsonConvert.SerializeObject(paginationParams);
-            var body = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-            var response = _httpClient.PostAsync(uri, body).Result;
-            var contents = response.Content.ReadAsStringAsync().Result;
-            var result = JsonConvert.DeserializeObject<PaginatedResponseModel<UserResponseModel>>(contents);
+            var uri = $"{ApiEndPoint.GetUsers}";
+            var response = _httpClientHelper.PostAsync(uri, paginationParams).Result;
+            var result = JsonConvert.DeserializeObject<PaginatedResponseModel<UserResponseModel>>(response);
             return result;
         }
 
@@ -41,13 +34,9 @@ namespace MessManagementSystem.MVC.Services.Service
         {
             try
             {
-                var uri = $"{_siteConfiguration.ApiBaseUrl}{ApiEndPoint.LoginUser}";
-
-                var jsonData = JsonConvert.SerializeObject(requestModel);
-                var body = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                var response = _httpClient.PostAsync(uri, body).Result;
-                var contents = response.Content.ReadAsStringAsync().Result;
-                var result = JsonConvert.DeserializeObject<UserManagerResponseModel>(contents);
+                var uri = $"{ApiEndPoint.LoginUser}";
+                var response = await _httpClientHelper.PostAsync(uri, requestModel);
+                var result = JsonConvert.DeserializeObject<UserManagerResponseModel>(response);
                 return result;
             }
             catch (Exception ex)
@@ -58,29 +47,16 @@ namespace MessManagementSystem.MVC.Services.Service
 
         public async Task<UserManagerResponseModel> RegisterAsync(RegistrationRequestModel requestModel)
         {
-            var uri = $"{_siteConfiguration.ApiBaseUrl}{ApiEndPoint.RegisterUser}";
-
-            var jsonData = JsonConvert.SerializeObject(requestModel);
-            var body = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var response = _httpClient.PostAsync(uri, body).Result;
-            var contents = response.Content.ReadAsStringAsync().Result;
-            if (contents.Contains("400"))
-            {
-                var result1 = JsonConvert.DeserializeObject<ValidationErrorResponse>(contents);
-
-            }
-            var result = JsonConvert.DeserializeObject<UserManagerResponseModel>(contents);
+            var uri = $"{ApiEndPoint.RegisterUser}";
+            var response = await _httpClientHelper.PostAsync(uri, requestModel);
+            var result = JsonConvert.DeserializeObject<UserManagerResponseModel>(response);
             return result;
         }
-
-	
-
 		public async Task<UserManagerResponseModel> UserStatus(int id)
         {
-            var uri = $"{_siteConfiguration.ApiBaseUrl}{ApiEndPoint.UserStatus}/{id}";
-            var response = await _httpClient.PostAsync(uri, null);
-            var contents = response.Content.ReadAsStringAsync().Result;
-            var result = JsonConvert.DeserializeObject<UserManagerResponseModel>(contents);
+            var uri = $"{ApiEndPoint.UserStatus}/{id}";
+            var response = await _httpClientHelper.PostAsync(uri, null);
+            var result = JsonConvert.DeserializeObject<UserManagerResponseModel>(response);
             return result;
         }
 		public async Task<UserResponseModel> GetUserAsync(int Id)
@@ -101,19 +77,18 @@ namespace MessManagementSystem.MVC.Services.Service
 			var response = await _httpClientHelper.PostAsync<UserManagerResponseModel>(uri, model);
 			return response;
 		}
-		public Task<double> UsersCount()
+		public async Task<double> UsersCount()
 		{
-			var uri = $"{_siteConfiguration.ApiBaseUrl}{ApiEndPoint.UsersCount}";
-            var response = _httpClient.GetAsync(uri).Result;
-			if (response.IsSuccessStatusCode)
+			var uri = $"{ApiEndPoint.UsersCount}";
+            var response = await _httpClientHelper.GetAsync(uri);
+			if (response.Contains("Success"))
 			{
-				var contents = response.Content.ReadAsStringAsync().Result;
-				var result = JsonConvert.DeserializeObject<double>(contents);
-				return Task.FromResult(result);
+				var result = JsonConvert.DeserializeObject<double>(response);
+				return  await Task.FromResult(result);
 			}
 			else
 			{
-				return Task.FromResult(0.0);
+				return await Task.FromResult(0.0);
 			}
 		}
 	}

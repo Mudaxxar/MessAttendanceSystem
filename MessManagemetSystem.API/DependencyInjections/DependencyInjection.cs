@@ -132,7 +132,6 @@ namespace MessManagemetSystem.API.DependencyInjections
                  .AddScoped<IRolesService, RolesService>()
                  .AddScoped<IRolePermissionsService, RolePermissionsService>()
                  .AddScoped<IPermissionsService, PermissionsService>()
-                .AddScoped<IPermissionService, PermissionService>()// for authentication
                 .AddScoped<IMenuService, MenuService>()
                 .AddScoped<IAttendanceService, AttendanceService>()
                 .AddScoped<IExpenseHeadsService, ExpenseHeadsService>()

@@ -53,6 +53,8 @@
         //Attendance
         public const string MarkAttendance = "attendance/mark-attendance";
 		public const string GetAttendance = "attendance/get-attendance";
+		public const string GetAttendanceSettings = "attendance/get-settings";
+		public const string AddAttendanceSettings = "attendance/save-settings";
 
 
 		//Summary

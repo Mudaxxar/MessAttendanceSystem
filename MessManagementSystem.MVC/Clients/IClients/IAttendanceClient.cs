@@ -8,5 +8,7 @@ namespace MessManagementSystem.MVC.Clients.IClients
     {
         Task<ApiResponse<string>> MarkAsync(AttendanceRequestModel input);
         Task<PaginatedResponseModel<AttendanceResponseModel>> GetAsync(PaginationParams paginationParams);
+        Task<ApiResponse<AttendanceSettingsResponseModel>> GetAttendanceSettingsAsync();
+        Task<ApiResponse<string>> AddAttendanceSettingsAsync(AttendanceSettingsResponseModel model);
     }
 }

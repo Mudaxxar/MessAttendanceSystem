@@ -6,6 +6,5 @@ namespace MessManagemetSystem.API.Identity
 	{
 		public bool IsDeleted { get; set; }
 		public virtual ICollection<RolePermissionEntity> RolePermissions { get; set; }
-
 	}
 }

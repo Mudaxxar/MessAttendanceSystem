@@ -94,8 +94,8 @@ namespace MessManagemetSystem.API.Controllers
 			var result = await _roleService.GetRoles();
 			return Ok(result);
 		}
-		[HttpPost("add-permission")]
-		public async Task<IActionResult> AddPermission(RolePermissionRequestModel model)
+		[HttpPost("add-role-permission")]
+		public async Task<IActionResult> AddRolePermission(RolePermissionRequestModel model)
 		{
 			var result = await _rolePermissions.AddRolePermission(model);
 

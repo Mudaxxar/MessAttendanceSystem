@@ -16,6 +16,22 @@ namespace MessManagementSystem.MVC.Controllers
             _attendanceClient = attendanceClient;
         }
 		[HttpGet]
+		public async Task<IActionResult> GetAttendanceSettings()
+		{
+			var result = await _attendanceClient.GetAttendanceSettingsAsync();
+			return View(result);
+		}
+		[HttpPost]
+		public async Task<IActionResult> AddSettings(AttendanceSettingsResponseModel dto)
+		{
+			if (dto == null)
+			{
+				return BadRequest("No data found!");
+			}
+			var result = await _attendanceClient.AddAttendanceSettingsAsync(dto);
+			return Ok(result);
+		}
+		[HttpGet]
 		public async Task<IActionResult> GetAttendance(int pageNumber = 0, int pageSize = 10, string search = null)
 		{
 			var result = await _attendanceClient.GetAsync(new PaginationParams

@@ -7,6 +7,8 @@ using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagemetSystem.API.Repository.IRepositories;
 using MessManagemetSystem.API.Services.IService;
+using MessManagemetSystem.API.Repository.GenericRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace MessManagemetSystem.API.Services.Service
 {
@@ -14,14 +16,31 @@ namespace MessManagemetSystem.API.Services.Service
 	{
 		private readonly IPermissionsRepository _permissionsRepository;
 		private readonly IMapper _mapper;
-		public PermissionsService(IPermissionsRepository permissionsRepository,
-			IMapper mapper)
-		{
-			_permissionsRepository = permissionsRepository;
-			_mapper = mapper;
-		}
+        private readonly IUnitOfWork _unitOfWork;
+        public PermissionsService(IPermissionsRepository permissionsRepository,
+			IMapper mapper
+            , IUnitOfWork unitOfWork)
+        {
+            _permissionsRepository = permissionsRepository;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+        }
+        public async Task<HashSet<string>> GetPermissionsAsync(int memberId)
+        {
+            var repo = _unitOfWork.GetRepository<ApplicationUser>();
+            var roles = await repo.GetIncludeAsync(x => x.Id == memberId,
+                                                    null, src =>
+                                                    src.Include(x => x.Role)
+                                                    .ThenInclude(x => x.RolePermissions)
+                                                    .ThenInclude(x => x.Permission));
 
-		public async Task<ApiResponse<bool>> AddAsync(PermissionRequestModel model)
+            return roles
+                     .Select(x => x.Role)
+                    .SelectMany(x => x.RolePermissions)
+                    .Select(x => x.Permission.Name)
+                    .ToHashSet();
+        }
+        public async Task<ApiResponse<bool>> AddAsync(PermissionRequestModel model)
 		{
 			var existingPermission = await _permissionsRepository.GetByName(model.Name);
 			if (existingPermission)

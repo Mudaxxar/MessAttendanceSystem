@@ -30,5 +30,18 @@ namespace MessManagementSystem.MVC.Clients.Client
             var response = await _httpClientHelper.PostAsync<PaginatedResponseModel<AttendanceResponseModel>>(uri, paginationParams);
             return response;
         }
-    }
+
+		public async Task<ApiResponse<AttendanceSettingsResponseModel>> GetAttendanceSettingsAsync()
+		{
+			var uri = ApiEndPoint.GetAttendanceSettings;
+			var response = await _httpClientHelper.GetAsync<ApiResponse<AttendanceSettingsResponseModel>>(uri);
+			return response;
+		}
+		public async Task<ApiResponse<string>> AddAttendanceSettingsAsync(AttendanceSettingsResponseModel input)
+		{
+			var uri = ApiEndPoint.AddAttendanceSettings;
+			var response = await _httpClientHelper.PostAsync<ApiResponse<string>>(uri, input);
+			return response;
+		}
+	}
 }

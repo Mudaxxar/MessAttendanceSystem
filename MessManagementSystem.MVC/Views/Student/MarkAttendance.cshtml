@@ -15,7 +15,11 @@
             <h2 class="fw-bold text-success">🍽️ Meal Attendance</h2>
             <p class="text-muted">Select your attendance status for today's meal</p>
         </div>
-
+        <div class="text-center mt-3">
+            <span id="countdown" class="badge bg-warning text-dark px-3 py-2 fw-semibold">
+                ⏳ Checking attendance time...
+            </span>
+        </div>
         <!-- Attendance Form -->
         <div class="d-flex justify-content-center">
             <div class="card shadow-lg border-0 rounded-4 p-4" style="max-width: 500px; width: 100%;">
@@ -44,6 +48,9 @@
                                 ✅ Submit Attendance
                             </button>
                         </div>
+                      
+                        <input type="hidden" id="endTime" value="@ViewBag.EndTime" />
+
                     </form>
                 </div>
             </div>
@@ -91,6 +98,10 @@
 </div>
 @section Scripts {
     <script>
+        $(document).ready(function () {
+            var endTimeStr = $('#endTime').val();
+            startAttendanceCountdown(endTimeStr);
+        });
         const statusMap = {
             present: 1,
             absent: 2
@@ -199,5 +210,38 @@
                 }
             });
         });
+        function startAttendanceCountdown(endTimeStr) {
+            if (!endTimeStr) return;
+
+            const countdownEl = $('#countdown');
+            const submitBtn = $('#attendanceForm button[type="button"]');
+
+            const interval = setInterval(function () {
+                const now = new Date();
+
+                const parts = endTimeStr.split(":");
+                const endTime = new Date();
+                endTime.setHours(parseInt(parts[0]), parseInt(parts[1]), parseInt(parts[2]) || 0, 0);
+
+                const timeLeft = endTime - now;
+
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    submitBtn.prop('disabled', true).text('⛔ Attendance Closed');
+                    countdownEl.removeClass("bg-warning").addClass("bg-danger").text("⛔ Attendance Closed");
+                    toastr.warning("Attendance time has expired.");
+                    return;
+                }
+
+                const totalSeconds = Math.floor(timeLeft / 1000);
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+
+                countdownEl.text(`⏳ Time left: ${hours}h ${minutes}m ${seconds < 10 ? '0' + seconds : seconds}s`);
+            }, 1000);
+        }
+
+
     </script>
 }

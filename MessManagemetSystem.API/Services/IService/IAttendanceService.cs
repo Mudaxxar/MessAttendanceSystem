@@ -9,5 +9,7 @@ namespace MessManagemetSystem.API.Services.IService
     {
         Task<bool> MarAttendance(AttendanceRequestModel model);
         Task<PaginatedResponseModel<AttendanceResponseModel>> GetAttendanceAsync(PaginationParams dtParams);
+        Task<AttendanceSettingsResponseModel> GetAttendanceSettingsAsync();
+        Task<ApiResponse<string>> AddAttendanceSettingsAsync(AttendanceSettingsResponseModel model);
     }
 }

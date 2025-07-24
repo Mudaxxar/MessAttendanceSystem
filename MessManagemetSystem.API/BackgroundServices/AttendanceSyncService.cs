@@ -20,7 +20,7 @@ namespace MessManagemetSystem.API
             while (!stoppingToken.IsCancellationRequested)
             {
                 var now = DateTime.Now;
-                var todayAt4PM = DateTime.Today.AddHours(0); // 12 PM today
+                var todayAt4PM = DateTime.Today.AddHours(2).AddMinutes(0); // 2 am today
 
                 // If already past 4 PM, schedule for tomorrow
                 var nextRunTime = now > todayAt4PM
@@ -29,7 +29,7 @@ namespace MessManagemetSystem.API
 
                 var delay = nextRunTime - now;
 
-                await Task.Delay(delay, stoppingToken); // ⏳ Wait until 4 PM
+                await Task.Delay(delay, stoppingToken); // ⏳ Wait until 2 PM
 
                 if (stoppingToken.IsCancellationRequested)
                     break;

@@ -14,9 +14,9 @@ namespace MessManagemetSystem.API.Seeds
 
 			modelBuilder.Entity<PermissionEntity>()
 			.HasData(
-				new PermissionEntity { Id = 1, Name = AdminPermissions.Admin.ToString() },
-				new PermissionEntity { Id = 2, Name = AdminPermissions.Student.ToString() },
-				new PermissionEntity { Id = 3, Name = AdminPermissions.Operator.ToString() }
+				new PermissionEntity { Id = 1, Name = AdminPermissions.Create.ToString() },
+				new PermissionEntity { Id = 2, Name = AdminPermissions.Edit.ToString() },
+				new PermissionEntity { Id = 3, Name = AdminPermissions.Delete.ToString() }
 				);
 
 			modelBuilder.Entity<RolePermissionEntity>()

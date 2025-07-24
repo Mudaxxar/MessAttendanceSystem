@@ -5,19 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 using MessManagemetSystem.API.Services.IService;
 using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagemetSystem.API.Services.Service;
+using MessManagemetSystem.API.Identity;
 
 namespace MessManagemetSystem.API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class AccountsController : ControllerBase
+    public class AccountsController : ControllerBase
 	{
 		private readonly IAccountsService _accountsService;
         public AccountsController(IAccountsService accountsService)
         {
 			_accountsService = accountsService;
         }
-
 		[HttpPost("get-monthly-closing")]
 		public async Task<PaginatedResponseModel<MonthlyClosingResponseModel>> GetMonthlyClosingAsync(PaginationParams paginationParams)
 		{

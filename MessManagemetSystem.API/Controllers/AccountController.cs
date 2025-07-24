@@ -35,7 +35,6 @@ namespace MessManagemetSystem.API.Controllers
 		}
 
 		// /api/account/register
-		[HasPermission(AdminPermissions.Admin)]
 
 		[HttpPost("Register")]
 		public async Task<IActionResult> RegisterAsync([FromBody] RegistrationRequestModel model)
@@ -118,7 +117,6 @@ namespace MessManagemetSystem.API.Controllers
 
 		// api/account/resetpassword
 		[HttpPost("reset-password")]
-		[HasPermission(AdminPermissions.Student)]
 		public async Task<IActionResult> ResetPassword(ResetPasswordRequestModel model)
 		{
 			if (ModelState.IsValid)
@@ -135,7 +133,6 @@ namespace MessManagemetSystem.API.Controllers
 		}
 
 		[HttpPost("get-users")]
-		[HasPermission(AdminPermissions.Admin)]
 		public async Task<IActionResult> GetUsers([FromBody] PaginationParams paginationParams)
 		{
 			var result = await _userService.GetUsers(new PaginationParams
@@ -147,7 +144,6 @@ namespace MessManagemetSystem.API.Controllers
 			return Ok(result);
 		}
 
-		[HasPermission(AdminPermissions.Admin)]
 		[HttpPost("user-status/{id}")]
 		public async Task<IActionResult> ChangeStatus(int id)
 		{
@@ -166,26 +162,6 @@ namespace MessManagemetSystem.API.Controllers
 			return Ok(result);
 		}
 
-		[HttpGet("user/{Id}")]
-		//[HasPermission(AdminPermissions.Student)]
-
-		public async Task<IActionResult> GetStudent(int Id)
-		{
-			//string email = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-			var result = await _userService.GetByIdAsync(Id);
-
-			return Ok(result);
-		}
-
-		[HttpPost("update-user/{Id}")]
-		public async Task<IActionResult> UpdateUserAsync(int Id, UserRequestModel model)
-		{
-
-			var result = await _userService.UpdateAsync(Id, model);
-
-			return Ok(result);
-		}
 
 	}
 }

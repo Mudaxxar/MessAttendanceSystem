@@ -35,6 +35,17 @@ namespace MessManagementSystem.MVC.Controllers.Student
         [HttpGet]
         public async Task<IActionResult> MarkAttendance(int pageNumber = 0, int pageSize = 10, string search = null)
         {
+            // 🟡 Fetch attendance time settings (adjust query as needed)
+            var settings = await _attendanceClient.GetAttendanceSettingsAsync();
+            if (settings != null)
+            {
+                // ⏰ Pass EndTime as a string like "09:00:00"
+                ViewBag.EndTime = settings.Data.EndTime.ToString(@"hh\:mm\:ss");
+            }
+            else
+            {
+                ViewBag.EndTime = "23:59:59"; // fallback if settings not found
+            }
             var userId = ConfigService.GetUserId();
 
             var result = await _attendanceClient.GetAsync(new PaginationParams
@@ -60,15 +71,14 @@ namespace MessManagementSystem.MVC.Controllers.Student
         public async Task<IActionResult> GetAttendance(int pageNumber = 0, int pageSize = 10, string search = null)
         {
             var userId = ConfigService.GetUserId();
-
             var result = await _attendanceClient.GetAsync(new PaginationParams
             {
                 PageNumber = pageNumber,
                 PageSize = pageSize,
                 Search = search,
                 UserId = userId
-
             });
+
             return View(result);
         }
        

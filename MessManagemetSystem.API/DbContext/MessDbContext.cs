@@ -27,5 +27,6 @@ namespace MessManagemetSystem.API.DbContext
 		public DbSet<AccountsEntity> Accounts { get; set; }
 		public DbSet<StudentMealSummaryEntity> StudentMealSummary { get; set; }
 		public DbSet<MonthlyClosingEntity> MonthlyClosing { get; set; }
+		public DbSet<AttendanceSettingsEntity> AttendanceSettings { get; set; }
 	}
 }

@@ -22,11 +22,11 @@ namespace MessManagemetSystem.API.Services.Service
 		private UserManager<ApplicationUser> _userManger;
 		private RoleManager<UserRoles> _roleManager;
 		private IConfiguration _configuration;
-		private readonly IPermissionService _permissionService;
+		private readonly IPermissionsService _permissionService;
 		private readonly IUnitOfWork _unitOfWork;
 		public UserService(UserManager<ApplicationUser> userManager,
 			IConfiguration configuration
-			, IPermissionService permissionService
+			, IPermissionsService permissionService
             , RoleManager<UserRoles> roleManager
 			, IUnitOfWork unitOfWork
             )

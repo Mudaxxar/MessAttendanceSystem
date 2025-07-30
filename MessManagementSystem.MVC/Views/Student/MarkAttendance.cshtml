@@ -78,7 +78,7 @@
                                     foreach (var item in Model.Records)
                                     {
                                         <tr>
-                                            <td>@Convert.ToDateTime(item.Date).ToString("DD MMM, yyyy")</td>
+                                            <td>@item.Date</td>
                                             <td>
                                                 <span class="badge @((item.Status == PresenceStatus.Present) ? "bg-success" : "bg-danger") text-white">
                                                     @item.Status

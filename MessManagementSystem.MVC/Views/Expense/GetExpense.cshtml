@@ -43,7 +43,7 @@
 										<td>@item.ExpenseHeadName</td>
 										<td>@item.Amount</td>
 										<td>@item.Description</td>
-										<td> @Convert.ToDateTime(item.Date).ToString("dddd, MMMM, yyyy")</td>
+										<td> @item.Date</td>
 										<td>@item.Id</td>
 
 									</tr>
@@ -93,7 +93,7 @@
 					name: 'Date',
 					autoWidth: true,
 					render: function (data, type, row) {
-						return moment(data).format("dddd, MMMM, yyyy");
+						return moment(data).format("DD, MMM, yyyy");
 					}
 				},
 				

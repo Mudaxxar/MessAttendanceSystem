@@ -26,11 +26,11 @@
                         </li>
                         <li class="@(currentController == "Expense" && currentAction == "GetMonthlyExpense" ? "active" : "")">
                             <a asp-controller="Expense" asp-action="GetMonthlyExpense">
-                                <i data-feather="dollar-sign"></i><span>Monthly Expenses</span>
+                                <i data-feather="dollar-sign"></i><span>Mess's Expenses</span>
                             </a>
                         </li>
                         <li class="@(currentController == "Student" && currentAction == "GetStatement" ? "active" : "")">
-                            <a asp-controller="Student" asp-action="GetStatement"><i data-feather="activity"></i><span>History</span></a>
+                            <a asp-controller="Student" asp-action="GetStatement"><i data-feather="activity"></i><span>Bills</span></a>
                         </li>
 
                         <li class="@(currentController == "Feedback" && currentAction == "AddFeedback" ? "active" : "")">

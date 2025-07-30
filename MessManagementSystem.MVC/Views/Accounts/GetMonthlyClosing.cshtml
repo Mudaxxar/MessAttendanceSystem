@@ -40,7 +40,7 @@
 								foreach (var item in Model.Records)
 								{
 									<tr>
-										<td> @Convert.ToDateTime(item.Date).ToString("MMMM, yyyy")</td>
+										<td>@item.Date</td>
 										<td>@item.TotalAttendance</td>
 										<td>@item.PerMealAmount</td>
 										<td>@item.Amount</td>
@@ -90,7 +90,8 @@
 					name: 'Date',
 					autoWidth: true,
 					render: function (data, type, row) {
-						return moment(data).format("dddd, MMMM, yyyy");
+						debugger;
+						return moment(data).format("DD, MMM YYYY");
 					}
 				},
 				{ data: 'totalAttendance', name: 'TotalAttendance', autoWidth: true },
@@ -98,8 +99,6 @@
 				{ data: 'amount', name: 'Amount', autoWidth: true },
 				{ data: 'description', name: 'Description', autoWidth: true },
 
-				
-				}
 			]
 
 

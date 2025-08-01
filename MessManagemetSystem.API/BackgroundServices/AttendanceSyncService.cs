@@ -29,7 +29,7 @@ namespace MessManagemetSystem.API
 
                 var delay = nextRunTime - now;
 
-                await Task.Delay(delay, stoppingToken); // ⏳ Wait until 2 PM
+                await Task.Delay(delay, stoppingToken); 
 
                 if (stoppingToken.IsCancellationRequested)
                     break;

@@ -33,7 +33,7 @@
 *.bak
 *.tmp
 *.log
-*.json
+
 
 # Avoid this! Don't ignore C# files:
 # *.cs <-- REMOVE THIS if it's in your `.gitignore`

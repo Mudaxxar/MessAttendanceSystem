@@ -1,7 +1,11 @@
 using MessManagemetSystem.API;
+using MessManagemetSystem.API.BackgroundServices;
 using MessManagemetSystem.API.CustomExceptionHandling;
 using MessManagemetSystem.API.DependencyInjections;
 using MessManagemetSystem.API.Extensions;
+using Microsoft.Win32;
+using Quartz;
+using Serilog;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +35,7 @@ builder.Services.AddMvc()
 builder.Services.RegisterAppSettingVariable(builder.Configuration, builder.Environment);// configure first 
 builder.Services.RegisterDALDependencies(builder.Configuration);
 builder.Services.RegisterBLLDependencies(builder.Configuration);
-builder.Services.AddHostedService<AttendanceSyncService>(); //Background Services
+//builder.Services.AddHostedService<AttendanceSyncService>(); //Background Services
 
 
 // Swagger Authentication & Sawagger Documentation
@@ -51,9 +55,37 @@ var configuration = new ConfigurationBuilder()
 //	.ReadFrom.Configuration(configuration)
 //	.Enrich.FromLogContext()
 //	.CreateLogger();
-//builder.Logging.ClearProviders();
 //builder.Logging.AddSerilog(logger);
+//builder.Logging.ClearProviders();
 //builder.Services.AddLogging();
+
+
+
+//Add support to logging with SERILOG
+builder.Host.UseSerilog((context, configuration) =>
+	configuration.ReadFrom.Configuration(context.Configuration));
+
+
+
+// Add Quartz services
+// Register your job and trigger using DI-friendly Quartz config
+builder.Services.AddQuartz(q =>
+{
+    // Register the job with its identity
+    var jobKey = new JobKey("QuartzBackgroundJob");
+q.AddJob<QuartzBackgroundJob>(opts => opts.WithIdentity(jobKey));
+
+// Schedule the job with a CRON trigger (runs daily at 3:00 AM)
+q.AddTrigger(opts => opts
+	.ForJob(jobKey)
+	.WithIdentity("QuartzBackgroundJob-trigger")
+	.WithCronSchedule("0 5 0 * * ?", x => x
+		.InTimeZone(TimeZoneInfo.FindSystemTimeZoneById("Asia/Karachi")))); //0>= Second, 0=> mintues, 21=> hours, *=> dayof month, *=> every month, ?=> dayof week
+});
+
+
+// Add Quartz hosted service
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 
 var app = builder.Build();
@@ -81,7 +113,8 @@ app.UseCors(options => options.WithOrigins("https://kmsmc.sossurgical.net")
 .AllowAnyHeader()
 .AllowAnyMethod()
 .AllowAnyOrigin());
-
+//Add support to logging request with SERILOG
+app.UseSerilogRequestLogging();
 
 app.UseMiddleware<ErrorHandlerMiddleware>(); // Global Exception Handling
 app.UseHttpsRedirection();

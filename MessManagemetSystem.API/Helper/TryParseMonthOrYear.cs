@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using MessManagementSystem.Shared;
+using System.Globalization;
 
 namespace MessManagemetSystem.API.Helper
 {
@@ -24,7 +25,7 @@ namespace MessManagemetSystem.API.Helper
             if (monthNames[i].ToLower().Contains(search))
             {
                 // Assume current year if year not specified
-                return new DateTime(DateTime.Now.Year, i + 1, 1);
+                return new DateTime(PSTTimeProvider.Now.Year, i + 1, 1);
             }
         }
 

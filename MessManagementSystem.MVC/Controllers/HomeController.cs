@@ -2,6 +2,7 @@ using MessManagementSystem.MVC.Clients.Client;
 using MessManagementSystem.MVC.Clients.IClients;
 using MessManagementSystem.MVC.Configuration;
 using MessManagementSystem.MVC.Services.IService;
+using MessManagementSystem.Shared;
 using MessManagementSystem.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -32,9 +33,10 @@ namespace MessManagementSystem.MVC.Controllers
                 return RedirectToAction("Login", "Account");
             }
             var result = await _menuClient.GetWeeklyMenuAsync();
-            ViewBag.Summary = await _summaryClient.GetSummaryAsync(ConfigService.GetUserId(), DateTime.Now);
+            ViewBag.Summary = await _summaryClient.GetSummaryAsync(ConfigService.GetUserId(), PSTTimeProvider.Now);
 			
-			return View(result);
+			ViewBag.CurrentDate= PSTTimeProvider.Now;
+            return View(result);
 		}
 
 		public IActionResult Privacy()

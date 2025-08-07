@@ -17,6 +17,8 @@ using FluentValidation.AspNetCore;
 using MessManagemetSystem.API.Services.IService;
 using MessManagemetSystem.API.Services.Service;
 using MessManagemetSystem.API.Extensions;
+using MessManagemetSystem.API.Helper;
+using Serilog.Core;
 
 namespace MessManagemetSystem.API.DependencyInjections
 {
@@ -136,6 +138,7 @@ namespace MessManagemetSystem.API.DependencyInjections
                 .AddScoped<IAttendanceService, AttendanceService>()
                 .AddScoped<IExpenseHeadsService, ExpenseHeadsService>()
                 .AddScoped<IExpenseService, ExpenseService>()
+                .AddScoped<ITimeProvider, PakistanTimeProvider>()
 
                  ;
 

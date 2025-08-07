@@ -1,6 +1,9 @@
-﻿using MessManagemetSystem.API.DbContext;
+﻿using MessManagementSystem.Shared;
+using MessManagemetSystem.API.DbContext;
 using MessManagemetSystem.API.Entities;
+using MessManagemetSystem.API.Helper;
 using MessManagemetSystem.API.Identity;
+using MessManagemetSystem.API.Services.IService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,70 +12,59 @@ namespace MessManagemetSystem.API
     public class AttendanceSyncService : BackgroundService
     {
         private readonly IServiceProvider _services;
+        private readonly ILogger<AttendanceSyncService> _logger;
 
-        public AttendanceSyncService(IServiceProvider services)
+        public AttendanceSyncService(IServiceProvider services
+            ,ILogger<AttendanceSyncService> logger
+            )
         {
             _services = services;
+            _logger = logger;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var now = DateTime.Now;
-                var todayAt4PM = DateTime.Today.AddHours(2).AddMinutes(0); // 2 am today
-
-                // If already past 4 PM, schedule for tomorrow
-                var nextRunTime = now > todayAt4PM
-                    ? todayAt4PM.AddDays(1)
-                    : todayAt4PM;
+                _logger.LogInformation("Execution of background Service Start");
+				var now = PSTTimeProvider.Now;
+               
+                var todayAt2AM = PSTTimeProvider.Today.AddHours(19).AddMinutes(50); // Adjusted label
+                var nextRunTime = now > todayAt2AM
+                    ? todayAt2AM.AddDays(1)
+                    : todayAt2AM;
 
                 var delay = nextRunTime - now;
+				_logger.LogInformation($"Next run time: {nextRunTime}, Delay: {delay.TotalMinutes} minutes");
 
-                await Task.Delay(delay, stoppingToken); 
+				await Task.Delay(delay, stoppingToken);
 
                 if (stoppingToken.IsCancellationRequested)
                     break;
 
                 try
                 {
-                    using var scope = _services.CreateScope();
-                    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<UserRoles>>();
-                    var dbContext = scope.ServiceProvider.GetRequiredService<MessDbContext>();
-
-                    var students = await dbContext.Users
-                        .Include(x => x.Role)
-                        .Where(r => r.Role.Name.ToLower() == "student" && r.Status == MessManagementSystem.Shared.Enums.Enums.PresenceStatus.Present)
-                        .ToListAsync(stoppingToken);
-
-                    foreach (var student in students)
+                    using (var scope = _services.CreateScope())
                     {
-                        bool exists = await dbContext.Attendance.AnyAsync(a =>
-                            a.ApplicationUserId == student.Id &&
-                            a.Date == DateTime.Today.AddDays(1), stoppingToken);
+                        Console.WriteLine("Start of Attendance marked successfully.");
+                        _logger.LogInformation("Start of Attendance marked successfully.");
 
-                        if (!exists)
-                        {
-                            dbContext.Attendance.Add(new AttendanceEntity
-                            {
-                                ApplicationUserId = student.Id,
-                                Date = DateTime.Today.AddDays(1),
-                                Status = student.Status,
-                                MealsCount = 2
-                            });
-                        }
+                        var attendanceService = scope.ServiceProvider.GetRequiredService<IAttendanceService>();
+
+                        await attendanceService.MarkAutoAttenance(stoppingToken);
+
+                        Console.WriteLine("Attendance marked successfully.");
+                        _logger.LogInformation("Attendance marked successfully.");
+
                     }
-
-                    await dbContext.SaveChangesAsync(stoppingToken);
-                }
+				}
                 catch (Exception ex)
                 {
-                    // Optional: Log error
-                }
+                    Console.WriteLine($"Error occurred while marking attendance: {ex.Message}");
+					_logger.LogError($"Error:{ ex.Message}" );
+				}
             }
+
         }
-
     }
-
 }

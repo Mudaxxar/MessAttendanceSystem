@@ -1,4 +1,6 @@
-﻿using MessManagemetSystem.API.Entities;
+﻿using MessManagementSystem.Shared;
+using MessManagemetSystem.API.Entities;
+using MessManagemetSystem.API.Helper;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using static MessManagementSystem.Shared.Enums.Enums;
@@ -28,7 +30,7 @@ namespace MessManagemetSystem.API.Identity
 
 		[Column(TypeName = "varchar(MAX)")]
 		public string? Password { get; set; }
-		public DateTime CreatedOn { get; set; } = DateTime.Now;
+		public DateTime CreatedOn { get; set; } = PSTTimeProvider.Now;
 
 		[ForeignKey("RoleId")]
 		public int? RoleId { get; set; }

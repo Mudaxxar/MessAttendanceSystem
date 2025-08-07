@@ -1,8 +1,10 @@
-﻿using MessManagementSystem.Shared.Models;
+﻿using MessManagementSystem.Shared;
+using MessManagementSystem.Shared.Models;
 using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagemetSystem.API.DbContext;
 using MessManagemetSystem.API.Entities;
+using MessManagemetSystem.API.Helper;
 using MessManagemetSystem.API.Services.IService;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,7 +35,7 @@ namespace MessManagemetSystem.API.Services.Service
 			var expenseHead = new ExpenseHeadEntity
 			{
 				Name = model.Name,
-				CreatedOn = DateTime.UtcNow
+				CreatedOn = PSTTimeProvider.Now
 			};
 			_messDbContext.Add(expenseHead);
 			_messDbContext.SaveChanges();

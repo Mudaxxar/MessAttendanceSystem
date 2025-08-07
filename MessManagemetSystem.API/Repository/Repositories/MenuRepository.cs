@@ -1,4 +1,5 @@
-﻿using MessManagementSystem.Shared.Models;
+﻿using MessManagementSystem.Shared;
+using MessManagementSystem.Shared.Models;
 using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagemetSystem.API.Entities;
 using MessManagemetSystem.API.Helper;
@@ -108,7 +109,7 @@ namespace MessManagemetSystem.API.Repository.Repositories
 
             // Update fields
             entity.MenuItems = model.MenuItems;
-            entity.UpdatedOn = DateTime.Now;
+            entity.UpdatedOn = PSTTimeProvider.Now;
             // entity.UpdatedBy = model.UpdatedBy;
 
             // Save changes

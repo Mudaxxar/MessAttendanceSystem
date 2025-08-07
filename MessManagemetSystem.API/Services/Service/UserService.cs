@@ -1,7 +1,9 @@
-﻿using MessManagementSystem.Shared.Models;
+﻿using MessManagementSystem.Shared;
+using MessManagementSystem.Shared.Models;
 using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagemetSystem.API.Entities;
+using MessManagemetSystem.API.Helper;
 using MessManagemetSystem.API.Identity;
 using MessManagemetSystem.API.Repository.GenericRepository;
 using MessManagemetSystem.API.Services.IService;
@@ -203,7 +205,7 @@ namespace MessManagemetSystem.API.Services.Service
 				issuer: _configuration["JWT-Authentication:ValidIssuer"],
 				audience: _configuration["JWT-Authentication:ValidAudience"],
 				claims: authClaims,
-				expires: DateTime.Now.AddDays(1),
+				expires: PSTTimeProvider.Now.AddDays(1),
 				signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
 			string tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);
 
@@ -508,7 +510,7 @@ namespace MessManagemetSystem.API.Services.Service
                 };
             }
 
-			user.LastStatusChange = DateTime.Today;
+			user.LastStatusChange = PSTTimeProvider.Today;
 			user.Status = input.Status;
             var result = await _userManger.UpdateAsync(user);
 

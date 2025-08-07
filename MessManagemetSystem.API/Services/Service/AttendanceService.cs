@@ -1,6 +1,8 @@
-﻿using MessManagementSystem.Shared.Models;
+﻿using MessManagementSystem.Shared;
+using MessManagementSystem.Shared.Models;
 using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagementSystem.Shared.Models.ResponseModels;
+using MessManagemetSystem.API.DbContext;
 using MessManagemetSystem.API.Entities;
 using MessManagemetSystem.API.Helper;
 using MessManagemetSystem.API.Identity;
@@ -18,10 +20,17 @@ namespace MessManagemetSystem.API.Services.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserService _userService;
-        public AttendanceService(IUnitOfWork unitOfWork, IUserService userService)
+        private readonly IServiceProvider _services;
+       private readonly ILogger<AttendanceService> _logger;
+        public AttendanceService(IUnitOfWork unitOfWork, IUserService userService
+            ,  IServiceProvider services
+           ,ILogger<AttendanceService> logger
+            )
         {
             _unitOfWork = unitOfWork;
             _userService = userService;
+            _services = services;
+           _logger = logger;
         }
 
 		public async Task<PaginatedResponseModel<AttendanceResponseModel>> GetAttendanceAsync(PaginationParams dtParams)
@@ -112,13 +121,13 @@ namespace MessManagemetSystem.API.Services.Service
 
 		}
 
-		public async Task<bool> MarAttendance(AttendanceRequestModel model)
+		public async Task<bool> MarkAttendance(AttendanceRequestModel model)
         {
             try
             {
                 // setting up here for students and admin to mark attendace before time.
                 model.AttendanceCount = model.Status == PresenceStatus.Present ? model.AttendanceCount : 0;
-                model.Date = model.Date == null ? DateTime.Now.Date.AddDays(1) : model.Date;
+                model.Date = model.Date == null ? PSTTimeProvider.Now.Date.AddDays(1) : model.Date;
 
                 var student = await _userService.GetByIdAsync(model.UserId);
                 if (student != null)
@@ -160,7 +169,49 @@ namespace MessManagemetSystem.API.Services.Service
             return false;
         }
 
-	
-		
-	}
+        public async Task<bool> MarkAutoAttenance(CancellationToken stoppingToken)
+        {
+            try
+            {
+                _logger.LogInformation($"Current PST:{ PSTTimeProvider.Now}");
+                Console.WriteLine($"Current PST:{PSTTimeProvider.Now}");
+                using var scope = _services.CreateScope();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<UserRoles>>();
+                var dbContext = scope.ServiceProvider.GetRequiredService<MessDbContext>();
+
+                var students = await dbContext.Users
+                    .Include(x => x.Role)
+                    .Where(r => r.Role.Name.ToLower() == "student" && r.Status == MessManagementSystem.Shared.Enums.Enums.PresenceStatus.Present)
+                    .ToListAsync(stoppingToken);
+
+                foreach (var student in students)
+                {
+                    bool exists = await dbContext.Attendance.AnyAsync(a =>
+                        a.ApplicationUserId == student.Id &&
+                        a.Date == PSTTimeProvider.Today, stoppingToken);
+
+                    if (!exists)
+                    {
+                        dbContext.Attendance.Add(new AttendanceEntity
+                        {
+                            ApplicationUserId = student.Id,
+                            Date = DateTime.Today,
+                            Status = student.Status,
+                            MealsCount = 2
+                        });
+                    }
+                }
+
+                await dbContext.SaveChangesAsync(stoppingToken);
+                _logger.LogInformation("Auto attendance marked successfully for all students.", PSTTimeProvider.Now);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while marking auto attendance");
+                return false;
+            }
+            return true;
+        }
+    }
 }

@@ -9,6 +9,8 @@ using System.Linq;
 using static MessManagementSystem.Shared.Enums.Enums;
 using MessManagemetSystem.API.Repository.GenericRepository;
 using MessManagemetSystem.API.Identity;
+using MessManagemetSystem.API.Helper;
+using MessManagementSystem.Shared;
 
 namespace MessManagemetSystem.API.Services.Service
 {
@@ -246,7 +248,7 @@ namespace MessManagemetSystem.API.Services.Service
                 existance.Amount = model.Amount;
                 existance.ExpenseHeadId = model.ExpenseHeadId;
                 existance.Date = model.Date;
-                existance.UpdatedOn = DateTime.Now;
+                existance.UpdatedOn = PSTTimeProvider.Now;
                 _messDbContext.Update(existance);
                 await _messDbContext.SaveChangesAsync();
                 return new ApiResponse<bool>

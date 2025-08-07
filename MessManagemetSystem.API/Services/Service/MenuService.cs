@@ -7,6 +7,8 @@ using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagemetSystem.API.Repository.IRepositories;
 using MessManagemetSystem.API.Services.IService;
 using Microsoft.EntityFrameworkCore;
+using MessManagemetSystem.API.Helper;
+using MessManagementSystem.Shared;
 
 namespace MessManagemetSystem.API.Services.Service
 {
@@ -40,7 +42,7 @@ namespace MessManagemetSystem.API.Services.Service
 		{
 			var mapperObject = await _MenuRepository.GetByIdAsync(Id);
 			mapperObject.MenuItems = model.MenuItems;
-			mapperObject.UpdatedOn = DateTime.Now;
+			mapperObject.UpdatedOn = PSTTimeProvider.Now;
 			//mapperObject.UpdatedBy = model.UpdatedBy;
 			await _MenuRepository.UpdateAsync(Id, mapperObject);
 			return true;

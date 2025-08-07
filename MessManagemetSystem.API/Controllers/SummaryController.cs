@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using MessManagementSystem.Shared;
 using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagemetSystem.API.DbContext;
+using MessManagemetSystem.API.Helper;
 using MessManagemetSystem.API.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +27,7 @@ namespace MessManagemetSystem.API.Controllers
         [HttpGet("summary")]
         public async Task<SummaryResponseModel> GetDailySummary(DateTime? date = null)
         {
-            date ??= DateTime.Today;
+            date ??= PSTTimeProvider.Today;
             //If Role is Student, count one attendance row.
            //If Role is not Student, add AttendanceCount instead.
             var presentCount = await _context.Attendance.Where(a => a.Date.Date == date.Value.Date && a.Status == PresenceStatus.Present).CountAsync();

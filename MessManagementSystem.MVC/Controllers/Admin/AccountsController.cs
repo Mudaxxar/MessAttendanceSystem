@@ -1,6 +1,7 @@
 ﻿using MessManagementSystem.MVC.Clients.Client;
 using MessManagementSystem.MVC.Clients.IClients;
 using MessManagementSystem.MVC.DataTableModels;
+using MessManagementSystem.Shared;
 using MessManagementSystem.Shared.Models;
 using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagementSystem.Shared.Models.ResponseModels;
@@ -58,7 +59,7 @@ namespace MessManagementSystem.MVC.Controllers.Admin
                     PageSize = pageSize,
                     Search = search
                 },
-                Date = DateTime.Now.Date
+                Date = PSTTimeProvider.Now.Date
             }
           );
             return View(result);

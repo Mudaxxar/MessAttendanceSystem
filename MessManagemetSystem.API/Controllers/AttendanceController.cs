@@ -1,7 +1,9 @@
-﻿using MessManagementSystem.Shared.Models;
+﻿using MessManagementSystem.Shared;
+using MessManagementSystem.Shared.Models;
 using MessManagementSystem.Shared.Models.RequestModels;
 using MessManagementSystem.Shared.Models.ResponseModels;
 using MessManagemetSystem.API.Enums;
+using MessManagemetSystem.API.Helper;
 using MessManagemetSystem.API.Identity;
 using MessManagemetSystem.API.Services.IService;
 using MessManagemetSystem.API.Services.Service;
@@ -41,7 +43,7 @@ namespace MessManagemetSystem.API.Controllers
                 dbEndTime = TimeSpan.Parse("23:59");
             }
             // ✅ Get current server time
-            var currentTime = DateTime.Now.TimeOfDay;
+            var currentTime = PSTTimeProvider.Now.TimeOfDay;
 
             // ✅ Restrict non-admin users after end time
             if (studentRole && currentTime > dbEndTime)
@@ -53,7 +55,7 @@ namespace MessManagemetSystem.API.Controllers
                 };
                 return BadRequest(expiredResponse);
             }
-            var result = await _attendanceService.MarAttendance(dto);
+            var result = await _attendanceService.MarkAttendance(dto);
             if (!result)
             {
                 var failedResponse = new ApiResponse<bool>

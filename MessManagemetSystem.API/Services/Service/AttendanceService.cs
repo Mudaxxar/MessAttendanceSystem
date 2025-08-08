@@ -174,7 +174,6 @@ namespace MessManagemetSystem.API.Services.Service
             try
             {
                 _logger.LogInformation($"Current PST:{ PSTTimeProvider.Now}");
-                Console.WriteLine($"Current PST:{PSTTimeProvider.Now}");
                 using var scope = _services.CreateScope();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<UserRoles>>();
@@ -190,21 +189,20 @@ namespace MessManagemetSystem.API.Services.Service
                     bool exists = await dbContext.Attendance.AnyAsync(a =>
                         a.ApplicationUserId == student.Id &&
                         a.Date == PSTTimeProvider.Today, stoppingToken);
-
                     if (!exists)
                     {
                         dbContext.Attendance.Add(new AttendanceEntity
                         {
                             ApplicationUserId = student.Id,
-                            Date = DateTime.Today,
+                            Date = PSTTimeProvider.Today,
                             Status = student.Status,
                             MealsCount = 2
                         });
                     }
                 }
 
-                await dbContext.SaveChangesAsync(stoppingToken);
-                _logger.LogInformation("Auto attendance marked successfully for all students.", PSTTimeProvider.Now);
+                 await dbContext.SaveChangesAsync(stoppingToken);
+                _logger.LogInformation($"Auto Attendance marked Successfully, Date/Time: { PSTTimeProvider.Now}");
             }
             catch (Exception ex)
             {

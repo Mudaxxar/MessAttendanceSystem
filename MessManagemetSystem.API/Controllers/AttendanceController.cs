@@ -131,5 +131,11 @@ namespace MessManagemetSystem.API.Controllers
 			}
 			return Ok(result);
 		}
+        [HttpPost("marked-auto-attendance")]
+        public async Task<bool> MarkedAutoAttendance()
+        {
+            var result = await _attendanceService.MarkAutoAttenance(CancellationToken.None);
+            return result;
+        }
 	}
 }

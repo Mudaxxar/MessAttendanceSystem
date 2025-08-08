@@ -79,7 +79,7 @@ q.AddJob<QuartzBackgroundJob>(opts => opts.WithIdentity(jobKey));
 q.AddTrigger(opts => opts
 	.ForJob(jobKey)
 	.WithIdentity("QuartzBackgroundJob-trigger")
-	.WithCronSchedule("0 5 0 * * ?", x => x
+	.WithCronSchedule("0 35 2 * * ?", x => x
 		.InTimeZone(TimeZoneInfo.FindSystemTimeZoneById("Asia/Karachi")))); //0>= Second, 0=> mintues, 21=> hours, *=> dayof month, *=> every month, ?=> dayof week
 });
 

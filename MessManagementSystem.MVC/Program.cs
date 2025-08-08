@@ -58,7 +58,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseExceptionHandler("/Account/Login");
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Account}/{action=Login}/{id?}");

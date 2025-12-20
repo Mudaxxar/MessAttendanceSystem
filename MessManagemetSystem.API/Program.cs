@@ -3,6 +3,7 @@ using MessManagemetSystem.API.BackgroundServices;
 using MessManagemetSystem.API.CustomExceptionHandling;
 using MessManagemetSystem.API.DependencyInjections;
 using MessManagemetSystem.API.Extensions;
+using MessManagemetSystem.API.Services.IService;
 using Microsoft.Win32;
 using Quartz;
 using Serilog;
@@ -65,27 +66,26 @@ var configuration = new ConfigurationBuilder()
 builder.Host.UseSerilog((context, configuration) =>
 	configuration.ReadFrom.Configuration(context.Configuration));
 
+//Background Services
+builder.Services.AddSingleton<ILastRunRepository, FileLastRunRepository>();
 
-
-// Add Quartz services
-// Register your job and trigger using DI-friendly Quartz config
 builder.Services.AddQuartz(q =>
 {
-    // Register the job with its identity
-    var jobKey = new JobKey("QuartzBackgroundJob");
-q.AddJob<QuartzBackgroundJob>(opts => opts.WithIdentity(jobKey));
+	var jobKey = new JobKey("DailyAttendanceJob");
+	q.AddJob<AttendanceJob>(opts => opts.WithIdentity(jobKey));
 
-// Schedule the job with a CRON trigger (runs daily at 3:00 AM)
-q.AddTrigger(opts => opts
-	.ForJob(jobKey)
-	.WithIdentity("QuartzBackgroundJob-trigger")
-	.WithCronSchedule("0 35 2 * * ?", x => x
-		.InTimeZone(TimeZoneInfo.FindSystemTimeZoneById("Asia/Karachi")))); //0>= Second, 0=> mintues, 21=> hours, *=> dayof month, *=> every month, ?=> dayof week
+	q.AddTrigger(opts => opts
+		.ForJob(jobKey)
+		.WithIdentity("DailyAttendanceTrigger")
+		.WithSchedule(CronScheduleBuilder
+			.DailyAtHourAndMinute(0, 5) // 12:05 AM
+			.InTimeZone(TimeZoneInfo.FindSystemTimeZoneById("Asia/Karachi"))
+		)
+	);
 });
 
-
-// Add Quartz hosted service
 builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+builder.Services.AddHostedService<AttendanceStartupChecker>();
 
 
 var app = builder.Build();
